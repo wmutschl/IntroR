@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2018.10.24)  20 FEB 2019 23:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2018.10.24)  21 FEB 2019 01:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -100,10 +100,6 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen125
 \Gm@dimlist=\toks15
 )
-
-Class beamer Warning: This option is obsolete. Use beamer option ``show notes''
- instead. on input line 336.
-
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
@@ -868,21 +864,21 @@ Package csquotes Info: ... none found.
  (./slides.aux)
 \openout1 = `slides.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 45.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 44.
 
 (/usr/share/texmf/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -953,7 +949,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box58
-Package hyperref Info: Link coloring OFF on input line 45.
+Package hyperref Info: Link coloring OFF on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -963,60 +959,60 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count187
 )
-LaTeX Info: Redefining \ref on input line 45.
-LaTeX Info: Redefining \pageref on input line 45.
-LaTeX Info: Redefining \nameref on input line 45.
+LaTeX Info: Redefining \ref on input line 44.
+LaTeX Info: Redefining \pageref on input line 44.
+LaTeX Info: Redefining \nameref on input line 44.
 
 (./slides.out) (./slides.out)
 \@outlinefile=\write5
 \openout5 = `slides.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 45.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 44.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/bx/n on input line 45.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/bx/n on input line 44.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 45.
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 44.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 45.
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 44.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 45.
+(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 44.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/bx/n on input line 45.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/bx/n on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/bx/n on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 45.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/bx/n on input line 44.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 45.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 45.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 44.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 45.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 45.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 44.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 45.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 45.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 44.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/bx/n on input line 45.
+(Font)                  T1/lmss/m/n --> T1/lmss/bx/n on input line 44.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/bx/it on input line 45.
+(Font)                  T1/lmss/m/it --> T1/lmss/bx/it on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmr/bx/n on input line 45.
+(Font)                  OT1/lmss/bx/n --> T1/lmr/bx/n on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/lmss/bx/n --> T1/lmss/bx/n on input line 45.
+(Font)                  T1/lmss/bx/n --> T1/lmss/bx/n on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/bx/n on input line 45.
+(Font)                  T1/lmss/m/n --> T1/lmss/bx/n on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/bx/it on input line 45.
+(Font)                  T1/lmss/m/it --> T1/lmss/bx/it on input line 44.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/lmtt/m/n --> T1/lmtt/bx/n on input line 45.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/bx/n on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
@@ -1046,71 +1042,71 @@ Dictionary: translator-theorem-dictionary, Language: English
  (./slides.nav)
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 48.
+(hyperref)                setting the option has no effect on input line 47.
 
 
-Overfull \vbox (13.79993pt too high) detected at line 51
+Overfull \vbox (13.79993pt too high) detected at line 50
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 53.
+LaTeX Font Info:    Try loading font information for OT1+lmss on input line 52.
 
 
 (/usr/share/texmf/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 53.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 52.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 53.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 52.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 53.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 52.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 53.
+(Font)              <10> on input line 52.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 53.
+(Font)              <7> on input line 52.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 53.
-LaTeX Font Info:    Try loading font information for U+msa on input line 53.
+(Font)              <5> on input line 52.
+LaTeX Font Info:    Try loading font information for U+msa on input line 52.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 53.
+LaTeX Font Info:    Try loading font information for U+msb on input line 52.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 53.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 52.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 53.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 52.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 53.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 52.
  [2
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+lmss on input line 65.
+LaTeX Font Info:    Try loading font information for OMS+lmss on input line 64.
 
-LaTeX Font Info:    No file OMSlmss.fd. on input line 65.
+LaTeX Font Info:    No file OMSlmss.fd. on input line 64.
 
 
 LaTeX Font Warning: Font shape `OMS/lmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 65.
+(Font)              for symbol `textbullet' on input line 64.
 
 [3
 
@@ -1126,22 +1122,16 @@ LaTeX Font Warning: Font shape `OMS/lmss/m/n' undefined
 
 ] [9
 
-] [10
-
-] [11
-
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 152.
+(Font)              <9> on input line 151.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 152.
+(Font)              <6> on input line 151.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 152.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 151.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 152.
- [12
-
-] [13
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 151.
+ [10
 
 ]
 \openout4 = `slides.vrb'.
@@ -1163,15 +1153,11 @@ LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <9> not available
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <9> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 8.
-) [14
+) [11
 
-] [15
+] [12
 
-] [16
-
-] [17
-
-] [18
+] [13
 
 ]
 \openout4 = `slides.vrb'.
@@ -1181,29 +1167,40 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <9> not available
 LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <10> not available
 (Font)              Font shape `T1/lmr/m/sc' tried instead on input line 14.
 
-) [19
+) [14
+
+] [15
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [16
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [17
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [18
+
+]
+[19
 
 ] [20
 
-] [21
-
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [22
+ (./slides.vrb) [21
 
-]
-Overfull \hbox (55.46777pt too wide) in paragraph at lines 276--276
-[]\T1/lmss/m/n/9 SAve as save.image(file="file.RData") save(mydata,mylist,mymat
-rix,file="mypractice.RData")
- []
+] [22
 
-[23
+] [23
 
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [24
+] [24
 
 ]
 \openout4 = `slides.vrb'.
@@ -1212,79 +1209,84 @@ rix,file="mypractice.RData")
 
 ] [26
 
-] [27
-
-] [28
-
-] [29
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [30
-
-] [31
-
-] [32
-
-] [33
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [34
-
-] [35
-
-] [36
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [37
-
 ]
 \openout4 = `slides.vrb'.
 
 
-(./slides.vrb) [38
+(./slides.vrb) [27
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [39
+ (./slides.vrb) [28
 
-] [40
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [29
+
+] [30
 
 ]
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-Overfull \vbox (8.47891pt too high) detected at line 468
+Overfull \vbox (8.47891pt too high) detected at line 467
  []
 
-[41
-
-] [42
+[31
 
 ]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 488.
- [43
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 487.
+ [32
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [44
+ (./slides.vrb) [33
+
+] [34
+
+] [35
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [36
+
+] [37
+
+] [38
+
+]
+\openout4 = `slides.vrb'.
+
+
+(./slides.vrb) [39
+
+] [40
+
+] [41
+
+] [42
+
+] [43
+
+] [44
 
 ] [45
 
-] [46
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [46
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [47
+
+(./slides.vrb) [47
 
 ] [48
 
@@ -1293,86 +1295,86 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 ]
 \openout4 = `slides.vrb'.
 
+ (./slides.vrb) [50
 
-(./slides.vrb) [50
+]
+\openout4 = `slides.vrb'.
 
-] [51
+ (./slides.vrb)
+Overfull \vbox (5.87888pt too high) detected at line 741
+ []
+
+[51
 
 ] [52
 
-] [53
+]
+\openout4 = `slides.vrb'.
 
-] [54
+ (./slides.vrb)
+Overfull \vbox (26.48431pt too high) detected at line 781
+ []
+
+[53
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb)
+Overfull \vbox (1.43457pt too high) detected at line 810
+ []
+
+[54
 
 ] [55
 
-] [56
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [56
+
+] [57
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [57
+ (./slides.vrb) [58
 
-] [58
-
-]
-\openout4 = `slides.vrb'.
-
-
-(./slides.vrb) [59
+] [59
 
 ] [60
 
 ] [61
 
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [62
-
-] [63
+] [62
 
 ]
-\openout4 = `slides.vrb'.
+[63
 
- (./slides.vrb)
-Overfull \vbox (5.87888pt too high) detected at line 742
- []
-
-[64
+] [64
 
 ] [65
 
-] [66
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [66
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb)
-Overfull \vbox (26.48431pt too high) detected at line 782
- []
-
-[67
+ (./slides.vrb) [67
 
 ] [68
 
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb)
-Overfull \vbox (1.43457pt too high) detected at line 811
- []
-
-[69
+] [69
 
 ] [70
 
+] [71
+
 ]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [71
-
-] [72
+[72
 
 ]
 \openout4 = `slides.vrb'.
@@ -1385,9 +1387,15 @@ Overfull \vbox (1.43457pt too high) detected at line 811
 
 ] [76
 
-] [77
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [77
 
 ]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb)
 [78
 
 ] [79
@@ -1406,13 +1414,29 @@ Overfull \vbox (1.43457pt too high) detected at line 811
 
  (./slides.vrb) [83
 
-] [84
+]
+\openout4 = `slides.vrb'.
 
-] [85
-
-] [86
+ (./slides.vrb)
+[84
 
 ]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [85
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [86
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb)
+Overfull \vbox (67.67865pt too high) detected at line 1295
+ []
+
 [87
 
 ] [88
@@ -1422,35 +1446,58 @@ Overfull \vbox (1.43457pt too high) detected at line 811
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [90
+ (./slides.vrb)
+Overfull \vbox (23.28438pt too high) detected at line 1327
+ []
 
-] [91
-
-] [92
-
-] [93
+[90
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [94
+ (./slides.vrb) [91
 
 ]
 \openout4 = `slides.vrb'.
 
+ (./slides.vrb) [92
 
-(./slides.vrb) [95
+]
+\openout4 = `slides.vrb'.
 
-] [96
+ (./slides.vrb) [93
 
-] [97
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb)
+Overfull \vbox (7.68434pt too high) detected at line 1409
+ []
+
+[94
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb)
+Overfull \vbox (11.13428pt too high) detected at line 1438
+ []
+
+[95
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [96
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [97
 
 ] [98
 
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [99
+] [99
 
 ] [100
 
@@ -1460,128 +1507,99 @@ Overfull \vbox (1.43457pt too high) detected at line 811
  (./slides.vrb)
 [101
 
+] [102
+
+]
+<graphics/boxplot.jpeg, id=645, 964.60374pt x 554.07pt>
+File: graphics/boxplot.jpeg Graphic file (type jpg)
+<use graphics/boxplot.jpeg>
+Package pdftex.def Info: graphics/boxplot.jpeg  used on input line 1538.
+(pdftex.def)             Requested size: 227.62204pt x 130.73909pt.
+ [103
+
+ <./graphics/boxplot.jpeg>] [104
+
+] [105
+
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [102
+ (./slides.vrb) [106
 
 ]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [103
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [104
-
-]
-\openout4 = `slides.vrb'.
-
-
-(./slides.vrb)
-Overfull \vbox (67.67865pt too high) detected at line 1296
- []
-
-[105
-
-] [106
-
-] [107
+[107
 
 ] [108
 
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb)
-Overfull \vbox (23.28438pt too high) detected at line 1328
- []
-
-[109
-
-] [110
+] [109
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [111
+ (./slides.vrb) [110
 
-]
-\openout4 = `slides.vrb'.
+] [111
 
- (./slides.vrb) [112
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [113
-
-]
-[114
+] [112
 
 ]
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-Overfull \vbox (7.68434pt too high) detected at line 1410
+Overfull \vbox (6.2346pt too high) detected at line 1646
  []
 
-[115
+[113
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [114
+
+] [115
 
 ] [116
 
+] [117
+
+] [118
+
+] [119
+
 ]
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-Overfull \vbox (11.13428pt too high) detected at line 1439
- []
+[120
 
-[117
-
-] [118
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [119
-
-] [120
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [121
+] [121
 
 ] [122
 
-] [123
-
 ]
-[124
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [123
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [125
+ (./slides.vrb) [124
 
-] [126
+] [125
+
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [126
 
 ] [127
 
-]
-<graphics/boxplot.jpeg, id=776, 964.60374pt x 554.07pt>
-File: graphics/boxplot.jpeg Graphic file (type jpg)
-<use graphics/boxplot.jpeg>
-Package pdftex.def Info: graphics/boxplot.jpeg  used on input line 1539.
-(pdftex.def)             Requested size: 227.62204pt x 130.73909pt.
- [128
+] [128
 
- <./graphics/boxplot.jpeg>] [129
+] [129
 
-]
-[130
+] [130
 
 ]
 \openout4 = `slides.vrb'.
@@ -1597,144 +1615,53 @@ Package pdftex.def Info: graphics/boxplot.jpeg  used on input line 1539.
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [135
+
+(./slides.vrb) [135
 
 ] [136
 
-]
-[137
-
-] [138
+] [137
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb)
-Overfull \vbox (6.2346pt too high) detected at line 1647
- []
+ (./slides.vrb) [138
 
-[139
+]
+\openout4 = `slides.vrb'.
 
-] [140
+ (./slides.vrb) [139
+
+]
+\openout4 = `slides.vrb'.
+
+
+(./slides.vrb) [140
 
 ]
 \openout4 = `slides.vrb'.
 
  (./slides.vrb) [141
 
-] [142
+]
+\openout4 = `slides.vrb'.
+
+ (./slides.vrb) [142
 
 ] [143
 
 ] [144
 
-] [145
-
-] [146
-
-] [147
-
-] [148
-
 ]
 \openout4 = `slides.vrb'.
 
 
-(./slides.vrb) [149
-
-] [150
-
-] [151
+(./slides.vrb) [145
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [152
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [153
-
-]
-[154
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [155
-
-] [156
-
-] [157
-
-] [158
-
-] [159
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [160
-
-]
-[161
-
-] [162
-
-] [163
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [164
-
-] [165
-
-] [166
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [167
-
-]
-\openout4 = `slides.vrb'.
-
-
-(./slides.vrb) [168
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [169
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [170
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb)
-[171
-
-] [172
-
-] [173
-
-] [174
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [175
-
-]
-\openout4 = `slides.vrb'.
-
- (./slides.vrb) [176
+ (./slides.vrb) [146
 
 ]
 \tf@nav=\write6
@@ -1746,11 +1673,11 @@ Overfull \vbox (6.2346pt too high) detected at line 1647
 \tf@snm=\write8
 \openout8 = `slides.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2110.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2110.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2109.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2109.
  (./slides.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2110.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2110.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2109.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2109.
 
 Package rerunfilecheck Info: File `slides.out' has not changed.
 (rerunfilecheck)             Checksum: ED5C46ED69F5C509A494012EE6F8D925;915.
@@ -1760,10 +1687,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 24589 strings out of 494420
- 457995 string characters out of 6172844
- 747095 words of memory out of 5000000
- 27237 multiletter control sequences out of 15000+600000
+ 24518 strings out of 494420
+ 457090 string characters out of 6172844
+ 747082 words of memory out of 5000000
+ 27226 multiletter control sequences out of 15000+600000
  84114 words of font info for 69 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
  60i,13n,71p,1783b,1886s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1783,10 +1710,10 @@ s/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb>
 </usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb></usr/share/texmf/fonts/type1
 /public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/
 share/texmf/fonts/type1/public/lm/lmtt9.pfb>
-Output written on slides.pdf (176 pages, 496844 bytes).
+Output written on slides.pdf (146 pages, 482573 bytes).
 PDF statistics:
- 1189 PDF objects out of 1200 (max. 8388607)
- 975 compressed objects within 10 object streams
- 370 named destinations out of 1000 (max. 500000)
+ 1021 PDF objects out of 1200 (max. 8388607)
+ 838 compressed objects within 9 object streams
+ 310 named destinations out of 1000 (max. 500000)
  184 words of extra memory for PDF output out of 10000 (max. 10000000)
 
