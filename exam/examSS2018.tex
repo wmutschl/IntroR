@@ -1,0 +1,587 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Introduction to R},
+            pdfauthor={Student Name, Student ID, StudentName@uni-muenster.de},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Introduction to R}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+\subtitle{Exam Summer Term 2018}
+  \author{Student Name, Student ID,
+\href{mailto:StudentName@uni-muenster.de}{\nolinkurl{StudentName@uni-muenster.de}}}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \date{}
+  \predate{}\postdate{}
+
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\item
+  Answer \textbf{7} out of \textbf{10} of the following exercises in
+  either German or English.
+\item
+  Hand in your solutions before Friday, 13 April 2018 at 10 am.
+\item
+  It is advised to regularly check the learnweb and your emails in case
+  of urgent updates.
+\item
+  Please sent your solutions files to
+  \href{mailto:willi.mutschler@wiwi.uni-muenster.de?subject=Exam\%20Intro\%20R}{Willi
+  Mutschler}. We will confirm the receipt of your work also by email.
+\item
+  The solution files should contain your executable and commented script
+  file or preferably a R Notebook.
+\item
+  You may use \emph{any} available R package you find fit to solve the
+  exercise.
+\item
+  Please label your axes and title in your plots.
+\item
+  \textbf{All students must work on their own.}
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\pagebreak
+
+\section{Linear Equation}\label{linear-equation}
+
+Solve the linear equation \(A\cdot x = b\) with \[
+A = \begin{pmatrix} 1 & 1 & 1 & 3\\ 2 & 5 & 8 & 6\\ 4 & 3 & 7 & 9\\ 3 & 6 & 5 & 1 \end{pmatrix} \text{ and }
+b = \begin{pmatrix} 1 \\ 4 \\ 3 \\ 5 \end{pmatrix}
+\]
+
+\textbf{\emph{Solution:}}
+
+and compute the inverse as well as Eigenvalues of \(A\).
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Functions}\label{functions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write a function \texttt{psum(n,a)} that computes \[
+  s_{n,a} := \sum_{k=0}^n \frac{k^a}{k^a+1}
+  \] for any natural number \(n \in \{1,2,...\}\) and any \(a > 0\).
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Write a function \texttt{mymatrix(n)} that returns a \(n \times n\)
+  matrix such that: the first and last row as well as the first and last
+  column contain only ones, whereas the remaining values are zero, e.g.
+  \[
+  \begin{pmatrix} 1 & 1 & 1 & 1\\ 1&0&0&1\\1&0&0&1\\1 & 1 & 1 & 1
+  \end{pmatrix}
+  \]
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Passenger numbers}\label{passenger-numbers}
+
+The file \textbf{apass.csv} contains monthly data on passenger numbers
+of US airlines from January 1949 to December 1959.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read the data into a data frame.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create a vector that contains the corresponding dates. Add this vector
+  to your data frame.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Plot the passenger numbers against the date vector.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Calculate the mean passenger numbers for each month. Plot the means as
+  a bar chart.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Porsche}\label{porsche}
+
+The file \textbf{Porsche911.csv} contains data on Porsche 911 cars,
+\texttt{name} is an id for the owner, \texttt{loc} is the location,
+\texttt{age} is the age of the car, \texttt{TKM} is the mileage in
+thousands kilometers and \texttt{price} the current price listed on an
+internet plattform for used cars in thousand Euros.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read in the data into a data frame and compute key descriptive
+  statistics (mean, standard deviation, smallest and largest values,
+  quartiles, covariance and correlation) for the variables \texttt{age},
+  \texttt{TKM} and \texttt{price}.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Plot boxplots for \texttt{age}, \texttt{TKM} and \texttt{price}.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Generate the empirical cumulative distribution function as well as
+  histograms for each of the variables \texttt{age}, \texttt{TKM} and
+  \texttt{price}.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Law of large numbers}\label{law-of-large-numbers}
+
+Let \(X_1, X_2,...\) be a sequence \(X_1,X_2,...\) from an \(AR(1)\)
+process: \[
+\left( X_{i}-\mu \right) =\rho \left( X_{i-1}-\mu \right) +\varepsilon _{i}
+\] where \(\varepsilon _{i}\) is uniformly distributed on the interval
+\([-1,1]\) and \(|\rho |<1\). Define the sequence of random variables \[
+\bar{X}_{n}=\frac{1}{n}\sum_{i=1}^{n}X_{i}.
+\] The weak law of large numbers states that the sample average
+\(\bar{X}_{n}\) converges in probability towards the expected value
+\(\mu\) when \(n\) tends to infinity.
+
+Show by simulation that the law of large numbers holds despite the
+intertemporal dependence in \(X\). In particular, show the convergence
+by means of an appropriate plot. Hint: You may set the parameters to
+e.g. \(\rho=0.5\) and \(\mu=2\) (or any other value you find fit.)
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Limits of maxima}\label{limits-of-maxima}
+
+Let \(X_{1}, X_{2},...\) be an i.i.d. sequence of random variables
+uniformly distributed on the interval \([0,1]\). Define the random
+variables \[
+M_{n}=\max_{i=1,\ldots ,n}X_{i}
+\] and its normalized version \(\overline{M}_{n}=(M_{n}-1)\cdot n\). One
+can show that the limit distribution of \(\overline{M}_{n}\) is the
+Weibull distribution with density \(\exp \left( x\right)\). Write an R
+program to illustrate that \(\overline{M}_{n}\) converges in
+distribution. To this end, set \(n=100\) and \(R=1000\) and consider the
+\(R \times n\) matrix with uniformly distributed random variables
+\(X_i\). Show the convergence by means of an appropriate plot.
+
+Note: Try to avoid using loops (use e.g.~apply instead). You will not
+get full points if you use a loop.
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Student teacher ratio}\label{student-teacher-ratio}
+
+Load the dataset \textbf{caschool.csv} into the object
+\texttt{caschool}. This dataset is discussed in great detail in the
+textbook of Stock and Watson.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make the following variables accessible:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  test score \texttt{testscr}
+\item
+  student-teacher ratio \texttt{str}
+\item
+  percentage of English language learners \texttt{el\_pct}
+\item
+  expenditures per student \texttt{expn\_stu}
+\end{itemize}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Regress \texttt{testscr} on a constant and \texttt{str}. Assign the
+  residuals of the regression into the variable \texttt{r1}. Now regress
+  \texttt{testscr} on an intercept, \texttt{str}, \texttt{el\_pct} and
+  \texttt{expn\_stu}. Put the residuals into the variable \texttt{r2}.
+  Compute the sum of squared residuals for both regressions. Display
+  \texttt{r1} and \texttt{r2} in one plot, where the points of
+  \texttt{r2} are marked red.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Consider the regression of \texttt{testscr} on a constant,
+  \texttt{str}, \texttt{elp\_ct} and \texttt{expn\_stu}. Predict the
+  value of \texttt{testscr} for a school district with an average class
+  size (\texttt{str}) of 25 students, a percentage of English learners
+  (\texttt{el\_pct}) of 60\% and an average expenditures per student
+  (\texttt{expn\_stu}) of 4000\$.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Reconsider the regression of \texttt{testscr} on a constant,
+  \texttt{str}, \texttt{el\_pct} and \texttt{expn\_stu}. Compute the
+  heteroscedastic robust standard errors.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Test the null hypothesis that the coefficients on \texttt{str} and
+  \texttt{expn\_stu} both equal \(0\) and the coefficient on
+  \texttt{el\_pct} equals \(-0.7\). Hint: Use the linearHypothesis
+  function of the \texttt{car} package.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Asymptotic normality}\label{asymptotic-normality}
+
+Consider the multiple linear regression model \(y=X\beta +u\). In R,
+generate the matrix \(X\) by executing the following commands:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MASS)}
+\NormalTok{X <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,}\KeywordTok{mvrnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{100}\NormalTok{,}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{),}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{0.9}\NormalTok{,}\FloatTok{0.9}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+Assume that the true coefficient vector is \[
+\beta =\left(
+\begin{array}{c}
+3 \\
+2 \\
+-1
+\end{array}
+\right)
+\] and the error terms are i.i.d. uniformly distributed on the interval
+\([-1,1]\). Hence, the assumption of normally distributed error terms is
+violated.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write an R program that generates \(R=10000\) random samples of size
+  \(n=100\) each. Generate an empty vector
+  \texttt{Z\ \textless{}-\ rep(NA,R)}. For each sample
+  \(i=1,\ldots ,R\), compute the OLS estimate \(\hat{\beta}\) of
+  \(\beta\) and store the second component of \(\hat{\beta}\) in the
+  \(i\)-th element of the vector \texttt{Z}.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Plot the histogram of \texttt{Z}. Compute the mean \(m\) and standard
+  deviation \(s\) of \texttt{Z} and add the density of \(N(m,s)\) to the
+  plot.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Stochastic frontier
+analysis}\label{stochastic-frontier-analysis}
+
+Consider the Cobb-Douglas production function \[
+y=Ax_{1}^{\alpha }x_{2}^{\beta }
+\] By definition, the production function returns the maximal output for
+given inputs, and actual production cannot be larger than \(y\). Due to
+inefficiencies, actual production could be modeled (in logs) as \[
+\ln y=\ln A+\alpha \ln x_{1}+\beta \ln x_{2}-u
+\] where \(u\) is a \textbf{non-negative} random variable. Since other
+disturbances (e.g.~measurement errors) can enter the production
+function, it is more common to add another, \textbf{symmetrically
+distributed}, disturbance term \(v\), \[
+\ln y=\ln A+\alpha \ln x_{1}+\beta \ln x_{2}-u+v
+\] Assume that \(u\) is exponentially (\(u \sim Exp(\lambda)\)) and
+\(v\) normally (\(v\sim N(0,\sigma^{2})\)) distributed. One can show
+that if \(u\) and \(v\) are independent then the density function of
+\(\varepsilon =v-u\) is given by \[
+f_{\varepsilon} (\varepsilon) =\lambda \exp\left(\lambda \varepsilon + \frac{1}{2} \lambda^{2} \sigma^{2}\right) \Phi \left( \frac{-\varepsilon}{\sigma} -\lambda \sigma \right)
+\] where \(\Phi\) is the distribution function (\texttt{pnorm}) of
+\(N(0,1)\) and \(\exp\) the exponential function (\texttt{exp}).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Load the dataset \textbf{sfa.csv}. This dataset is an abbreviated
+  version of table F7.2 of Greene, 2008. The original data appeared in
+  Zellner and Revankar, \emph{Generalized Production Functions}, Review
+  of Economic Studies, 36 (1969), 241-250.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Write an R program to estimate the parameters \(A\), \(\alpha\),
+  \(\beta\), \(\lambda\) and \(\sigma\) by maximum likelihood on this
+  dataset.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Compute the asymptotic standard errors.
+\end{enumerate}
+
+\textbf{\emph{Solution:}}
+
+\pagebreak
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Variance estimation in
+GARCH}\label{variance-estimation-in-garch}
+
+When one considers an iid sample \(X_{1},\ldots ,X_{n}\) from
+\(X\sim N(\mu ,\sigma ^{2})\) then one usually estimates the variance
+\(\sigma^{2}\) using \[
+\hat{\sigma}^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}
+\] The distribution of the normalized estimator for the variance is
+given by: \[
+\frac{\left( n-1\right) \hat{\sigma}^{2}}{\sigma ^{2}}\sim \chi _{n-1}^{2}
+\] where \(\sigma^2\) is the true variance. Consider the case when the
+observations are not iid but are stochastically dependent over time. To
+this end, assume that \(X_{1},\ldots ,X_{n}\) is a time series generated
+by a \(GARCH(1,1)\) process
+
+\begin{align*}
+X_{i} &\sim N(0,\sigma _{i}^{2}) \\
+\sigma _{i}^{2} &=\omega +\alpha X_{i-1}^{2}+\beta \sigma _{i-1}^{2}
+\end{align*}
+
+with \(\omega =0.1\), \(\alpha =0.1\), \(\beta =0.85\) and sample size
+equal to \(n=2500\). Show by simulations that the distribution of the
+normalized estimator for the variance is not
+\(\chi^2_{n-1}\)-distributed. Hint: The true unconditional variance of
+this GARCH process is \(\sigma^{2}=2\).
+
+\textbf{\emph{Solution:}}
+
+
+\end{document}

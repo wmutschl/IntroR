@@ -1,0 +1,468 @@
+---
+title: "Introduction to R"
+author: "Student Name, Student ID, StudentName@uni-muenster.de"
+subtitle: Exam Summer Term 2018
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    code_folding: show
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+---
+
+***
+
+* Answer **7** out of **10** of the following exercises in either German or English.
+
+* Hand in your solutions before Friday, 13 April 2018 at 10 am.
+
+* It is advised to regularly check the learnweb and your emails in case of urgent updates.
+
+* Please sent your solutions files to [Willi Mutschler](mailto:willi.mutschler@wiwi.uni-muenster.de?subject=Exam Intro R). We will confirm the receipt of your work also by email.
+
+* The solution files should contain your executable and commented script file or preferably a R Notebook. 
+
+* You may use _any_ available R package you find fit to solve the exercise.
+
+* Please label your axes and title in your plots.
+
+* **All students must work on their own.**
+
+\pagebreak
+
+***
+# Linear Equation
+Solve the linear equation $A\cdot x = b$ with
+$$
+A = \begin{pmatrix} 1 & 1 & 1 & 3\\ 2 & 5 & 8 & 6\\ 4 & 3 & 7 & 9\\ 3 & 6 & 5 & 1 \end{pmatrix} \text{ and }
+b = \begin{pmatrix} 1 \\ 4 \\ 3 \\ 5 \end{pmatrix}
+$$
+
+***Solution:***
+```{r}
+A = matrix(c(1,2,4,3,1,5,3,6,1,8,7,5,3,6,9,1),4,4)
+b = matrix(c(1,4,3,5),4,1)
+x=solve(A,b)
+print(x)
+```
+and compute the inverse as well as Eigenvalues of $A$.
+
+***Solution:***
+```{r}
+solve(A)
+eigen(A)$values
+```
+\pagebreak
+
+
+***
+# Functions
+
+1. Write a function `psum(n,a)` that computes
+$$
+s_{n,a} := \sum_{k=0}^n \frac{k^a}{k^a+1}
+$$
+for any natural number $n \in \{1,2,...\}$ and any $a > 0$.
+
+***Solution:***
+```{r}
+psum = function(n,a){
+if (n==0) 0
+else ((n^a)/((n^a)+1)+psum(n-1,a))}
+psum(10,10)
+```
+
+2. Write a function `mymatrix(n)` that returns a $n \times n$ matrix such that: the first and last row as well as the first and last column contain only ones, whereas the remaining values are zero, e.g. 
+$$
+\begin{pmatrix} 1 & 1 & 1 & 1\\ 1&0&0&1\\1&0&0&1\\1 & 1 & 1 & 1
+\end{pmatrix}
+$$
+
+***Solution:***
+```{r}
+mymatrix = function(n){
+  matrix(c(rep(1,n),rep(c(1,rep(0,n-2),1),n-2),rep(1,n)),n,n)
+  }
+mymatrix(4)
+```
+\pagebreak
+
+
+***
+# Passenger numbers
+The file **apass.csv** contains monthly data on passenger numbers of US airlines from January 1949 to December 1959. 
+
+1. Read the data into a data frame.
+
+***Solution:***
+```{r}
+apass = read.csv2("../data/apass.csv",header=TRUE)
+```
+
+2. Create a vector that contains the corresponding dates. Add this vector to your data frame.
+
+***Solution:***
+```{r}
+dat1 <- strptime("1949-01-01","%Y-%m-%d")
+dat2 <- strptime("1959-12-01","%Y-%m-%d")
+dates <- seq(dat1, dat2, by = "month")
+apass$dates <- dates
+```
+
+3. Plot the passenger numbers against the date vector.
+
+***Solution:***
+```{r}
+plot(apass$dates, apass$y, type = "l")
+```
+
+4. Calculate the mean passenger numbers for each month. Plot the means as a bar chart.
+
+***Solution:***
+```{r}
+strmon <- unique(months(apass$dates))
+Z <- rep(NA,12)
+for (i in 1:12) {
+  Z[i] <- mean(apass$y[months(apass$dates) == strmon[i]])
+}
+barplot(Z, col = "lightblue", names = strmon, main = "Passenger data")
+```
+\pagebreak
+
+
+***
+# Porsche
+The file **Porsche911.csv** contains data on Porsche 911 cars, `name` is an id for the owner, `loc` is the location, `age` is the age of the car, `TKM` is the mileage in thousands kilometers and `price` the current price listed on an internet plattform for used cars in thousand Euros.
+
+1. Read in the data into a data frame and compute key descriptive statistics (mean, standard deviation, smallest and largest values, quartiles, covariance and correlation) for the variables `age`, `TKM` and `price`.
+
+***Solution:***
+```{r}
+Porsche911=read.csv2(file="../data/Porsche911.csv")[3:5]
+summary(Porsche911)
+cov(Porsche911)
+cor(Porsche911)
+```
+
+2. Plot boxplots for `age`, `TKM` and `price`.
+
+***Solution:***
+```{r}
+boxplot(Porsche911)
+```
+
+3. Generate the empirical cumulative distribution function as well as histograms for each of the variables `age`, `TKM` and `price`.
+
+***Solution:***
+```{r}
+library(MASS)
+par(mfrow=c(1,3))
+truehist(Porsche911$age)
+truehist(Porsche911$TKM)
+truehist(Porsche911$price)
+plot(ecdf(Porsche911$age), main = "ECDF of age", xlab = "Value of age", ylab = "Cumulative Probability")
+plot(ecdf(Porsche911$TKM), main = "ECDF of TKM", xlab = "Value of TKM", ylab = "Cumulative Probability")
+plot(ecdf(Porsche911$price), main = "ECDF of price", xlab = "Value of price", ylab = "Cumulative Probability")
+```
+\pagebreak
+
+
+***
+# Law of large numbers
+
+Let $X_1, X_2,...$ be a sequence $X_1,X_2,...$ from an $AR(1)$ process:
+$$
+\left( X_{i}-\mu \right) =\rho \left( X_{i-1}-\mu \right) +\varepsilon _{i}
+$$
+where $\varepsilon _{i}$ is uniformly distributed on the interval $[-1,1]$ and $|\rho |<1$. Define the sequence of random variables
+$$
+\bar{X}_{n}=\frac{1}{n}\sum_{i=1}^{n}X_{i}.
+$$
+The weak law of large numbers states that the sample average $\bar{X}_{n}$ converges in probability towards the expected value $\mu$ when $n$ tends to infinity.
+
+Show by simulation that the law of large numbers holds despite the intertemporal dependence in $X$. In particular, show the convergence by means of an appropriate plot. Hint: You may set the parameters to e.g. $\rho=0.5$ and $\mu=2$ (or any other value you find fit.)
+
+***Solution:***
+```{r}
+n <- 10000
+Z <- rep(NA,n)
+rho=0.5
+mu=2
+for (i in 1:n) {
+  Z[i] <- mean(filter((1-rho)*mu+runif(i,min=-1,max=1),rho,method="recursive",init=(1-rho)*mu))
+}
+plot(Z, main="Law of Large numbers for AR(1)");
+abline(h=mu,lwd=2,col="red")
+```
+\pagebreak
+
+
+
+***
+# Limits of maxima
+Let $X_{1}, X_{2},...$ be an i.i.d. sequence of random variables
+uniformly distributed on the interval $[0,1]$. Define the random variables
+$$
+M_{n}=\max_{i=1,\ldots ,n}X_{i}
+$$
+and its normalized version $\overline{M}_{n}=(M_{n}-1)\cdot n$. One can show that the limit distribution of $\overline{M}_{n}$ is the Weibull distribution with density $\exp \left( x\right)$. Write an R program to illustrate that $\overline{M}_{n}$ converges in distribution. To this end, set $n=100$ and $R=1000$ and consider the $R \times n$ matrix with uniformly distributed random variables $X_i$. Show the convergence by means of an appropriate plot.
+
+Note: Try to avoid using loops (use e.g. apply instead). You will not get full points if you use a loop.
+
+***Solution:***
+```{r}
+library(MASS)
+n <- 100
+R <- 1000 # how many times to draw individual X_i's, note that i = 1,2,..,n
+X <- matrix(runif(n*R), R, n) #matrix of N rows and n columns filled with random numbers
+Mn <- apply(X, 1, max) # get max of each row
+Mnbar <- (Mn-1)*n #standardization
+#display the sequence of random variables
+truehist(Mnbar, main = paste("n =", toString(n),sep =" "))
+coord <- par("usr")
+x <- seq(coord[1], coord[2], length.out = 500)
+lines(x, exp(x), col = "red")
+```
+\pagebreak
+
+
+***
+# Student teacher ratio
+
+Load the dataset **caschool.csv** into the object `caschool`. This dataset is discussed in great detail in the textbook of Stock and Watson. 
+
+1. Make the following variables accessible:
+
+* test score `testscr`
+
+* student-teacher ratio `str`
+
+* percentage of English language learners `el_pct`
+
+* expenditures per student `expn_stu`
+
+***Solution:***
+```{r}
+caschool <- read.csv("../data/caschool.csv")
+testscr <- caschool$testscr
+str <- caschool$str
+el_pct <- caschool$el_pct
+expn_stu <- caschool$expn_stu
+```
+ 
+2. Regress `testscr` on a constant and `str`. Assign the residuals of the regression into the variable `r1`. Now regress `testscr` on an intercept, `str`, `el_pct` and `expn_stu`. Put the residuals into the variable `r2`. Compute the sum of squared residuals for both regressions. Display `r1` and `r2` in one plot, where the points of `r2` are marked red.
+
+***Solution:***
+```{r}
+simple <- lm(testscr~str)
+multiple <- lm(testscr~str + el_pct + expn_stu)
+r1 <- residuals(simple)
+r2 <- residuals(multiple)
+sum(r1^2)
+sum(r2^2)
+sum(r1^2) > sum(r2^2)
+plot(r1,ylab="")
+points(r2,col="red")
+```
+
+3. Consider the regression of `testscr` on a constant, `str`, `elp_ct` and `expn_stu`. Predict the value of `testscr` for a school district with an average class size (`str`) of 25 students, a percentage of English learners (`el_pct`) of 60% and an average expenditures per student (`expn_stu`) of 4000$.
+
+***Solution:***
+```{r}
+predict(multiple, newdata=data.frame(str=25, el_pct=60, expn_stu=4000))
+```
+
+
+4. Reconsider the regression of `testscr` on a constant, `str`, `el_pct` and `expn_stu`. Compute the heteroscedastic robust standard errors.
+
+***Solution:***
+```{r}
+library(lmtest)
+library(sandwich)
+```
+
+```{r}
+regr <- lm(testscr~str + el_pct + expn_stu)
+summary(regr)
+coeftest(regr, vcov=vcovHC)
+```
+
+5. Test the null hypothesis that the coefficients on `str` and `expn_stu` both equal $0$ and the coefficient on `el_pct` equals $-0.7$. Hint: Use the linearHypothesis function of the `car` package.
+
+***Solution:***
+```{r}
+library(car)
+linearHypothesis(regr,c("str=0","expn_stu=0","el_pct=-.7"))
+```
+\pagebreak
+
+
+
+***
+# Asymptotic normality
+
+Consider the multiple linear regression model $y=X\beta +u$. In R, generate the matrix $X$ by executing the following commands:
+```{r}
+library(MASS)
+X <- cbind(1,mvrnorm(n=100,c(5,10),matrix(c(1,0.9,0.9,1),2,2)))
+```
+
+Assume that the true coefficient vector is
+$$
+\beta =\left(
+\begin{array}{c}
+3 \\
+2 \\
+-1
+\end{array}
+\right)
+$$
+and the error terms are i.i.d. uniformly distributed on the interval $[-1,1]$. Hence, the assumption of normally distributed error terms is violated.
+
+1. Write an R program that generates $R=10000$ random samples of size $n=100$ each. Generate an empty vector `Z <- rep(NA,R)`. For each
+sample $i=1,\ldots ,R$, compute the OLS estimate $\hat{\beta}$ of $\beta$ and store the second component of $\hat{\beta}$ in the $i$-th element of the vector `Z`.
+
+***Solution:***
+```{r}
+beta_true <- c(3,2,-1)
+n <- 100
+R <- 10000
+Z <- rep(NA,R)
+for (i in 1:R) {
+  u <- runif(n,-1,1)
+  X <- cbind(1,mvrnorm(n=n,c(5,10),matrix(c(1,0.9,0.9,1),2,2)))
+  y <- X%*%beta_true + u
+  beta_hat <- solve(t(X)%*%X)%*%t(X)%*%y
+  Z[i] <- beta_hat[2]
+}
+```
+
+2. Plot the histogram of `Z`. Compute the mean $m$ and standard deviation $s$ of `Z` and add the density of $N(m,s)$ to the plot.
+
+***Solution:***
+```{r}
+library(MASS)
+truehist(Z)
+m1 <- mean(Z)
+s1 <- sd(Z)
+curve(dnorm(x,mean=m1,sd=s1),add=T)
+```
+\pagebreak
+
+
+***
+# Stochastic frontier analysis
+
+Consider the Cobb-Douglas production function
+$$
+y=Ax_{1}^{\alpha }x_{2}^{\beta }
+$$
+By definition, the production function returns the maximal output for given inputs, and actual production cannot be larger than $y$. Due to
+inefficiencies, actual production could be modeled (in logs) as
+$$
+\ln y=\ln A+\alpha \ln x_{1}+\beta \ln x_{2}-u
+$$
+where $u$ is a **non-negative** random variable. Since other disturbances (e.g. measurement errors) can enter the production function, it is more common to add another, **symmetrically distributed**, disturbance term $v$,
+$$
+\ln y=\ln A+\alpha \ln x_{1}+\beta \ln x_{2}-u+v
+$$
+Assume that $u$ is exponentially ($u \sim Exp(\lambda)$) and $v$ normally ($v\sim N(0,\sigma^{2})$) distributed. One can show that if $u$ and $v$ are independent then the density function of $\varepsilon =v-u$ is given by
+$$
+f_{\varepsilon} (\varepsilon) =\lambda \exp\left(\lambda \varepsilon + \frac{1}{2} \lambda^{2} \sigma^{2}\right) \Phi \left( \frac{-\varepsilon}{\sigma} -\lambda \sigma \right)
+$$
+where $\Phi$ is the distribution function (`pnorm`) of $N(0,1)$ and $\exp$ the exponential function (`exp`).
+
+1. Load the dataset **sfa.csv**. This dataset is an abbreviated version of table F7.2 of Greene, 2008. The original data appeared in Zellner and Revankar, _Generalized Production Functions_, Review of Economic Studies, 36 (1969), 241-250.
+
+***Solution:***
+```{r}
+sfa <- read.csv("../data/sfa.csv")
+head(sfa)
+```
+
+2. Write an R program to estimate the parameters $A$, $\alpha$, $\beta$, $\lambda$ and $\sigma$ by maximum likelihood on this dataset.
+
+***Solution:***
+```{r}
+## negative log-Likelihood function
+neg_log_likeli <- function(thet, dat){
+  A <- thet[1]
+  alpha <- thet[2]
+  beta <- thet[3]
+  lambda <- thet[4]
+  sigma <- thet[5]
+  x1 <- dat[,3]
+  x2 <- dat[,4]
+  y <- dat[,2]
+
+  eps <- log(y) - log(A) - alpha*log(x1) - beta*log(x2)
+  log_likeli <- sum(log(lambda*exp(lambda*eps+lambda^2/2*sigma^2)*pnorm(-eps/sigma-lambda*sigma,mean=0,sd=1)))
+  return(-log_likeli)
+}
+
+# Estimate parameters
+opt <- optim(c(7, 0.3, 0.7, 10, .1), neg_log_likeli, dat=sfa, hessian=T,control=c(maxit=5000))
+opt
+```
+
+3. Compute the asymptotic standard errors.
+
+***Solution:***
+```{r}
+sqrt(diag(solve(opt$hessian)))
+```
+\pagebreak
+
+
+***
+# Variance estimation in GARCH
+
+When one considers an iid sample $X_{1},\ldots ,X_{n}$ from $X\sim N(\mu ,\sigma ^{2})$ then one usually estimates the variance $\sigma^{2}$ using
+$$
+\hat{\sigma}^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}
+$$
+The distribution of the normalized estimator for the variance is given by:
+$$
+\frac{\left( n-1\right) \hat{\sigma}^{2}}{\sigma ^{2}}\sim \chi _{n-1}^{2}
+$$
+where $\sigma^2$ is the true variance. Consider the case when the observations are not iid but are stochastically dependent over time. To this end, assume that $X_{1},\ldots ,X_{n}$ is a time series generated by a $GARCH(1,1)$ process
+\begin{align*}
+X_{i} &\sim N(0,\sigma _{i}^{2}) \\
+\sigma _{i}^{2} &=\omega +\alpha X_{i-1}^{2}+\beta \sigma _{i-1}^{2}
+\end{align*}
+with $\omega =0.1$, $\alpha =0.1$, $\beta =0.85$ and sample size equal to $n=2500$. Show by simulations that the distribution of the normalized estimator for the variance is not $\chi^2_{n-1}$-distributed. Hint: The true unconditional variance of this GARCH process is $\sigma^{2}=2$.
+
+***Solution:***
+```{r}
+omega <- 0.1
+alpha <- 0.1
+beta <- 0.85
+n <- 2500
+R <- 1000
+
+sigma2 <- rep(NA,n)
+sigma2[1] <- 0
+
+X <- rep(NA,n)
+X[1] <- 0
+
+vargarch <- rep(NA,R)
+
+for (r in 1:R){
+  for (i in 2:n){
+    sigma2[i] <- omega+alpha*X[i-1]^2+beta*sigma2[i-1]
+    X[i] <- rnorm(n=1,mean=0,sd=sqrt(sigma2[i]))
+  }
+  varest <- 1/(n-1)*sum((X-mean(X))^2)
+  vargarch[r] <- (n-1)*varest/2
+}
+
+truehist(vargarch,col="lightblue",ylim=c(0,0.006),nbins=30)
+g <- seq(1800,3500,length=1000)
+lines(g,dchisq(g,df=n-1),lwd=2)
+```

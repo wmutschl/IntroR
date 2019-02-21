@@ -1,0 +1,54 @@
+---
+title: "Task X"
+author: "Student Name, student.name@mif.stud.vu.lt"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+  pdf_document: default
+fontsize: 10pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+Note - select:
+
+- `Knit -> 'Knit to PDF'` to generate a `.pdf` file;
+- `Knit -> 'Knit to HTML'` to generate a `.html` file;
+
+# Main Task
+
+## Part 1.1
+
+**[Text of the assignment goes here]** 
+
+
+**Solution:**
+
+[Assignment solution goes here]
+
+
+## Part 2.1
+
+**[Text of the assignment goes here]**
+
+
+**Solution:**
+
+[Assignment solution goes here]
+
+---
+
+# Extensions
+
+## Part 1.1
+
+[Extension of Part 1.1 goes here along with the reasoning for it, interpretations and/or 
+comparisons with the results from the original task]
+

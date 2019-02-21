@@ -1,0 +1,30 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}Logical operators}{2}{section.2}
+\contentsline {section}{\numberline {3}Arithmetic operators and mathematical functions}{3}{section.3}
+\contentsline {section}{\numberline {4}Matrix functions}{4}{section.4}
+\contentsline {section}{\numberline {5}Set operations and special functions}{5}{section.5}
+\contentsline {section}{\numberline {6}Sequences and replications}{6}{section.6}
+\contentsline {section}{\numberline {7}The apply command}{7}{section.7}
+\contentsline {section}{\numberline {8}Reading and writing text files}{8}{section.8}
+\contentsline {section}{\numberline {9}Reading data online}{9}{section.9}
+\contentsline {section}{\numberline {10}Indexing vectors}{10}{section.10}
+\contentsline {section}{\numberline {11}Indexing matrices}{11}{section.11}
+\contentsline {section}{\numberline {12}Indexing dataframes}{12}{section.12}
+\contentsline {section}{\numberline {13}User-defined functions}{13}{section.13}
+\contentsline {section}{\numberline {14}Sorting and merging}{14}{section.14}
+\contentsline {section}{\numberline {15}Frequency tables}{15}{section.15}
+\contentsline {section}{\numberline {16}Cumulative distribution function and quantile function}{16}{section.16}
+\contentsline {section}{\numberline {17}Mean, variance and standard deviation}{17}{section.17}
+\contentsline {section}{\numberline {18}Histograms}{18}{section.18}
+\contentsline {section}{\numberline {19}Contingency tables, correlation and covariance}{19}{section.19}
+\contentsline {section}{\numberline {20}Programming}{20}{section.20}
+\contentsline {section}{\numberline {21}Random numbers}{21}{section.21}
+\contentsline {section}{\numberline {22}Simulations}{22}{section.22}
+\contentsline {section}{\numberline {23}Linear regressions}{23}{section.23}
+\contentsline {section}{\numberline {24}Numerical optimization}{24}{section.24}
+\contentsline {section}{\numberline {25}Maximum likelihood}{25}{section.25}
+\contentsline {section}{\numberline {26}Dates and times}{27}{section.26}
+\contentsline {section}{\numberline {27}Time series: Basics}{28}{section.27}
+\contentsline {section}{\numberline {28}Time series: model estimation and unit roots}{30}{section.28}
+\contentsline {section}{\numberline {29}Graphics}{32}{section.29}

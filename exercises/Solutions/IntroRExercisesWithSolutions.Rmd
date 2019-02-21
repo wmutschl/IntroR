@@ -1,0 +1,2370 @@
+---
+title: "Introduction to R"
+author: "Willi Mutschler and Martina Danielova Zaharieva"
+subtitle: "Solutions to Exercises"
+output:
+  html_notebook:
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    code_folding: show
+---
+
+***  
+# Introduction
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Start ***R-Studio*** and have a look at all menu items.
+
+2. Under `Tools - Options` choose your preferred setting.
+
+3. Install the packages `MASS`, `foreign`, `xlsx`, `AER` and `rgl`.
+```{r,eval=FALSE}
+#you will need to install packages only once
+install.packages("MASS")
+install.packages("foreign")
+install.packages("xlsx")
+install.packages("rgl")
+install.packages("AER")
+library(MASS)
+library(foreign)
+library(xlsx)
+library(rgl)
+```
+More simply: Use the `Packages` Tab of RStudio to install and activate the libraries.
+
+
+4. The current working directory (where R reads and writes files) can be found by the command _getwd()_. Find your current working directory.
+```{r,eval=FALSE}
+getwd()
+```
+
+5. Use the  command _setwd("c:/path")_ or _setwd(choose.dir())_ to change the working directory to drive *c:* and path */path*. Note that the path name is structured by slashes (*/*), **not** backslashes (_\_). Change the working directory to _c:/temp_ and check if the change has been successful. 
+```{r,eval=FALSE}
+#setwd("C:/temp")
+setwd(choose.dir())
+getwd()
+```
+Hint: The working directory can also be changed via the menu: _Session -- Set Working Directory_.
+
+6. Open a new script file. Type the commands to perform the following assignments:
+\begin{align*}
+a &=\frac{3\cdot (4+9)}{8-12.5} \\
+b &=\left( 1,4,1999,2011\right) \\
+d &=2\pi \\
+e &=a+d
+\end{align*}
+Save the script and quit R.
+```{r}
+a <- 3 * (4 + 9) / (8 - 12.5)
+b <- c(1, 4, 1999, 2011)
+d <- 2 * pi
+e <- a + d
+```
+
+7. Start R and re-open the script. Mark all lines (*Ctrl-A*) and execute them (*Ctrl-R*). Print $a,b,d,e.$ 
+```{r echo=FALSE}
+print(a); print(b); print(d); print(e)
+```
+
+Why is $c$ not used as a variable?
+```{r}
+# Because c() is the built-in concatenation command! Do not use c for variable or function declaration. This could mess up your code.
+```
+
+***
+# Logical Operators
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Use the command `c()` to define the vectors
+\begin{align*}
+x &=\left( -1,0,1,4,9,2,1,4.5,1.1,-0.9\right) \\
+y &=\left( 1,1,2,2,3,3,4,4,5,NA\right) .
+\end{align*}
+```{r}
+x <- c(-1, 0, 1, 4, 9, 2, 1, 4.5, 1.1, -0.9)
+y <- c(1, 1, 2, 2, 3, 3, 4, 4, 5, NA)
+```
+
+2. Determine the lengths of the vectors using `length()` and check if `length(x)==length(y)`.
+```{r}
+length(x); length(y); length(x) == length(y)
+```
+
+3. Perform the following logical operations:
+\begin{align*}
+x &<y \\
+x &<0 \\
+x+3 &\geq 0 \\
+y &<0 \\
+x<0 &\text{ or }y<0
+\end{align*}
+```{r}
+x < y
+x < 0
+x + 3 >= 0
+y < 0
+x < 0 | y < 0
+```
+
+4. Use `all` to check if all elements of $x+3\geq 0.$
+```{r}
+all(x + 3 >= 0)
+```
+
+5. Use `all` to check if all elements of $y>0.$ Use `any`
+to check if at least one element of $y>0.$
+```{r}
+all(y > 0)
+all(y > 0, na.rm = TRUE)
+any(y > 0)
+```
+
+***
+# Arithmetic operators and mathematical functions
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Define the vectors
+\begin{align*}
+x &=\left( -1,0,1,4,9,2,1,4.5,1.1,-0.9\right) \\
+y &=\left( 1,1,2,2,3,3,4,4,5,NA\right) .
+\end{align*}
+and compute $x+y$ and $xy$ and $y/x$.
+```{r}
+x <- c(-1, 0, 1, 4, 9, 2, 1, 4.5, 1.1, -0.9)
+y <- c(1, 1, 2, 2, 3, 3, 4, 4, 5, NA)
+```
+
+```{r}
+x + y
+x * y
+y / x
+```
+
+2. Compute $\ln (x)$. Determine the length of the result vector.
+```{r}
+log(x)
+length(log(x))
+```
+
+3. Use `any` to check if the vector $x$ contains elements
+satisfying $\sqrt{x}\geq 2$.
+```{r}
+any(sqrt(x) >= 2)
+```
+
+4. Compute
+\begin{align*}
+a &=\sum_{i=1}^{10}x_{i} \\
+b &=\sum_{i=1}^{10}y_{i}^{2}.
+\end{align*}
+Use the `na.rm=TRUE` option (**na**-**r**e**m**ove) of
+the `sum` command to drop the `NA` in $y$.
+```{r}
+a <- sum(x)
+print(a)
+b <- sum(y^2, na.rm = TRUE)
+print(b)
+```
+
+5. Compute
+\begin{align*}
+\sum_{i=1}^{10}x_{i}y_{i}^{2}.
+\end{align*}
+```{r}
+sum(x * (y^2), na.rm = TRUE)
+```
+
+6. The `sum` command is a convenient way to count the number of elements satisfying a certain condition. Count the number of elements of $x>0$.
+```{r,collape=TRUE}
+sum(x > 0)
+```
+
+7. Predict what the following commands will return:
+```{r}
+x^y
+x^(1/y)
+log(exp(y))
+y*c(-1,1)
+x+c(-1,0,1)
+sum(y*c(-1,1),na.rm=TRUE)
+```
+
+
+***
+# Matrix functions
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Define the matrix
+\begin{align*}
+X=\left[ 
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & 8 \\ 
+3 & 6 & 9
+\end{array}
+\right] ,
+\end{align*}
+print its transpose, its dimensions and its determinant.
+```{r}
+X <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3)
+t(X)
+dim(X)
+det(X)
+```
+
+2. Compute the trace of $X$ (i.e. the sum of its diagonal elements).
+```{r}
+sum(diag(X))
+```
+
+
+3. Type `diag(X) <- c(7,8,9)` to change the diagonal elements. Compute the eigenvalues of (the new) $X$.
+```{r}
+diag(X) <- c(7, 8, 9)
+eigen(X)
+```
+Is $X$ positive definite?
+```{r}
+# Yes, since all eigenvalues are positive.
+```
+
+4. Invert $X$ and compute the eigenvalues of $X^{-1}$.
+```{r}
+solve(X)  # inverts X
+eigen(solve(X))
+```
+
+5. Define the vector $a=(1,3,2)$ and compute `a*X`, ``a%*%X`, and `X%*%a`.
+```{r}
+a <- c(1, 3, 2)
+a * X
+a %*% X
+X %*% a
+```
+
+6. Compute the quadratic form $a^{\prime }Xa$.
+```{r}
+t(a) %*% X %*% a  
+```
+
+7. Define the matrices
+$I=\left[ 
+\begin{array}{lll}
+1 & 0 & 0 \\ 
+0 & 1 & 0 \\ 
+0 & 0 & 1
+\end{array}
+\right]$,
+$Y=\left[ 
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & 8 \\ 
+3 & 6 & 9
+\end{array}
+\begin{array}{lll}
+1 & 0 & 0 \\ 
+0 & 1 & 0 \\ 
+0 & 0 & 1
+\end{array}
+\right]$ and $Z=\left[ 
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & 8 \\ 
+3 & 6 & 9 \\
+1 & 0 & 0 \\ 
+0 & 1 & 0 \\ 
+0 & 0 & 1
+\end{array}
+\right]$.
+```{r}
+I <- diag(3)
+Y <- cbind(matrix(1:9,3,3),I)
+Z <- rbind(matrix(1:9,3,3),I)
+```
+
+8. Predict what the following commands will return:
+```{r}
+cbind(1,X)
+rbind(Y,c(1,2,3))
+X%*%I
+dim(X%*%Y)
+t(Y)+Z
+solve(t(Z)%*%Z)%*%(t(Z)%*%Z)
+```
+
+***
+# Set operations and special functions
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Define the vectors
+\begin{align*}
+x &=\left( -1,0,1,4,9,2,1,4.5,1.1,-0.9\right) \\
+y &=\left( 1,1,2,2,3,3,4,4,5,NA\right) .
+\end{align*}
+and compute $x\cup y$. Determine the lengths of $x$, $y$ and $x\cup y$.
+```{r}
+x <- c(-1, 0, 1, 4, 9, 2, 1, 4.5, 1.1, -0.9)
+y <- c(1, 1, 2, 2, 3, 3, 4, 4, 5, NA)
+union(x, y)
+length(x)
+length(y)
+length(union(x, y))
+```
+
+2. Count the number of elements of $y$ that are element of $x$.
+```{r}
+sum(unique(y) %in% x)  
+length(intersect(y,x))
+```
+
+3. Determine the length of the vector of unique elements of $y$.
+```{r}
+length(unique(y))
+```
+
+4. Compute the vector $z$ with elements
+\begin{align*}
+z_{i}=\sum_{j=1}^{i}x_{j}
+\end{align*}
+for $i=1,\ldots ,10$.
+```{r}
+z <- cumsum(x)
+print(z)
+```
+
+
+5. Find the position of the largest element of $x$.
+```{r}
+which.max(x) 
+```
+
+***
+# Sequences and replications
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Generate the vectors
+\begin{align*}
+x_{1} &=\left( 1,2,3,\ldots ,9\right) \\
+x_{2} &=\left( 0,1,0,1,0,1,0,1\right) \\
+x_{3} &=\left( 1,1,1,1,1,1,1,1\right) \\
+x_{4} &=\left( -1,1,-1,1,-1,1\right) \\
+x_{5} &=\left( 1980,1985,1990,\ldots ,2010\right) \\
+x_{6} &=\left( 0,0.01,0.02,\ldots ,0.99,1\right)
+\end{align*}
+```{r}
+x1 <- 1:9  # or c(1:9)
+x2 <- rep(c(0, 1), times = 4)
+x3 <- rep(1, times = 8)
+x4 <- rep(c(-1, 1), times = 3)
+x5 <- seq(from = 1980, to = 2010, by = 5)
+x6 <- seq(0, 1, by = 0.01)
+```
+
+2. Replications can also be generated for vectors of strings
+(characters). Type
+```{r}
+a <- c("a", "b", "c")
+rep(a, 3)
+rep(a, times = 3)
+rep(a, each = 3)
+```
+
+3. Generate a grid of $n=500$ equidistant points on the interval $[-\pi,\pi ]$.
+```{r,eval=FALSE}
+seq(-pi, pi, length = 500)
+```
+
+4. Compare `1:10+1` and `1:(10+1)`.
+```{r}
+1:10 + 1    # sequence from 2 to 11
+1:(10 + 1)  # sequence from 1 to 11
+```
+
+5. Predict what the following commands will return:
+```{r}
+rep("bla",10)
+rep(rep(1:3,2),each=4)
+rep(c(1,6,NA,2),times=c(2,2,5,3))
+```
+
+***
+# The apply command
+```{r include=FALSE}
+rm(list = ls())
+```
+
+Define the matrices
+\begin{align*}
+X &=\left[ 
+\begin{array}{llll}
+1 & 2 & 7 & 9 \\ 
+9 & 5 & 6 & 4 \\ 
+3 & 3 & 5 & 4
+\end{array}
+\right] , \\
+Y &=\left[ 
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & NA \\ 
+3 & 6 & 9
+\end{array}
+\right] .
+\end{align*}
+```{r}
+X <- matrix(c(1, 9, 3, 2, 5, 3, 7, 6, 5, 9, 4, 4), nrow = 3, ncol = 4)
+Y <- matrix(c(1:7, NA, 9), nrow = 3, ncol = 3)
+```
+
+In the following exercises always use the `apply` command.
+
+1. Compute the row sums of $X$.
+```{r}
+apply(X, 1, sum)
+```
+
+2. Compute the column means of $X$.
+```{r}
+apply(X, 2, mean)
+```
+
+3. Compute the column ranges of $X.$
+```{r}
+apply(X, 2, range)
+```
+
+4. Compute the column sums of $Y$. Add the `sum` function option `na.rm=TRUE` to the `apply` command.
+```{r}
+apply(Y, 2, sum, na.rm = TRUE)
+```
+
+5. For each column of $X$, find the position (the row number) of the largest element.
+```{r}
+apply(X, 2, which.max)
+```
+
+6. For each column of $X$, compute the cumulated sums (`cumsum`).
+```{r}
+apply(X, 2, cumsum)
+apply(X < 5, 1, sum)  # "X<5" creates a logical matrix. TRUE counts as 1 FALSE as 0
+apply(!is.na(Y), 2, sum)
+apply(X, 1, unique)
+```
+
+7. For each row of $X$, find the number of elements that are smaller than 5.
+```{r}
+apply(X < 5, 1, sum)  # "X<5" creates a logical matrix. TRUE counts as 1 FALSE as 0
+```
+
+8. For each column of $Y$, determine the number of non-missing
+observations.
+```{r}
+apply(!is.na(Y), 2, sum)
+```
+
+9. For each row of $X$, determine the unique elements. Note that in this case the `apply` command does not return a matrix.
+```{r}
+apply(X, 1, unique)
+```
+
+***
+# Reading and writing text files
+```{r include=FALSE}
+rm(list = ls())
+```
+Download the files **bsp1.txt**, **bsp2.txt** and **bsp3.txt**
+from the internet site of the course and save them to your working directory. The three files contain computer generated random numbers.
+
+1. Read the file **bsp1.txt** into a data frame `bsp1`. Have a
+look at the file and the data format _before_ you decide which reading command you use (`read.csv`, `read.csv2` or `read.table`). Print the data frame. If the data frame is too large for your screen, you can use the commands `head` and `tail` to print just parts of it.
+```{r}
+bsp1 <- read.csv2("../../data/bsp1.txt")  # German format (sep=';', dec=','), therefore read.csv2
+print(bsp1)
+head(bsp1)
+tail(bsp1)
+```
+
+2. Read the files **bsp2.txt** and **bsp3.txt** into data frames `bsp2` and `bsp3`. Note that **bsp2.txt** contains both
+numeric and character entries. It is usually advisable to set the option `as.is=TRUE` when reading characters (strings).
+```{r}
+# international format (sep=',', dec='.'), therefore read.csv:
+bsp2 <- read.csv("../../data/bsp2.txt")
+# See help file for default settings
+bsp3 <- read.table("../../data/bsp3.txt", dec = ".", sep = ",")
+```
+
+3. Print the class of `bsp2`, its dimension, and its variable names (use `names`).
+```{r}
+class(bsp2)
+dim(bsp2)
+names(bsp2)
+```
+
+
+4. Print a summary of `bsp3`.
+```{r}
+summary(bsp3)
+```
+
+5. Use the `apply` command to compute the mean and the standard deviation of each column of `bsp3`.
+```{r}
+apply(bsp3, 2, sd)
+apply(bsp3, 2, mean)
+```
+
+6. Create a small data frame `a` with two variables
+
+x | y
+--|--
+1 | 4
+2 | 5 
+3 | 6
+
+and write it to a file **smalldataframe.csv** in your working directory.
+```{r}
+x <- 1:3
+y <- 4:6
+smalldataframe <- data.frame(x, y)
+write.csv2(smalldataframe, file = "../../data/smalldataframe.csv")  # write.csv2 for German Excel
+```
+
+***
+# Reading data online
+```{r include=FALSE}
+rm(list = ls())
+```
+Install and activate the packages `TTR` and `fImport`.
+```{r,eval=FALSE}
+library(TTR)
+library(fImport)
+```
+
+1. Read the (large) file **lest2001.csv** directly from the following internet site into a data frame `x`. The complete URL is [http://www.wiwi.uni-muenster.de/05/download/studium/R/ws1112/data/lest2001.csv](http://www.wiwi.uni-muenster.de/05/download/studium/R/ws1112/data/lest2001.csv)
+
+The file is the campus file of the German income tax records 2001 (the data are provided by the Research Data Centre of the Federal Statistical Office, they are described in **lest2001.pdf**). Take care to set the options of the `read.csv` or `read.table` command correctly. The data
+format is as follows:
+
+* All data entries are separated by semi-colons.
+* The first row contains the variables names.
+* Missing values are denoted by a dot.
+* Apart from the last column all data are integer values.
+* The decimal sign in the last column is a dot.
+
+Execute `y <- x\$zve`. The variable `y` now contains the taxable income (**z**u **v**ersteuerndes **E**inkommen). Compute its range, its median, its mean, its variance, and the
+0.01- and 0.99-quantiles. Remember to include the option `na.rm=TRUE` in the functions.
+```{r}
+#x <- read.table("http://www.wiwi.uni-muenster.de/05/download/studium/R/ws1112/data/lest2001.csv", header = TRUE, na.strings= ".", dec = ".", sep = ";")
+lest2001 <- read.table("../../data/lest2001.csv", header = TRUE, na.strings= ".", dec = ".", sep = ";")
+head(lest2001)
+y <- lest2001$zve
+range(y, na.rm = TRUE)
+median(y, na.rm = TRUE)
+var(y, na.rm = TRUE)
+quantile(y, p = c(0.01, 0.99), na.rm = TRUE)
+```
+
+2. Read the help text of the `getYahooData` command of the 
+`TTR` package. Read the data about the Deutsche Bank (symbol _DB_) from January 1st, 2000 to the most recent date into the object `x`. Plot the closing price by `plot(x\$Close)`.
+```{r}
+library(TTR)
+DB <- getYahooData("DB", start = 20000101)
+plot(DB$Close)
+```
+
+***
+# Indexing vectors
+```{r include=FALSE}
+rm(list = ls())
+```
+
+Define the following vectors
+\begin{align*}
+x=\left( 
+\begin{array}{c}
+1 \\ 
+1.1 \\ 
+9 \\ 
+8 \\ 
+1 \\ 
+4 \\ 
+4 \\ 
+1
+\end{array}
+\right) ,\quad y=\left( 
+\begin{array}{c}
+1 \\ 
+2 \\ 
+3 \\ 
+4 \\ 
+4 \\ 
+3 \\ 
+2 \\ 
+NA
+\end{array}
+\right) ,\quad z=\left( 
+\begin{array}{c}
+TRUE \\ 
+TRUE \\ 
+FALSE \\ 
+FALSE \\ 
+TRUE \\ 
+FALSE \\ 
+FALSE \\ 
+FALSE
+\end{array}
+\right)
+\end{align*}
+```{r}
+x <- c(1, 1.1, 9, 8, 1, 4, 4, 1)
+y <- c(1, 2, 3, 4, 4, 3, 2, NA)
+z <- c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE)
+```
+
+1. Predict what the following commands will return (and then check if you are right):
+```{r}
+x[-2]
+x[2:5]
+x[c(1,5,8)]
+x[-c(1,5,8)]
+x[y]
+x[seq(2,8,by=2)]
+x[rep(1:3,4)]
+```
+
+
+2. Predict what the following commands will return (and then check if you are right):
+```{r}
+y[z]
+y[!z]
+y[x>2]
+y[x==1]
+x[!is.na(y)]
+y[!is.na(y)]
+```
+
+3. Indexing is not only used to read certain elements of a vector but also to change them. Execute `x2 <- x` to make a copy of `x`. Change all elements of `x2` that have the value 4 to the value $-4$. Print `x2`.
+```{r}
+x2 <- x  
+x2[x2 == 4] <- -4
+print(x2)
+```
+
+4. Change all elements of `x2` that have the value 1 to a missing value (`NA`). Print `x2`.
+```{r}
+x2[x2 == 1] <- NA
+print(x2)
+```
+
+5. Execute `x2[z] <- 0`. Print `x2`.
+```{r}
+x2[z] <- 0
+print(x2)
+```
+
+***
+# Indexing matrices
+```{r include=FALSE}
+rm(list = ls())
+```
+
+Define the matrix `x <- matrix(c(1:12,12:1),4,6)`.
+```{r}
+x <- matrix(c(1:12, 12:1), 4, 6)
+```
+
+1. Predict what the following commands will return (and then check if you are right):
+```{r}
+x[1,3]
+x[,5]
+x[2,]
+x[,-3]
+x[-4,]
+x[2:3,3:4]
+x[2:4,4]
+```
+
+2. Predict what the following commands will return (and then check if you are right):
+```{r}
+x[x>5]
+x[,x[1,]<=5]
+x[x[,2]>6,]
+x[x[,2]>6,4:6]
+x[x[,1]<3 & x[,2]<6,]
+```
+
+3. Print all rows where column 5 is at least three times larger than column 6.
+```{r}
+x[x[, 5]>= (3 * x[, 6]) , ]  
+```
+
+4. Count the number of elements of `x` that are larger than 7.
+```{r}
+length(x[x > 7])  # or: sum(x>7)
+```
+
+5. Count the number of elements in row 2 that are smaller than their neighbors in row 1.
+```{r}
+sum(x[2, ] < x[1, ])
+```
+
+6. Count the number of elements of `x` that are larger than their left neighbor.
+```{r}
+sum(x[, 2:6] > x[, 1:5])  # alternativ: sum(x[,-1]>x[,-6])
+```
+
+***
+# Indexing dataframes
+```{r include=FALSE}
+rm(list = ls())
+```
+
+Load the data set **bsp2.txt** as data frame `bsp2` and print it.
+```{r}
+bsp2 <- read.csv("../../data/bsp2.txt",as.is=TRUE)
+print(bsp2)
+```
+
+1. Use different ways to print the second column of the data frame `bsp2` (as a vector or a data frame).
+```{r,,eval=FALSE}
+bsp2[, 2]
+bsp2$Y
+bsp2[[2]]
+bsp2["Y"]
+```
+
+2. Use different ways to print columns $U$ and $V$.
+```{r,,eval=FALSE}
+bsp2[, 4]
+bsp2$U
+bsp2[[4]]
+bsp2["U"]
+bsp2[, 5]
+bsp2$V
+bsp2[[5]]
+bsp2["V"]
+```
+
+3. Use the `attach` command to make the variables directly accessible. Print `X`. Now `detach` the data frame again.
+```{r,eval=FALSE,}
+attach(bsp2)
+print(X)  # For safety reasons apply rm(list = ls()) upfront
+detach(bsp2)
+```
+
+4. Print all rows of `bsp2` where the variable $U$ has value A or B.
+```{r}
+bsp2[bsp2$U == "A" | bsp2$U == "B", ]
+```
+
+5. Print all rows of `bsp2` where the variable $X$ is smaller than its median and the variable $Y$ is larger than its median.
+```{r}
+bsp2[bsp2$X < median(bsp2$X) & bsp2$Y > median(bsp2$Y), ]
+```
+
+6. One can add row names to a data frame. Execute the following command and print the data frame to have a look at the new row names:
+```{r}
+row.names(bsp2) <- paste(rep(LETTERS[1:20], each = 2), rep(1:2, 20), sep = "")
+print(bsp2)
+```
+
+7. Use the row name and the variable name to print the value of variable `Z` at observation `T1`.
+```{r}
+bsp2["T1", "Z"]
+```
+
+8. Print the rows for observations `G1` and `G2`.
+```{r}
+bsp2[c("G1", "G2"), ]
+```
+
+***
+# User-defined functions
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Define a Cobb-Douglas production function with two inputs vectors,
+\begin{align*}
+x &=\left( 
+\begin{array}{c}
+L \\ 
+K
+\end{array}
+\right) \\
+\theta &=\left( 
+\begin{array}{c}
+A \\ 
+\alpha \\ 
+\beta
+\end{array}
+\right)
+\end{align*}
+and scalar output
+\begin{align*}
+y=AL^{\alpha }K^{\beta }.
+\end{align*}
+Evaluate the function at
+\begin{align*}
+x &=\left( 
+\begin{array}{c}
+2 \\ 
+3
+\end{array}
+\right) \\
+\theta &=\left( 
+\begin{array}{c}
+1 \\ 
+0.3 \\ 
+0.8
+\end{array}
+\right) .
+\end{align*}
+```{r}
+cobb_douglas <- function(x, theta) {
+  y <- theta[1] * x[1]^theta[2] * x[2]^theta[3]  
+  return(y)
+}
+cobb_douglas(x = c(2, 3), theta = c(1, 0.3, 0.8))  
+```
+
+2. Define a function `lowdecile` with one input vector $\left(x_{1},\ldots ,x_{n}\right)$ of arbitrary length. The function should compute and return the mean of all observations in the lowest decile. Define the vector
+\begin{align*}
+x=\left( 0,0,0,0,1,1,1,1,2,2,2,2,\ldots ,9,9,9,9\right)
+\end{align*}
+and apply `lowdecile` to $x$.
+```{r}
+lowdecile <- function(x) {
+  quantil <- x[x <= quantile(x, p = 0.1)]  
+  return(mean(quantil))  
+}
+lowdecile(x = rep(0:9, each = 4))
+```
+
+***
+# Sorting and merging
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Define $x=\left(-1,0,1,4,9,2,1,4.5,1.1,-0.9\right)$ and sort the vector ascendingly. Print the second smallest element of $x$.
+```{r}
+x <- c(-1, 0, 1, 4, 9, 2, 1, 4.5, 1.1, -0.9)
+sort(x, decreasing = FALSE)
+sort(x, decreasing = FALSE)[2]  
+```
+
+2. Sort $x$ descendingly and print the third largest element of $x$.
+```{r}
+sort(x, decreasing = TRUE)
+sort(x, decreasing = TRUE)[3]  
+```
+
+3. Execute `x <- matrix(c(1:12,12:1),6,4,byrow=T)` to define the matrix $x$. Calculate the order vector $p$ of the last column of $x$. Sort the matrix $x$ by the last column and print the sorted matrix.
+```{r}
+x <- matrix(c(1:12, 12:1), 6, 4, byrow = T)
+p <- order(x[, 4])  
+x[p, ]
+```
+
+4. Load the file **bsp2.txt** into the data frame `bsp2`. Sort `bsp2` by the variable `U` and on the next level by the variable `X`.
+```{r}
+bsp2 <- read.csv("../../data/bsp2.txt")
+bsp2[order(bsp2$U), ]  
+bsp2[order(bsp2$U, bsp2$X), ]  
+```
+
+5. Activate the package `foreign` and load the Stata files **wave2000.dta** and **wave2009.dta** into two data frames. Print the variable names of both data frames. Merge the data frames by the variable `pid`. Keep only persons who are present in both years (by setting
+the option `all=FALSE`). Print the variables names of the merged data frame.
+```{r}
+library(foreign)
+wave2000 <- read.dta("../../data/wave2000.dta")
+wave2009 <- read.dta("../../data/wave2009.dta")
+```
+
+```{r}
+names(wave2000)
+names(wave2009)
+```
+
+```{r}
+ges <- merge(wave2000, wave2009, by = "pid", all = FALSE)  
+names(ges)
+```
+
+
+6. Calculate the mean life satisfaction in 2000 and 2009.
+```{r}
+mean(ges$satisfaction.x)
+mean(ges$satisfaction.y)
+```
+
+7. Calculate the mean change in life satisfaction for persons who were single in 2000 and married in 2009.
+```{r}
+subsamp <- ges[ges$marital.x == "Single" & ges$marital.y == "Married", ]
+mean(subsamp$satisfaction.y - subsamp$satisfaction.x)
+```
+
+***
+# Frequency tables
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Read the Stata file **wave2009.dta** into a data frame. Tabulate the variables `gender`, `marital` and `children`.
+```{r}
+library(foreign)
+wave2009 <- read.dta("../../data/wave2009.dta")
+head(wave2009)
+table(wave2009$gender)
+table(wave2009$marital)
+table(wave2009$children)
+```
+
+2. Read the file **bsp2.txt** into a data frame. Compute and plot the frequency tables of the variables $U$ and $V$.
+```{r}
+bsp2 <- read.csv("../../data/bsp2.txt")
+table(bsp2[, 4]) 
+table(bsp2[, 5]) 
+plot(table(bsp2[, 4]), col = "lightblue")
+plot(table(bsp2[, 5]), col = "lightblue")
+```
+
+3. Define the vector $x=(1,1,1,1,1,2,2,2,2,3,3,3,4,4,5,9)$. Compute the absolute and relative frequency tables and determine the number of different values of $x$.
+```{r}
+x <- c(rep(1:5, times = c(5:1)), 9)
+abs.freq <- table(x)
+print(abs.freq)
+rel.freq <- abs.freq/length(x)
+print(rel.freq)
+length(abs.freq)  # or length(unique(x))
+```
+
+4. Read the file **lest2001.csv** (wage and income tax data) into a data frame using the option `as.is=TRUE`. The variable `ef8` gives the gender (male=0, female=1). Tabulate `ef8`.
+```{r}
+lest2001 <- read.table("../../data/lest2001.csv", header = TRUE, na.strings = c(".", ""), dec = ".", sep = ";", as.is = T)  
+class(lest2001$samplingweight)
+table(lest2001$ef8)
+```
+
+5. The **lest2001.csv** data set contains a weighting variable (`samplingweight`). Each row counts as _samplingweight_ observations. Re-compute the absolute frequencies of `ef8` taking into account the weights.
+```{r}
+sum(lest2001$samplingweight[lest2001$ef8 == 0])  
+sum(lest2001$samplingweight[lest2001$ef8 == 1])
+```
+
+6. Load the Stata file **mikrozensus2002cf.dta** into a data frame (the data are described in the file **mikrozensus2002cf.pdf**). Consider the variable `ef455` (age of flat or house) which is coded into nine classes. Tabulate the age structure.
+```{r}
+mikrozensus2002cf <- read.dta("../../data/mikrozensus2002cf.dta")
+head(mikrozensus2002cf)
+table(mikrozensus2002cf$ef455)
+```
+
+***
+# Cumulative distribution function and quantile function
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Load the data set **bsp1.txt** and calculate the value of the empirical distribution function of `Variable1` at the point $x=10$.
+```{r}
+bsp1 <- read.csv2("../../data/bsp1.txt")
+ecdf(bsp1$Variable1)(10)
+```
+
+2. Plot the empirical distribution function of `Variable2`. Improve the readability of the plot by adding an appropriate heading and axes labels (use the options `main`, `xlab` and `ylab`).
+```{r}
+plot(ecdf(bsp1$Variable2), main = "ECDF of Variable2", xlab = "Value of Variable2", ylab = "Cumulative Probability")
+```
+
+3. Compute the $p$-quantiles of `Variable1` for $p=0.01,0.05,0.1,0.5,0.9,0.95,0.99$.
+```{r}
+quantile(bsp1$Variable1, p = c(0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99))
+```
+
+4. Load the data set **lest2001.csv** and compute the value of the empirical distribution function of `zve` (taxable income) at the points 0, 12000, and 60000.
+```{r}
+lest2001 <- read.table("../../data/lest2001.csv", header = TRUE, na.strings = c(".", ""), dec = ".", sep = ";", as.is = T)
+# ecdf without weights
+ecdf(lest2001$zve[!is.na(lest2001$zve)])(c(0, 12000, 60000))
+```
+
+5. Use the `quantile` command to compute the 0.99-quantile, the 0.999-quantile, and the 0.9999-quantile of `zve`.
+```{r}
+# quantiles without weights
+quantile(lest2001$zve, na.rm = TRUE, p = c(0.99, 0.999, 0.9999))
+```
+
+***
+# Mean, variance and standard deviation
+```{r include=FALSE}
+rm(list = ls())
+```
+
+1. Read the file **lest2001.csv** (wage and income tax data) into a data frame. The variable `zve` reports taxable income. Compute the mean taxable income without weighting the observations. Then re-compute the mean using the weights given in the `samplingweight`. Hint: Use `weighted.mean`.
+```{r}
+lest2001 <- read.table("../../data/lest2001.csv", header = TRUE, na.strings = c(".", ""), dec = ".", sep = ";", as.is = T)
+mean(lest2001$zve, na.rm = TRUE)
+wm <- weighted.mean(lest2001$zve, w = lest2001$samplingweight, na.rm = TRUE)
+print(wm)
+```
+
+2. Compute the unweighted and weighted variance of `zve`.
+```{r}
+var(lest2001$zve, na.rm = TRUE)
+wvar <- weighted.mean((lest2001$zve - wm)^2, w = lest2001$samplingweight, na.rm = T)
+print(wvar)
+```
+
+3. Load the Stata file `mikrozensus2002cf.dta` into a data frame and consider the variables `ef455` (age of flat or house) and `ef466` (cost of heating and warm water in April 2002). Compute the mean cost of heating and warm water for each age class. Hint: You may consider using the command `by`.
+```{r}
+mikrozensus2002cf <- read.dta("../../data/mikrozensus2002cf.dta")
+mikrozensus2002cf$ef455
+mikrozensus2002cf$ef466
+by(mikrozensus2002cf$ef466, mikrozensus2002cf$ef455, mean, na.rm = TRUE)
+```
+
+***
+# Histograms
+```{r,include=FALSE}
+rm(list = ls())
+```
+In this section, please always use the command `truehist` (which is included in the `MASS` package) to generate histograms.
+```{r}
+library(MASS)
+```
+
+1. Load the file **gemeinden2006.csv** into a data frame. Delete all observations where the number of inhabitants (`Einwohner`) is smaller than 5. Plot the histogram of the logarithm of the variable `Einwohner.
+```{r}
+gemeinden2006 <- read.csv2("../../data/gemeinden2006.csv")
+gemeinden2006new <- gemeinden2006[gemeinden2006$Einwohner >= 5, ] #or x[!x$Einwohner < 5, ]
+truehist(log(gemeinden2006new$Einwohner), col = "lightblue")
+```
+
+2.Add the density function of a fitted normal distribution to the histogram.
+```{r}
+truehist(log(gemeinden2006new$Einwohner), col = "lightblue")
+m <- mean(log(gemeinden2006new$Einwohner))
+s <- sd(log(gemeinden2006new$Einwohner))
+x <- seq(1, 15, length = 500)
+lines(x, dnorm(x, mean = m, sd = s), lwd = 2)
+```
+
+3. Load the Stata file **mikrozensus2002cf.dta** into a data frame. Consider the variable `ef462` (rent in April 2002). Drop all observations where the rent exceeds 2000 Euro. Plot the histogram.
+```{r}
+library(foreign)
+mikrozensus2002cf <- read.dta("../../data/mikrozensus2002cf.dta")
+y <- mikrozensus2002cf$ef462[!is.na(mikrozensus2002cf$ef462)]  
+yy <- y[y <= 2000]  
+truehist(yy, col = "pink", xlab = "rent", ylab = "density", main = "histogram of rents")
+```
+
+4. Load the Stata file **mikrozensus2002cf.dta** into a data frame.
+
++ Plot the histogram of the variable `ef453` (size of flat in square meters).
+
++ Drop all observations with more than $300$ $m^{2}$ and plot the histogram again.
+
++ Set the number of bins in the histogram to 15.
+```{r}
+truehist(mikrozensus2002cf$ef453, col = "lightblue", xlab = "size of flat (in qm)", ylab = "density")
+truehist(mikrozensus2002cf$ef453[mikrozensus2002cf$ef453 <= 300], col = "lightgreen", xlab = "size of flat (in qm)", ylab = "density")
+truehist(mikrozensus2002cf$ef453[mikrozensus2002cf$ef453 <= 300], col = "steelblue", nbins = 15, xlab = "size of flat (in qm)", ylab = "density")  # only use 15 classes
+```
+
+***
+# Contingency tables, correlation and covariance
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+1. Execute `data(Titanic)` to load the object `Titanic` of class `table`. Print it as an ordinary table and as a flat table. Plot it as well. Compute the univariate marginal distributions using the `apply` command. Compute the bivariate marginal distribution of survival and social class (again using `apply`).
+```{r}
+data(Titanic)
+Titanic
+table(Titanic)
+ftable(Titanic)
+ftable(Titanic, row.vars = c("Survived", "Age"))  # Write 'Survived' and 'Age' into rows
+plot(Titanic)
+apply(Titanic, 1, sum)
+apply(Titanic, 2, sum)
+apply(Titanic, 3, sum)
+apply(Titanic, 4, sum)
+apply(Titanic, c(1, 4), sum)
+# or margin.table(Titanic,c(1,4))
+
+```
+
+2. Load the file **covmat.csv** into a data frame.
+```{r}
+covmat <- read.csv("../../data/covmat.csv")
+```
+
++ Compute the covariance matrix using the option `use="complete"`. Check if the covariance matrix is positive definite.
+```{r}
+cov(covmat)
+cov(covmat,use="complete")
+if (sum(eigen(cov(covmat,use="complete"))$value>0) == dim(covmat)[2]){
+  print("Matrix is positive definite")
+} else {
+  print("Matrix is not positive definite")
+}
+```
+
++ Now compute the covariance using the option `pairwise` and check again, if the covariance matrix is positive definite.
+```{r}
+cov(covmat,use="pairwise")
+if (sum(eigen(cov(covmat,use="pairwise"))$value>0) == dim(covmat)[2]){
+  print("Matrix is positive definite")
+} else {
+  print("Matrix is not positive definite")
+}
+```
+
+3. Load the Stata file **mikrozensus2002cf.dta** into a data frame. Consider the two variables `ef141` (normal hours worked) and `ef372` (net income per capita in April 2002). The variable `ef372` is coded into 24 income brackets (see data description **mikrozensus2002cf.pdf**). Drop all observations where `ef372` is larger than 24 (i.e. missing values etc.) and recode the remaining observations to the midpoints of the income brackets. Compute the correlation coefficient of hours worked and net income.
+
+```{r}
+library(foreign)
+mikrozensus2002cf <- read.dta("../../data/mikrozensus2002cf.dta")
+inc <- mikrozensus2002cf$inc
+ef141 <- mikrozensus2002cf$ef141
+ef372 <- mikrozensus2002cf$ef372
+inc <- ef372[ef372 <= 24]
+
+# We only have the income brackets (1-24) but not the concrete values, hence we build midpoints
+# Recode each bracket
+inc[inc == "1"] <- 150/2
+inc[inc == "2"] <- (150 + 300)/2
+inc[inc == "3"] <- (300 + 500)/2
+inc[inc == "4"] <- (500 + 700)/2
+inc[inc == "5"] <- (700 + 900)/2
+inc[inc == "6"] <- (900 + 1100)/2
+inc[inc == "7"] <- (1100 + 1300)/2
+inc[inc == "8"] <- (1300 + 1500)/2
+inc[inc == "9"] <- (1500 + 1700)/2
+inc[inc == "10"] <- (1700 + 2000)/2
+inc[inc == "11"] <- (2000 + 2300)/2
+inc[inc == "12"] <- (2300 + 2600)/2
+inc[inc == "13"] <- (2600 + 2900)/2
+inc[inc == "14"] <- (2900 + 3200)/2
+inc[inc == "15"] <- (3200 + 3600)/2
+inc[inc == "16"] <- (3600 + 4000)/2
+inc[inc == "17"] <- (4000 + 4500)/2
+inc[inc == "18"] <- (4500 + 5000)/2
+inc[inc == "19"] <- (5000 + 5500)/2
+inc[inc == "20"] <- (5500 + 6000)/2
+inc[inc == "21"] <- (6000 + 7500)/2
+inc[inc == "22"] <- (7500 + 10000)/2
+inc[inc == "23"] <- (10000 + 18000)/2
+inc[inc == "24"] <- 18000
+
+# consider only values of ef141 for which ef372<=24, otherwise both vectors would have different sizes
+cor(inc, ef141[ef372 <= 24], use = "complete")  
+```
+
+***
+# Programming
+```{r,include=FALSE}
+rm(list = ls())
+```
+1. This exercise illustrates that loops are often not very efficient.
+
+* Create the vector $x=(1,2,\ldots ,1\,000\,000)$ and convert it from _integer_ to _numeric_ using the conversion command `as.numeric`.
+```{r}
+x <- 1:1e+06
+class(x)
+x <- as.numeric(x)
+class(x)
+```
+
+* Write a `for`-loop to compute the sum of all vector elements without using the `sum` command. Put the command `p0 <- proc.time()[3]` in front of the loop and the command `print(proc.time()[3]-p0)` at the end. These commands allow to measure the execution time of the loop.
+```{r}
+S <- 0  # initialize
+p0 <- proc.time()[3]  #Startzeitpunkt festlegen
+for (i in x) {
+    S <- S + i
+}
+print(S)
+print(proc.time()[3] - p0)  #time used 
+```
+
+*Compare your result with the execution time of the `sum` command.
+
+```{r}
+p0 <- proc.time()[3]
+sum(x)
+print(proc.time()[3] - p0)
+```
+
+
+2. Create a grid vector $x$ of 60 equidistant points $x_{1},\ldots,x_{60} $ on the interval $[-10,10]$, and another grid vector $y$ of 70 points $y_{1},\ldots ,y_{70}$ on $[-10,10]$. Create an empty matrix $Z$ of dimension $60\times 70$.
+
+Write a double loop to compute the matrix elements
+\begin{align*}
+Z_{ij}=\frac{10}{r_{ij}}\cdot \sin (r_{ij})
+\end{align*}
+where $r_{ij}=\sqrt{x_{i}^{2}+y_{j}^{2}}$. Execute `persp(x,y,Z)`.
+```{r}
+x <- seq(-10, 10, length = 60)
+y <- seq(-10, 10, length = 70)
+Z <- matrix(NA, 60, 70)
+for (i in 1:length(x)) {
+    for (j in 1:length(y)) {
+        r <- sqrt(x[i]^2 + y[j]^2) # note that r is overwritten in each run of the loop
+        Z[i, j] <- 10/r * sin(r)
+    }
+}
+persp(x, y, Z, ticktype = "detailed", col = "lightblue")
+```
+
+3. Load the data set **fussballdaten.csv**. It contains all _1. Bundesliga_ results between the
+seasons 1996/1997 and 2008/2009.
+```{r}
+fussballdaten <- read.csv2("../../data/fussballdaten.csv", as.is = TRUE)
+```
+
+* Create an alphabetically ordered vector of all clubs in the data set.
+```{r}
+home <- fussballdaten$Heim
+away <- fussballdaten$Auswaerts
+clubs <- sort(unique(home))
+```
+
+* Write a loop over all clubs. For each club compute the proportion of games won.
+```{r}
+ngames <- dim(fussballdaten)[1] # number of games in dataset
+GoalsH <- fussballdaten$ToreH
+GoalsA <- fussballdaten$ToreA
+winner <- rep(NA, ngames)
+propwin <- rep(NA, length(clubs))
+# Get winning teams
+for (i in 1:ngames) {
+    if (GoalsH[i] > GoalsA[i]) {
+        winner[i] <- home[i]
+    }
+    if (GoalsA[i] > GoalsH[i]) {
+        winner[i] <- away[i]
+    }
+    if (GoalsH[i] == GoalsA[i]) {
+        winner[i] <- "Remis"
+    }
+}
+# Get proportions
+for (i in 1:length(clubs)) {
+    win <- sum(winner == clubs[i])  # Games won by club i
+    tot <- sum(home == clubs[i] | away == clubs[i])  # Number of mathes of club i
+    propwin[i] <- win/tot
+}
+names(propwin) <- clubs
+print(propwin)
+```
+
+* Order the clubs descendingly according to the proportion of games won and plot a `barplot` of the proportion.
+```{r}
+sort(propwin, decreasing = TRUE)
+barplot(sort(propwin, decreasing = TRUE), col = "steelblue", las = 3)  # label is printed vertically using las=3
+```
+
+
+4. Load the data set **bsp1.txt**. Use the command `ifelse` to change all zero entries of the first variable to ones (and leave all other entries unchanged).
+```{r}
+bsp1 <- read.csv2("../../data/bsp1.txt")
+print(bsp1$Variable1)
+bsp1$Variable1 <- ifelse(bsp1$Variable1 == 0, 1, bsp1$Variable1)  
+print(bsp1$Variable1)
+```
+
+***
+# Random numbers
+```{r, include=FALSE}
+rm(list = ls())
+```
+This section is not only about random number generation but also includes exercises about the R-functions for standard distributions in statistics.
+
+1. Let's consider a simple count data example.
++ Let $X\sim N\left( 0,1\right) $. Compute the probability $P(|X|>3.5)$.
+```{r}
+2 * (1 - pnorm(3.5))
+```
+
++ Generate $n=10000$ random draws $X_{1},\ldots ,X_{n}$ from $X$ and count the number of observations $|X_{i}|>3.5$.
+```{r}
+n <- 10000
+X <- rnorm(n)
+sum(abs(X) > 3.5)
+sum(abs(X) > 3.5)/n
+# the larger n the closer it is to the theoretical value of 0.0004652582
+```
+
++ Repeat drawing random samples $R=5000$ times and write the counts into a vector $Z_{1},\ldots ,Z_{5000}$ of length 5000.
+```{r}
+R <- 5000  
+Z <- rep(NA, R)  
+n <- 10000
+for (i in 1:R) {
+    X <- rnorm(n)
+    Z[i] <- sum(abs(X) > 3.5)
+}
+```
+
++ Tabulate $Z$ and compare the frequencies with the probability function of a suitably fitted Poisson distribution.
+```{r}
+table(Z)
+t(data.frame(observ = 0:16 , prob = dpois(0:16, lambda=mean(Z))*R))
+library(MASS)
+truehist(Z, prob = F)  
+x <- seq(0, 16)
+lines(x, dpois(x, lambda = mean(Z)) * R, lwd = 2)  
+```
+
+
+2. Generate $n=10000$ draws from a log normal distribution $X\sim e^{Y}$ where $Y\sim N(1,0.5^{2})$ (the parameters in the R function are `meanlog=1` and `sdlog=0.5`). Split the screen into two plotting areas using the command `par(mfrow=c(2,1))`. Plot the histograms of $X$ and $\ln X$.
+```{r}
+n <- 10000
+x <- rlnorm(n, meanlog = 1, sdlog = 0.5)
+par(mfrow = c(2, 1))
+truehist(x)
+truehist(log(x))
+```
+
+3. Generate $n=10000$ draws from $X\sim N(0,1)$. Compute the cumulated means, i.e.
+\begin{align*}
+\bar{X}_{j}=\frac{1}{j}\sum_{i=1}^{j}X_{i}
+\end{align*}
+for $j=1,\ldots ,n$ and plot them. Hint: Use the command `cumsum`.
+```{r}
+par(mfrow = c(1, 1))
+n <- 10000
+X <- rnorm(n)  
+m <- rep(NA, n)
+for (i in 1:n) {
+    m[i] <- cumsum(X)[i]/i
+}
+plot(m)
+```
+
+***
+# Simulations
+```{r,include=FALSE}
+rm(list = ls())
+```
+1. This exercise illustrates the one-sample $t$-test.
+
++ Generate $n=10$ observations from $X\sim N(10,3^{2})$. Compute the mean and the standard deviation of $X_{1},\ldots ,X_{10}$.
+```{r}
+n <- 10
+X <- rnorm(n, mean = 10, sd = 3)
+m <- mean(X)
+s <- sd(X)
+print(m)
+print(s)
+```
+
++ The $t$-statistics of the hypothesis test $H_{0}:\mu =10$ against $H_{1}:\mu \neq 10$ is \begin{align*}
+t=\sqrt{10}\frac{\bar{X}-10}{sd}
+\end{align*}
+where $sd$ is the standard deviation (as computed by `sd`). Compute the $t$-statistic.
+```{r}
+t <- sqrt(n) * (m - 10)/s
+print(t)
+```
+
++ Create an empty vector $Z$ of length $R=5000$. Write a loop over $r=1,\ldots ,R$ and repeat the above steps for each $r$. Save the $t$-statistic at $Z_{r}$.
+```{r}
+R <- 5000
+Z <- rep(NA, R)
+for (r in 1:R) {
+    X <- rnorm(n, mean = 10, sd = 3)
+    m <- mean(X)
+    s <- sd(X)
+    Z[r] <- sqrt(n) * (m - 10)/s
+}
+```
+
++ Plot the histogram of $Z_{1},\ldots ,Z_{R}$ and add the density function of the $t_{9}$-distribution.
+```{r}
+library(MASS)
+truehist(Z, col = "lightblue")
+x <- seq(-4, 4, by = 0.1)
+lines(x, dt(x, df = 9), lwd = 2)
+```
+
+2. The classical central limit theorem states that the standardized sum of i.i.d. random variables with finite variance converges in distribution to the standard normal distribution $N(0,1)$. This exercise illustrates the central limit theorem. 
+
++ Write a simulation that performs the following steps:
+
+* Generate a random sample $X_{1},\ldots ,X_{5}$ of size $n=5$ from the standard exponential distribution $Exp(1)$.
+
+* Compute the sample sum.
+
+* Repeat the steps $R=10\,000$ times. For each replication, store the sum, e.g. into a vector $Z$.
+
+* Plot the histogram of the sum and add the density function of $N(m,s^{2})$ where $m$ is the mean of $Z$ and $s$ is the standard deviation of $Z$.
+```{r}
+clt_exp <- function(n) {
+  R <- 10000
+  Z <- rep(NA, R)
+  for (r in 1:R) {
+      X <- rexp(n, rate = 1)
+      Z[r] <- sum(X)
+  }
+  truehist(Z, col = "lightblue", main=paste("n =",n,sep=" "))
+  coord <- par("usr")
+  # par("usr") gives you a vector of the form c(x1, x2, y1, y2)
+  # giving the extremes of the coordinates of the plotting region
+  x <- seq(coord[1], coord[2], by = 0.1)
+  lines(x, dnorm(x, mean = mean(Z), sd = sd(Z)), lwd = 2)
+}
+clt_exp(5)  
+```
+
+
++ Increase the sample size $n$ to $n=50,500,5000$ and redo the exercise.
+```{r}
+clt_exp(50)
+clt_exp(500)
+clt_exp(5000)
+```
+
+
++ Redo the exercise with other distributions than the exponential. Use the uniform distribution, the $t$-distribution with 3 degrees of freedom, the Bernoulli distribution (i.e.
+binomial with parameter size=1), and the Poisson distribution.
+```{r}
+clt <- function(n, distrib, df=3, lambda=5, prob=0.6) {
+  R <- 10000
+  Z <- rep(NA, R)
+  for (r in 1:R) {
+      if (distrib == 1){
+        X <- runif(n)
+        strdist <- "Uniform"
+        }
+      if (distrib == 2){
+        X <- rt(n, df = df)
+        strdist <- "Student''s t"
+        }
+      if (distrib == 3){
+        X <- rbinom(n, size=1, prob=prob)
+        strdist <- "Bernoulli"
+        }
+      if (distrib == 4){
+        X <- rpois(n, lambda = lambda)
+        strdist <- "Poisson"
+        }
+      Z[r] <- sum(X)
+  }
+  truehist(Z, col = "lightblue", xlab = strdist, main = paste("n =", n, sep = " "))
+  coord <- par("usr")
+  # par("usr") gives you a vector of the form c(x1, x2, y1, y2)
+  # giving the extremes of the coordinates of the plotting region
+  x <- seq(coord[1], coord[2], by = 0.1)
+  lines(x, dnorm(x, mean = mean(Z), sd = sd(Z)), lwd = 2)
+}
+```
+
+```{r}
+par(mfrow = c(2,2))
+for (n in c(5,50,500,5000)) {
+  for (i in 1:4) {
+    clt(n,i)
+  }
+}
+```
+
+
++ The central limit theorem breaks down if the variance of the summands is infinite. Redo the exercise using a $t$-distribution with only 1.5 degrees of freedom.
+```{r}
+par(mfrow = c(1,1))
+clt(500, 2, df = 1.5)
+```
+
+***
+# Linear regression
+```{r,include=FALSE}
+rm(list = ls())
+```
+1. Load the Stata data set **wages.dta**. The variables are `earnings` (in Euro, 2009), `age`, `gender` (male=1, female=2), `education` (years of education), `hours` (hours worked during
+2009), and `weight`.
+```{r}
+library(foreign)
+wages <- read.dta("../../data/wages.dta")
+```
+
+```{r}
+head(wages)
+earnings <- wages$earnings
+age <- wages$age
+gender <- wages$gender
+education <- wages$education
+hours <- wages$hours
+weight <- wages$weight
+```
+
++ Compute the (unweighted) wage equation
+\begin{align*}
+\ln \text{earnings}_{i}=\alpha +\beta _{1}\text{age}_{i}+\beta _{2}\text{age}_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}\text{gender}_{i}+u_{i},
+\end{align*}
+print the summary of the `lm`-object, and interpret the output.
+```{r}
+regr <- lm(log(earnings) ~ age + I(age^2) + education + gender)
+summary(regr)
+```
+
++ Add an interaction term for `education` and `gender` to the regression.
+```{r}
+regr2 <- lm(log(earnings) ~ age + I(age^2) + education + gender + education:gender) 
+summary(regr2)
+```
+
++ Compute the weighted hourly wage equation
+\begin{align*}
+\ln \frac{\text{earnings}_{i}}{\text{hours}_{i}}=\alpha +\beta _{1}\text{age}_{i}+\beta _{2}\text{age}_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}\text{gender}_{i}+u_{i},
+\end{align*}
+print the summary of the `lm`-object, and interpret the output.
+```{r}
+regr3 <- lm(log(earnings/hours) ~ age + I(age^2) + education + gender, weights = weight)
+summary(regr3)
+plot(regr3$residuals)
+```
+
++ Activate the packages `lmtest` and `sandwich`. Use the function `coeftest` to compute the heteroskedasticity robust standard errors (`vcov=vcovHC`) for the estimated coefficients.
+```{r}
+library(lmtest)
+library(sandwich)
+```
+
+```{r}
+# Robust standard errors
+coeftest(regr, vcov = vcovHC)
+coeftest(regr2, vcov = vcovHC)
+coeftest(regr3, vcov = vcovHC)
+```
+
+
++ Predict the hourly wage of a male person aged 60 years as a function of education (vary the years of education between 9 and 18). Set the option `se.fit=TRUE`. Inspect the object returned by the `predict` command. Plot the predicted values and add the $\pm 2$ standard deviations confidence intervals.
+```{r}
+forecast <- predict(regr3, newdata = data.frame(education = seq(9, 18, by = 0.5), age = 60, gender = 1), se.fit = TRUE)
+names(forecast)
+plot(seq(9, 18, by = 0.5), forecast$fit, type = "l", lwd = 2)
+lines(seq(9, 18, by = 0.5), forecast$fit + 2 * forecast$se.fit, type = "l", col = "red", lwd = 1.5)
+lines(seq(9, 18, by = 0.5), forecast$fit - 2 * forecast$se.fit, type = "l", col = "red", lwd = 1.5)
+```
+
+2. Load the data set **bsp4.txt**.
+```{r}
+bsp4 <- read.csv("../../data/bsp4.txt")
+head(bsp4)
+```
+
++ Plot the scatter plot of $y$ against $x$.
+```{r}
+plot(bsp4$x, bsp4$y)
+```
+
++ Perform a simple linear regression of $y$ on $x$ and save the results as an `lm`-object `obj`. Add the regression line of $y$ on $x$ to the plot.
+```{r}
+plot(bsp4$x, bsp4$y)
+obj <- lm(bsp4$y ~ bsp4$x)
+abline(obj)
+```
+
++ Extract the fitted values from `obj` and add them as red points to the plot (use the command `points`).
+```{r}
+plot(bsp4$x, bsp4$y)
+abline(obj)
+points(bsp4$x, obj$fitted.values, col = "red")
+```
+
++ Extract the residuals of the regression and calculate the sum of the squared residuals,
+$SSR=\sum_{i=1}^{100}\hat{u}_{i}^{2}$
+```{r}
+ssr <- sum((obj$residuals)^2)
+print(ssr)
+```
+
++ Compute the total sum of squares and the explained sum of squares,
+\begin{align*}
+TSS &=\sum_{i=1}^{100}\left( y_{i}-\bar{y}\right) ^{2} \\
+ESS &=\sum_{i=1}^{100}\left( \hat{y}_{i}-\bar{y}\right) ^{2}
+\end{align*}
+and show that $ESS+SSR=TSS$.
+```{r}
+tss <- sum((bsp4$y - mean(bsp4$y))^2)
+ess <- sum((obj$fitted.values - mean(bsp4$y))^2)
+ess + ssr - tss # this is numerically zero
+round(ess + ssr) == round(tss)
+```
+
+***
+# Numerical optimization
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+1. Define the polynomial `function`
+\begin{equation*}
+f(x)=x\left( x-2\right) \left( x-4\right) \left( x-5\right) -10
+\end{equation*}
+and plot it over the interval $[0,5]$.
+```{r}
+func <- function(x) {
+    out <- x * (x - 2) * (x - 4) * (x - 5) - 10
+    return(out)
+}
+grid <- seq(0, 5, by=0.01)
+plot(grid, func(grid))
+```
+
++ Use `optimize` to find the minimum of the function. Set the interval to $[0,5]$ and then to $[0,6].$
+```{r}
+optimize(func, c(0, 5)) # global minimum
+optimize(func, c(0, 6)) # local minimum
+optimize(func, c(-1000,1000)) #global minimum
+```
+
++ Even though one-dimensional optimization problems should be solved by `optimize`, use the `optim`-command with option `method="BFGS"` to find the minimum of the function $f$. Set the starting values to $0,1,2,3,-1$ and check if the algorithm finds the global minimum.
+```{r}
+optim(0, func, method = "BFGS")   # global minimum
+optim(1, func, method = "BFGS")   # global minimum
+optim(2, func, method = "BFGS")   # global minimum
+optim(3, func, method = "BFGS")   # local minimum
+optim(-1, func, method = "BFGS")  # local minimum
+```
+
+2. Consider the Cobb-Douglas production function with two inputs $x_{1}$ and $x_{2}$,
+\begin{align*}
+y=f(x_{1},x_{2})=x_{1}^{0.3}x_{2}^{0.6}.
+\end{align*}
+Suppose the output price is $p_{y}=1$ and the input prices are $p_{1}=2$ and $p_{2}=0.5$. Define the profit function as a `function` and numerically maximize it.
+```{r}
+negprofit <- function(x, pr = c(1,2,0.5)) {
+  x1 <- x[1]
+  x2 <- x[2]
+  py <- pr[1]
+  p1 <- pr[2]
+  p2 <- pr[3]
+  profit <- py * (x1^0.3*x2^0.6) - p1 * x1 - p2 * x2
+  return(-profit) # optim minimizes function, so we minimize the negative profits
+}
+x0 <- c(0,0)
+pr0 <- c(1,2,0.5)
+res <- optim(x0, negprofit, pr=pr0, control = c(maxit=50))
+print(res) # note that convergence code is 1, we should increase maximum number of iterations maxit
+res <- optim(x0, negprofit, pr=pr0, control = c(maxit=500))
+print(res)
+print(paste("The maximum profit is equal to",round(-res$value,digits=5)))
+```
+
+3. Consider the nonlinear regression model
+\begin{align*}
+y_{i}=\exp \left( \alpha +\beta x_{i}\right) +u_{i}
+\end{align*}
+where $u_{i}\sim N(0,\sigma ^{2})$. Since the error term is additive one cannot simply take logarithms to make the model linear. Load the data set **expgrowth.csv** and estimate the parameters $\alpha $ and $\beta $ by minimizing
+\begin{align*}
+\sum_{i=1}^{n}\left( y_{i}-\exp \left( a+bx_{i}\right) \right) ^{2}
+\end{align*}
+numerically with respect to $a$ and $b$.
+```{r}
+expgrowth <- read.csv("../../data/expgrowth.csv")
+head(expgrowth)
+fn <- function(param,dat) {
+  alph <- param[1]
+  bet <- param[2]
+  y <- dat$y
+  x <- dat$x
+  u <- y - exp(alph + bet * x)
+  out <- sum(u^2)
+  return(out)
+}
+param0 <- c(0,0)
+optim(param0, fn, dat=expgrowth)
+```
+
+***
+# Maximum likelihood
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+1. Load the data set **round86.csv** into a data frame. The first column is the actual earnings in 1986 of $n=443$ persons as derived from the employers files, the second column is the earnings reported by the persons.
+```{r}
+round86 <- read.csv("../../data/round86.csv")
+actual <- round86$actual
+reported <- round86$reported
+head(round86)
+```
+
++ Compute the reporting errors and plot their histogram.
+```{r}
+difference <- actual - reported
+library(MASS)
+truehist(difference)
+```
+
++ Assume that the reporting error $x$ follows a Laplace distribution with density
+$$
+f\left( x\right) =\frac{1}{2b}\exp \left( -\frac{|x-\mu |}{b}\right)
+$$
+Write a function of $\theta =(\mu ,b)$ and $x=(x_{1},\ldots ,x_{n})$ to compute the log-likelihood function
+$$
+\ln L\left( \theta ,x\right) =\sum_{i=1}^{n}\ln f\left( x\right)
+$$
+Hint: The absolute value function $|\cdot |$ is `abs()`.
+```{r}
+laplace <- function(param, gap) {
+  mu <- param[1]
+  b <- param[2]
+  f <- log(1/(2 * b)) - abs(gap - mu)/b  
+  out <- sum(f)
+  return(-out)
+}
+```
+
++ Numerically maximize the log-likelihood function with respect to $\mu$ and $b$. Set the starting values to $\mu _{0}=0$ and $b_{0}=3000$.
+```{r}
+param0 <- c(0, 3000)
+optim(param0, laplace, gap=difference)
+```
+
+2. Load the data set **fussballdaten.csv** into a data frame.
+```{r}
+fussballdaten <- read.csv2("../../data/fussballdaten.csv")
+head(fussballdaten)
+```
+
++ Use indexing to obtain the vector of goals scored in home matches by the team \texttt{dortmund}. Tabulate and plot the vector.
+```{r}
+homedortmund <- fussballdaten$ToreH[fussballdaten$Heim == "dortmund"]
+table(homedortmund)
+plot(table(homedortmund))
+```
+
++ Fit a Poisson distribution to the number of goals. The maximum likelihood estimator of the parameter $\lambda$ of the Poisson distribution is $\hat{\lambda}=\bar{X}$ where $\bar{X}$ is the mean number of goals. Add the probabilities of the fitted Poisson distribution to the plot (as red points).
+```{r}
+plot(table(homedortmund))
+lines(seq(0, 6), dpois(seq(0, 6), lambda = mean(homedortmund)) * length(homedortmund))  
+points(seq(0, 6), dpois(seq(0, 6), lambda = mean(homedortmund)) * length(homedortmund), col = "red", pch = 19)
+```
+
+3. Let $X\sim LN(\mu,\sigma^{2})$ and let $X_{1},...,X_{n}$ be a sample drawn from $X$. The $X_{i}$ are not observable. Instead one can only observe
+$$
+Y_{i}=\left\{
+\begin{array}{ll}
+X_{i} & \quad \text{if }X_{i}<c \\
+c & \quad \text{if }X_{i}\geq c
+\end{array}
+\right.
+$$
+where $c$ is a known constant. The likelihood of $Y_{1},...,Y_{n}$ is the product of all densities $f_{X}(y_{i}),$ for observations with $Y_{i}<c$, times the product of all probabilities that $Y_{i}=c$ for observations with $Y_{i}=c$.
+
+Let's consider the probability of $Y_i=c$:
+$$
+Pr(Y_i = c) = Pr(X_i \geq c) = 1 - Pr(X_i \leq c) = 1- F_X(c)
+$$
+The likelihood function is now a mixture between the product of all densities $f_{X}(y_{i})$ for observations with $Y_{i}<c$, times the product of all probabilities that $Y_{i}=c$ for observations with
+$Y_{i}=c$:
+$$
+L(\mu,\sigma; y) = \prod_{i=1}^n\{ f_X(y_i;\mu,\sigma)\}^{\delta_i}\{1-F_X(c;\mu,\sigma)\}^{1-\delta_i}
+$$
+with $\delta_i=1$ for exact observations and $\delta_i=0$ for a censored
+observation. The log likelihood is thus the sum of those two components. Let $n_1$ be the number of non-censored observations and $n_2$ the number of censored observations, $n_1+n_2=n$, then:
+$$
+\log L(\mu,\sigma; y) = \sum_{i=1}^{n_1} \log f_X(y_i;\mu,\sigma) +
+\sum_{i=1}^{n_2} \log(1-F_X(c;\mu,\sigma))
+$$
+
++ Load the data set **censoredln.csv**.
+```{r}
+censoredln <- read.csv("../../data/censoredln.csv")
+head(censoredln)
+x <- censoredln$x
+```
+
++ Write an R function `neglogl <- function(param,dat,cens)` that computes the negative log-likelihood function. `param` = ($\mu$, $\sigma^{2}$), `dat` contains the observations $Y_{1},...,Y_{n}$ and $cens$ is the censoring value $c$.
+```{r}
+neglogl <- function(param,dat,cens) {
+  mu <- param[1]
+  sigm <- param[2]
+  logl <- sum(log(dlnorm(dat[dat<cens],meanlog=mu,sdlog=sigm)))
+  + sum(log(1-plnorm(dat[dat==cens],meanlog=mu,sdlog=sigm)))
+  return(-logl)
+}
+```
+
++ Numerically maximize the likelihood function. The censoring value is $c=12$.
+```{r}
+param0 <- c(0,1)
+cens0 <- 12
+obj <- optim(param0,neglogl,dat=x,cens=cens0,hessian=T,control = c(maxit=500))
+print(obj)
+```
+
++ Compute the asymptotic covariance matrix of $\hat{\mu}$ and $\hat{\sigma}^{2}$.
+```{r}
+solve(obj$hessian)
+```
+
+***
+# Dates and times
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+1. Use the command `as.Date` to generate the following dates or vectors of dates:
+  
+  + January 1st, 2012
+```{r}
+as.Date("1989-11-09")
+```
+
++ November 9th, 1989
+```{r}
+as.Date("1989-11-09")
+```
+
++ All Wednesdays in 2012
+```{r}
+# simple solution: set first Wednesday and then add weekly
+seq(as.Date("2012-01-04"), as.Date("2012-12-26"), by = "week")  
+# alternatively: generate vector of all days in 2012 and look for wednesday
+a <- seq(as.Date("2012-01-01"), as.Date("2012-12-31"), by = "days");
+a[weekdays(a) == "Mittwoch"]
+```
+
++ The first days of all months from January 2005 to December 2011
+```{r}
+seq(as.Date("2005-01-01"), as.Date("2011-12-31"), by = "month")
+```
+
++ The first days of all quarters from April 2000 to January 2012
+```{r}
+seq(as.Date("2000-04-01"), as.Date("2012-01-31"), by = "3 months")
+```
+
++ Use `difftime` to compute the number of days between your date of birth and today
+```{r}
+difftime(as.Date("2018-03-29"), as.Date("1986-05-24"), units = "days")
+```
+
+2. Use the command `strptime` to generate the following dates and times or vectors of dates and times of class `POSIXlt`:
+  
++ January 19th, 2012, 08:45:00
+```{r}
+staart <- strptime("2012/01/19-08:45:00", "%Y/%m/%d-%H:%M:%S")
+```
+
++ January 19th, 2012, 12:00:00
+```{r}
+eend <- strptime("2012/01/19-12:00:00", "%Y/%m/%d-%H:%M:%S")
+```
+
++ All minutes between the times in the above two dates
+```{r}
+seq(staart, eend, by = "mins")
+```
+
++ What happens if you add 1 to a `POSIXlt` object?
+```{r}
+strptime("2012/01/19-08:45:00", "%Y/%m/%d-%H:%M:%S") + 1
+```
+
+3. Load the data set **indices.csv** into a data frame.
+```{r}
+indices <- read.csv("../../data/indices.csv")
+```
+
++ Use the command `strptime` to convert the first column of the data frame into a vector of class `POSIXlt`.
+```{r}
+dates <- strptime(indices$date, "%d.%m.%Y")
+```
+
++ Plot the DAX index as a black line against the date vector.
+```{r}
+plot(dates, indices$dax, type = "l")
+```
+
++ Compute the daily returns of the DAX index,
+$$
+  r_{t}=\ln \frac{DAX_{t}}{DAX_{t-1}}
+$$
+  and calculate the mean return for each weekday. Plot the mean returns for each weekday as a bar chart.
+```{r}
+n <- length(indices$dax)
+ret <- log(indices$dax[-1]/indices$dax[-n])  # to get returns we get rid of first observation
+dates1 <- dates[-1]  # get rid of first observation in date vector
+mo <- mean(ret[weekdays(dates1) == "Montag"])
+di <- mean(ret[weekdays(dates1) == "Dienstag"])
+mi <- mean(ret[weekdays(dates1) == "Mittwoch"])
+do <- mean(ret[weekdays(dates1) == "Donnerstag"])
+fr <- mean(ret[weekdays(dates1) == "Freitag"])
+barplot(c(mo, di, mi, do, fr), col = "lightblue", names = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"), main = "All data")
+```
+
+
++ Use the function `holiday` of the `timeDate` package to identify the holidays at Deutsche Börse. Remove the holiday returns and redo the computations for the weekday returns.
+```{r}
+library(timeDate)
+holidays <- strptime(holiday(1991:2012, c("Easter", "DEAscension", "DECorpusChristi", "DEGermanUnity", "DEChristmasEve", "DENewYearsEve", "NewYearsDay")), "%Y-%m-%d")  # all german holidays
+d <- !dates %in% holidays  # logical vector for all non-holiday days
+indicesnew <- indices[d, ]  # data of non-holiday days
+n2 <- length(indicesnew$dax)
+dates2 <- strptime(indicesnew$date, "%d.%m.%Y")  
+dates2 <- dates2[-1]  # remove first observation as we are computing returns
+ret2 <- log(indicesnew$dax[-1]/indicesnew$dax[-n2]) # compute returns
+mo <- mean(ret2[weekdays(dates2) == "Montag"])
+di <- mean(ret2[weekdays(dates2) == "Dienstag"])
+mi <- mean(ret2[weekdays(dates2) == "Mittwoch"])
+do <- mean(ret2[weekdays(dates2) == "Donnerstag"])
+fr <- mean(ret2[weekdays(dates2) == "Freitag"])
+barplot(c(mo, di, mi, do, fr), col = "lightblue", names = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"), main = "No holidays")
+```
+
+# Time series: Basics
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+Activate the \texttt{zoo} package.
+```{r}
+library(zoo)
+```
+
+1. Load the dataset **BIP.csv** into a dataframe. The first column
+is the GDP in current prices, the second column is the price deflated
+(chain) index of GDP with 2005=100.
+```{r}
+BIP <- read.csv("../../data/BIP.csv")
+head(BIP)
+```
+
++ The first observation is the first quarter of 2000, the last observation is the third quarter of 2011. Create a `ts` time series
+object of the GDP in current prices.
+```{r}
+gdp <- ts(BIP[, 1], start = c(2000, 1), frequency = 4)
+```
+
++ Print the time series.
+```{r}
+print(gdp)
+```
+
++ Plot the time series.
+```{r}
+plot(gdp)
+```
+
++ Use the command `rollmean` to add a moving average of length `k=4` to the plot.
+```{r}
+plot(gdp)
+lines(rollmean(gdp, k = 4), col = "red")
+```
+
++ Plot the time series of the differences between GDP and the rolling
+mean.
+```{r}
+plot(gdp - rollmean(gdp, k = 4))
+```
+
+
++ Use the function `aggregate` with option `nfrequency=1` to compute the time series of the annual GDP values.
+```{r}
+gdp_yearly <- aggregate(gdp, nfrequency = 1)
+plot(gdp_yearly)
+```
+
++ Plot the differences of the logarithm of the annual GDP values (i.e. the annual growth rates).
+```{r}
+plot(diff(log(gdp_yearly)))
+```
+
+2. Load the dataset **m3.csv** into a dataframe. It contains the money aggregate M3 for the Euro area. Remember to set the option `as.is=TRUE` in the `read.csv` command.
+```{r}
+M3 <- read.csv("../../data/m3.csv", as.is = T)
+head(M3)
+```
+
++ Create a `zoo` object of the M3 time series.
+```{r}
+dates <- strptime(M3$Month, "%Y-%m-%d")
+m3 <- zoo(M3$M3, order.by = dates)
+```
+
++ Print the time series, setting the option `style` to each of
+its three possible values, i.e. `horizontal`, `vertical`, and 
+`plain`.
+```{r}
+print(head(m3), style = "horizontal")
+print(head(m3), style = "vertical")
+print(head(m3), style = "plain")
+```
+
+
++ Plot the time series and add the rolling mean (with window width 12
+months) in red.
+```{r}
+plot(m3)
+lines(rollmean(m3, k = 12), col = "red")
+```
+
+
++ Plot the deviation of the time series from its rolling mean.
+```{r}
+plot(m3 - rollmean(m3, k = 12))
+```
+
++ Use the command `lag` to define the time series $M3_{t-12}$ (i.e. M3 in the same month of the previous year).
+```{r}
+m3_12 <- lag(m3, -12)
+```
+
++ Plot $M3_{t}-M3_{t-12}$ and $\ln M3_{t}-\ln M3_{t-12}$.
+```{r}
+plot(m3 - m3_12)  # deviations within a year
+plot(log(m3) - log(m3_12))
+
+```
+
+
+3. Convert the M3 time series to class `ts`.
+```{r}
+m3_ts <- ts(M3[, 2], start = c(1980, 1), frequency = 12)
+```
+
++ Read `?decompose`. Decompose the time series into a trend, a seasonal component, and a remainder term using the function `decompose`. Assign the function value to an object (which will be of class `decomposed.ts`), and plot this object.
+```{r}
+?decompose
+decomp <- decompose(m3_ts)
+class(decomp)
+plot(decomp) # default type is additive
+```
+
++ Try both `type` options (i.e. `additive` and `multiplicative`). Which one would you prefer?
+```{r}
+decomp2 <- decompose(m3_ts, type = "multiplicative")
+plot(decomp2)
+```
+
+
+4. Continue to use the M3 time series.
+
++ Execute `acf(diff(M3))` and interpret the plot.
+```{r}
+acf(M3$M3) #time series is nonstationary
+acf(diff(M3$M3))  # strong seasonality within the first differences
+```
+
++ Returns from the `acf` command are of class `acf`, see `?acf`. Extract the autocorrelations of `diff(M3)` as a vector.
+```{r}
+autocorr <- acf(diff(M3$M3))$acf
+```
+
+5. Consider the dataset `electricity.csv`. It contains hourly electricity prices (in EUR/MWh) at the EEX.
+
++ The time format is *YYYY-MM-DD, HH:00*. Read the dataset into a
+dataframe (using the option `as.is=TRUE`) and create a vector for the
+date-time information.
+```{r}
+elec <- read.csv("../../data/electricity.csv", as.is = TRUE)
+head(elec)
+datetime <- paste(elec[, 1], elec[, 2])
+head(datetime)
+dat <- strptime(datetime, "%Y-%m-%d %H:%M")
+```
+
++ Plot the time series of the electricity prices.
+```{r}
+tser <- zoo(elec[, 3], order.by = unique(dat))
+plot(tser)
+```
+
++ Use the `acf` command to compute and display the autocorrelation function up to lag order 750.
+```{r}
+acf(elec[, 3], lag.max = 750)
+```
+
+
++ Convert the price time series into an `ts` object with start date 1 and end date 365 (and, of course, frequency 24). Use the command `aggregate` to calculate the average daily prices.
+```{r}
+tser2 <- ts(elec[, 3], start = 1, frequency = 24)
+daly <- aggregate(tser2, nfrequency = 1, FUN = mean)  # nfrequency is new number of observations per unit of time
+plot(daly)
+```
+
+
+# Time series: Model estimation and unit roots
+```{r,include=FALSE}
+rm(list = ls())
+```
+
+Activate the packages `tseries`, `fGarch`, and `vars`.
+```{r}
+library(tseries)
+library(fGarch)
+library(vars)
+```
+
+1. Load the artificial dataset **ar1.csv**. It contains two variables, the endogenous variable $Y$ and the exogenous variable $X$. The linear relationship $Y_{t}=\alpha +\beta X_{t}$ is disturbed by a first
+order autoregressive error term $u_{t}$ with
+$$
+u_{t}=\rho u_{t-1}+\varepsilon _{t}
+$$
+where $\varepsilon _{t}\sim N(0,\sigma^{2})$ and $|\rho|<1$.
+```{r}
+dat <- read.csv("../../data/ar1.csv")
+head(dat)
+```
+
++ Run an OLS regression of $Y$ on $X$ and put the residuals into a
+vector `uhat`.
+```{r}
+regr <- lm(dat$y ~ dat$x)
+uhat <- regr$residuals
+```
+
++ Use the command `ar` to estimate the autoregression coeffcient $\rho$ and the variance $\sigma^{2}$.
+```{r}
+estim <- ar(uhat, aic = F, order = 1)  # AIC=T estimates the lag order p automatically
+names(estim)
+rhohat <- estim$ar
+print(rhohat)
+sig2hat <- estim$var.pred
+print(sig2hat)
+```
+
++ Extract the standard error of $\hat{\rho}$. Is $\hat{\rho}$ significantly positive?
+```{r}
+# Standard error of rho
+serhohat <- sqrt(estim$asy.var.coef) # asy.var.coef is the asymptotic covariance matrix
+print(serhohat)
+# t-test: H0: rho <= 0, H1: rho>0
+tstat <- (rhohat - 0)/serhohat
+print(tstat)
+alph <- 0.05
+if (tstat < qt(1-alph, df = estim$n.used-1)) {
+  print("H0 is not rejected, rhohat might be less or equal to 0")
+} else {
+  print("H0 is rejected, rhohat is significantly positive")
+}
+```
+
+
+2. Load the dataset `BIP.csv` and convert the first column (i.e. GDP in current prices) to class `ts`.
+```{r}
+bip <- read.csv("../../data/BIP.csv")
+bip1 <- ts(bip[, 1], start = c(2000, 1), frequency = 4)
+```
+
++ Use the command `decompose` to calculate the trend, the saisonal pattern and the remainder term of the time series.
+```{r}
+bip2 <- decompose(bip1)
+plot(bip2)
+```
+
++ Fit an AR(1) process to the remainder term (`$random`). In order to remove the missing values set the option `na.action=na.omit`.
+```{r}
+regr <- ar(bip2$random, aic = F, order = 1, na.action = na.omit)
+print(regr)
+```
+
++ Test if the first order autocorrelation coefficient is significantly different from zero.
+```{r}
+tstat <- (regr$ar - 0)/sqrt(regr$asy.var.coef)
+print(tstat)
+# two-sided test: H0: rhohat=0 vs. H1 != 0
+alph <- 0.05
+if (abs(tstat) < qt(1-alph/2, df = regr$n.used-1)) {
+  print("H0 is not rejected, rhohat might be equal to 0")
+} else {
+  print("H0 is rejected, rhohat is significantly different than 0")
+}
+```
+
++ Now use the command `arima` to fit an AR(1) model to the remainder term.
+```{r}
+arima(bip2$random, order = c(1, 0, 0))
+```
+
+
++ Fit an MA(1) model to the remainder term.
+```{r}
+arima(bip2$random, order = c(0, 0, 1))
+```
+
+
+3. Load the dataset `investment.csv`. It contains the gross machinery investment (Bruttoausrüstungsinvestitionen) in current prices (in billion Euros).
+```{r}
+invest <- read.csv("../../data/investment.csv")
+head(invest)
+```
+
++ Convert the investment time series to class `ts` and plot it in levels and percentage changes (differences of the logs). Ignore the structural break in 1990 due to Germany's unification.
+```{r}
+invest1 <- ts(invest[, 2], start = 1970, frequency = 1)
+plot(invest1, type = "o")
+plot(diff(log(invest1)), type = "o")
+```
+
++ Fit $ARIMA(p,1,q)$ models to the time series with $p,q\in \{0,1,2\}$.
+Find the lowest $AIC$ value of the 9 models.
+```{r}
+Z <- matrix(NA, 3, 3)
+plag <- 0:2
+qlag <- 0:2
+for (ip in 1:3) {
+  for (iq in 1:3) {
+    Z[ip, iq] <- arima(invest1, order = c(plag[ip], 1, qlag[iq]))$aic
+  }
+}
+print(Z)
+which.min(Z)
+```
+
++ Perform an $ADF$ test. Does investment exhibit a unit root?
+```{r}
+plot(invest1)  # seems to be nonstationary
+testres <- adf.test(invest1)  
+print(testres)
+alph <- 0.05
+if (testres$p.value < alph) {
+  print("The nullhypothesis of a unit root can be rejected. The time series is stationary.")
+} else {
+  print("The nullhypothesis of a unit root cannot be rejected. The time series seems to be nonstationary.")
+}
+```
+
++ Perform an $ADF$ test for the differenced time series of investment.
+Do the differences have a unit root?
+```{r}
+library(tseries)
+plot(diff(invest1), type = "o")
+testres1 <- adf.test(diff(invest1))
+print(testres1)
+alph <- 0.05
+if (testres1$p.value < alph) {
+  print("The nullhypothesis of a unit root can be rejected. The time series is stationary.")
+} else {
+  print("The nullhypothesis of a unit root cannot be rejected. The time series seems to be nonstationary.")
+}
+```
+
+4. Load the dataset `indices.csv` and compute the returns of the DAX index as
+$$
+r_{t}^{DAX}=\ln \frac{DAX_{t}}{DAX_{t-1}}.
+$$
+```{r}
+indices <- read.csv("../../data/indices.csv")
+retdax <- diff(log(indices$dax))
+```
+
++ Fit a GARCH(1,1) model to the returns by `garch`.
+```{r}
+garch(retdax, order = c(1, 1), trace = F)
+```
+
++ Fit a GARCH(1,1) model by `garchFit` and compare your results with above.
+```{r}
+garchFit(~garch(1, 1), data = retdax, trace = F)
+```
+
+
++ Add an AR(2) mean equation.
+```{r}
+garchFit(~arma(2, 0) + garch(1, 1), retdax, trace = F)  
+```
+
+
+5.Consider the bivariate VAR(1) process
+$$
+y_{t}=\left[ 
+\begin{array}{cc}
+0.9 & 0 \\ 
+0.5 & 0.5
+\end{array}
+\right] y_{t-1}+\varepsilon _{t},\qquad \varepsilon _{t}\sim N\left( \left[ 
+\begin{array}{c}
+0 \\ 
+0
+\end{array}
+\right] ,\left[ 
+\begin{array}{cc}
+1 & 0.3 \\ 
+0.3 & 1
+\end{array}
+\right] \right)
+$$
+where $y_{t}=(y_{1t},y_{2t})^{\prime}$, see A. Staszewska-Bystrova (2011), Bootstrap Prediction Bands for Forecast Paths from Vector Autoregressive Models, Journal of Forecasting, 30: 721-735.
+
+Write an R program that performs the following steps.
+
++ Set $R=10000$.
+
++ Initiate an empty matrix $Z$ of dimension $R\times 4$.
+
++ For $r=1,\ldots ,R$: Set $y_{1}=(0,0)$; simulate $y_{t}$ for $t=2,\ldots ,200$; drop the first 100 observations; use the `VAR`
+command of the `vars` package to estimate the four coefficients of
+the autoregression matrix; save the coefficients in row $r$ of matrix $Z$.
+
++ Use the `apply` command to compute the mean estimates of the four coefficients. Are the VAR estimators biased?
+
++ Plot the histograms of the four coefficients in a $2\times 2$ plot.
+```{r}
+library(vars)
+# initialization and settings for simulation
+R <- 1000
+Z <- matrix(NA, R, 4)
+TT <- 200
+A <- matrix(c(0.9, 0.5, 0, 0.5), 2, 2)
+SIGepsi <- matrix(c(1, 0.3, 0.3, 1), 2, 2)
+muepsi <- matrix(c(0,0),2,1)
+
+# create progress bar
+library(tcltk)
+pb <- tkProgressBar(title = "progress bar", min = 0, max = R, width = 300)
+
+# simulations
+for (r in 1:R) {
+  # initialize data vector
+  y <- matrix(NA, TT, 2)
+  colnames(y) <- c("y1","y2")
+  y[1, ] <- c(0, 0)
+  # simulate data for y
+  for (tt in 2:TT) {
+    epsi <- mvrnorm(n = 1, mu = muepsi, Sigma = SIGepsi)
+    y[tt, ] <- A %*% y[tt-1, ] + epsi
+  }
+  # discard first 100 observations and estimate VAR(1)
+  res <- VAR(y[101:200, ], p = 1)
+  # extract the autoregressive coefficients only, skip intercept terms
+  y1ccoef <- res$varresult$y1$coefficients[1:2]
+  y2ccoef <- res$varresult$y2$coefficients[1:2]
+  # store results
+  Z[r, ] <- c(y1ccoef, y2ccoef)
+  # update progress bar
+  setTkProgressBar(pb, r, label=paste(round(r/R*100, 0),"% done"))
+}
+close(pb) # close progress bar
+
+resMat <- rbind(apply(Z, 2, mean), t(vec(t(A))))
+colnames(resMat) <- c("A(1,1)", "A(1,2)", "A(2,1)", "A(2,2)")
+rownames(resMat) <- c("Simulated", "True")
+print(resMat)
+
+library(MASS)
+par(mfrow = c(2, 2))
+for (j in 1:dim(Z)[2]) {
+  truehist(Z[, j], xlab=paste("A[",j,"]",sep=""))
+  curve(dnorm(x,mean=mean(Z[, j]),sd=sd(Z[, j])),add=T)
+}
+```
+

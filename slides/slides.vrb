@@ -1,0 +1,16 @@
+\frametitle{Programming}
+\framesubtitle{Conditions}
+Syntax of the \texttt{if}-command
+\begin{verbatim}
+    if([condition]) {
+       [commands]
+    }
+\end{verbatim}
+\begin{itemize}
+\item The condition must not be a vector
+(else only its first element is used)
+\item If there is just a single command, the brackets can be omitted
+\item The opening curly bracket must appear in the same line as the \texttt{%
+if}-command
+\item It is possible to add \texttt{else \{[commands]\}}
+\end{itemize}

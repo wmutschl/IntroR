@@ -1,0 +1,1644 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage[english]{babel}
+\usepackage[a4paper,bottom=1.5in,top=1.5in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{answers}
+\usepackage{fouriernc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,pdfstartview={FitH},plainpages = false,linkcolor = black }
+
+\parindent0mm
+\parskip1.5ex plus0.5ex minus0.5ex
+\pagestyle{fancy}
+\lhead{\small Introduction to R}
+\chead{}
+\rhead{Exercises}
+\rfoot{\thepage}
+\cfoot{}
+
+\begin{document}
+
+\title{Introduction to R -- Exercises}
+\author{Willi Mutschler \& Martina Danielova Zaharieva}
+\date{Spring 2018}
+\maketitle
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+\section{Introduction}
+
+\begin{enumerate}
+\item Start R-Studio and have a look at all menu items.
+
+%\item Read \textquotedblleft Hilfe -- Konsole\textquotedblright .
+
+\item Under \textquotedblleft Tools - Options \ldots
+\textquotedblright\ choose your preferred
+setting.
+
+\item Install the packages \texttt{MASS}, \texttt{foreign}, \texttt{xlsx}, 
+\texttt{rgl}.
+
+\item The current working directory (where R reads and writes files) can be
+found by the command \texttt{getwd()}. Find your current working directory.
+
+\item Use the  command \texttt{setwd("{}c:/path")} to change the working
+directory to drive \texttt{c:} and path \texttt{/path}. Note that the path
+name is structured by slashes (\texttt{/}), \emph{not} backslashes ($\backslash$). Change the working directory to \texttt{c:/temp}
+and check if the change has been successful.\footnote{%
+The working directory can also be changed via the menu: Tools -- Options \ldots}
+
+%\item If you prefer to use an external editor (e.g. Tinn-R or Notepad++)
+%install it. Make sure that it connects properly to R. You should be able to
+%send single and multiple lines of code from the editor to R.
+
+\item Open a new script file. Type the commands to perform the following
+assignments:%
+\begin{eqnarray*}
+a &=&\frac{3\cdot (4+9)}{8-12.5} \\
+b &=&\left( 1,4,1999,2011\right) \\
+d &=&2\pi \\
+e &=&a+d
+\end{eqnarray*}%
+Save the script and quit R.
+
+\item Start R and re-open the script. Mark all lines (\textsc{Ctrl-A}) and
+execute them (\textsc{Ctrl-R}). Print $a,b,d,e.$ Why is the variable name $c$
+not used?
+
+%\item If you use 
+%TCIMACRO{\TeXButton{LaTeX}{\LaTeX}}%
+%BeginExpansion
+%\LaTeX%
+%EndExpansion
+%\ have a look at \textquotedblleft Hilfe -- Handb\"{u}cher (pdf) -- Sweave
+%User\textquotedblright . Sweave allows to merge R code and R output (even
+%graphics) with normal text.
+\end{enumerate}
+\newpage
+
+
+\section{Logical operators}
+
+\begin{enumerate}
+\item Use the command \texttt{c()} to define the vectors%
+\begin{eqnarray*}
+x &=&\left( -1,0,1,4,9,2,1,4.5,1.1,-0.9\right) \\
+y &=&\left( 1,1,2,2,3,3,4,4,5,NA\right) .
+\end{eqnarray*}
+
+\item Determine the lengths of the vectors using \texttt{length()}, check if 
+\texttt{length(x)==length(y)}.
+
+\item Perform the following logical operations:%
+\begin{align*}
+x &<&y \\
+x &<&0 \\
+x+3 &\geq &0 \\
+y &<&0 \\
+x<0 &\text{or}&y<0
+\end{align*}
+
+\item Use \texttt{all} to check if all elements of $x+3\geq 0.$
+
+\item Use \texttt{all} to check if all elements of $y>0.$ Use \texttt{any}
+to check if at least one element of $y>0.$
+\end{enumerate}
+\newpage
+
+\section{Arithmetic operators and mathematical functions}
+
+\begin{enumerate}
+\item Define the vectors%
+\begin{eqnarray*}
+x &=&\left( -1,0,1,4,9,2,1,4.5,1.1,-0.9\right) \\
+y &=&\left( 1,1,2,2,3,3,4,4,5,NA\right) .
+\end{eqnarray*}%
+and compute $x+y$ and $xy$ and $y/x$.
+
+\item Compute $\ln (x)$. Determine the length of the result vector.
+
+\item Use \texttt{any} to check if the vector \texttt{x} contains elements
+satisfying $\sqrt{x}\geq 2$.
+
+\item Compute%
+\begin{eqnarray*}
+a &=&\sum_{i=1}^{10}x_{i} \\
+b &=&\sum_{i=1}^{10}y_{i}^{2}.
+\end{eqnarray*}%
+Use the \texttt{na.rm=TRUE} option (\textbf{na}-\textbf{r}e\textbf{m}ove) of
+the \texttt{sum} command to drop the \texttt{NA} in $y$.
+
+\item Compute%
+\begin{equation*}
+\sum_{i=1}^{10}x_{i}y_{i}^{2}.
+\end{equation*}
+
+\item The \texttt{sum} command is a convenient way to count the number of
+elements satifying a certain condition. Count the number of elements of $x>0$%
+.
+
+\item Predict what the following commands will return:
+
+\texttt{x\textasciicircum y}\newline
+\texttt{x\textasciicircum(1/y)}\newline
+\texttt{log(exp(y))}\newline
+\texttt{y*c(-1,1)}\newline
+\texttt{x+c(-1,0,1)}\newline
+\texttt{sum(y*c(-1,1),na.rm=TRUE)}
+\end{enumerate}
+\newpage
+
+
+\section{Matrix functions}
+
+\begin{enumerate}
+\item Define the matrix%
+\begin{equation*}
+X=\left[ 
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & 8 \\ 
+3 & 6 & 9%
+\end{array}%
+\right] ,
+\end{equation*}%
+print its transpose, its dimensions and its determinant.
+
+\item Compute the trace of $X$ (i.e. the sum of its diagonal elements).
+
+\item Type \texttt{diag(X) <- c(7,8,9)} to change the diagonal
+elements. Compute the eigenvalues of (the new) $X$. %Is $X$ positive definite?
+
+\item Invert $X$ and compute the eigenvalues of $X^{-1}$.
+
+\item Define the vector $a=(1,3,2)$ and compute \texttt{a*X}, \texttt{a\%*\%X%
+}, and \texttt{X\%*\%a}.
+
+\item Compute the quadratic form $a^{\prime }Xa$.
+
+\item Define the matrix%
+\begin{equation*}
+I=\left[ 
+\begin{array}{lll}
+1 & 0 & 0 \\ 
+0 & 1 & 0 \\ 
+0 & 0 & 1%
+\end{array}%
+\right]
+\end{equation*}%
+and define%
+\begin{equation*}
+Y=\left[ 
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & 8 \\ 
+3 & 6 & 9%
+\end{array}%
+\begin{array}{lll}
+1 & 0 & 0 \\ 
+0 & 1 & 0 \\ 
+0 & 0 & 1%
+\end{array}%
+\right]
+\end{equation*}%
+and%
+\begin{equation*}
+Z=\left[ 
+\begin{array}{c}
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & 8 \\ 
+3 & 6 & 9%
+\end{array}
+\\ 
+\begin{array}{lll}
+1 & 0 & 0 \\ 
+0 & 1 & 0 \\ 
+0 & 0 & 1%
+\end{array}%
+\end{array}%
+\right]
+\end{equation*}
+
+\item Predict what the following commands will return:
+
+\texttt{cbind(1,X)}\newline
+\texttt{rbind(Y,c(1,2,3))}\newline
+\texttt{X\%*\%I}\newline
+\texttt{dim(X\%*\%Y)}\newline
+\texttt{t(Y)+Z}\newline
+\texttt{solve(t(Z)\%*\%Z)\%*\%(t(Z)\%*\%Z)}
+\end{enumerate}
+\newpage
+
+
+\section{Set operations and special functions}
+
+\begin{enumerate}
+\item Define the vectors%
+\begin{eqnarray*}
+x &=&\left( -1,0,1,4,9,2,1,4.5,1.1,-0.9\right) \\
+y &=&\left( 1,1,2,2,3,3,4,4,5,NA\right) .
+\end{eqnarray*}%
+and compute $x\cup y$. Determine the lengths of $x$, $y$ and $x\cup y$.
+
+\item Count the number of elements of $y$ that are element of $x$.
+
+\item Determine the length of the vector of unique elements of $y$.
+
+\item Compute the vector $z$ with elements%
+\begin{equation*}
+z_{i}=\sum_{j=1}^{i}x_{j}
+\end{equation*}%
+for $i=1,\ldots ,10$.
+
+\item Find the position of the largest
+element of $x$.
+\end{enumerate}
+\newpage
+
+
+\section{Sequences and replications}
+
+\begin{enumerate}
+\item Generate the vectors%
+\begin{eqnarray*}
+x_{1} &=&\left( 1,2,3,\ldots ,9\right) \\
+x_{2} &=&\left( 0,1,0,1,0,1,0,1\right) \\
+x_{3} &=&\left( 1,1,1,1,1,1,1,1\right) \\
+x_{4} &=&\left( -1,1,-1,1,-1,1\right) \\
+x_{5} &=&\left( 1980,1985,1990,\ldots ,2010\right) \\
+x_{6} &=&\left( 0,0.01,0.02,\ldots ,0.99,1\right)
+\end{eqnarray*}
+
+\item Replications can also be generated for vectors of strings
+(characters). Type
+
+\texttt{a <- c("{}a","b","{}c")}\newline
+\texttt{rep(a,3)}\newline
+\texttt{rep(a,times=3)}\newline
+\texttt{rep(a,each=3)}
+
+\item Generate a grid of $n=500$ equidistant points on the interval $[-\pi
+,\pi ]$.
+
+\item Compare \texttt{1:10+1} and \texttt{1:(10+1)}.
+
+\item Predict what the following commands will return:
+
+\texttt{rep("bla",10)}\newline
+\texttt{rep(rep(1:3,2),each=4)}\newline
+\texttt{rep(c(1,6,NA,2),times=c(2,2,5,3))}
+\end{enumerate}
+\newpage
+
+
+\section{The apply command}
+
+Define the matrices%
+\begin{eqnarray*}
+X &=&\left[ 
+\begin{array}{llll}
+1 & 2 & 7 & 9 \\ 
+9 & 5 & 6 & 4 \\ 
+3 & 3 & 5 & 4%
+\end{array}%
+\right] , \\
+Y &=&\left[ 
+\begin{array}{lll}
+1 & 4 & 7 \\ 
+2 & 5 & NA \\ 
+3 & 6 & 9%
+\end{array}%
+\right] .
+\end{eqnarray*}%
+In the following exercises always use the \texttt{apply} command.
+
+\begin{enumerate}
+\item Compute the row sums of $X$.
+
+\item Compute the column means of $X$.
+
+\item Compute the column ranges of $X.$
+
+\item Compute the column sums of $Y$. Add the \texttt{sum} function option 
+\texttt{na.rm=TRUE} to the \texttt{apply} command.
+
+\item For each column of $X$, find the position (the row number) of the
+largest element.
+
+\item For each column of $X$, compute the cumulated sums (\texttt{cumsum}).
+
+\item For each row of $X$, find the number of elements that are smaller than
+5.
+
+\item For each column of $Y$, determine the number of non-missing
+observations.
+
+\item For each row of $X$, determine the unique elements. Note that in this
+case the \texttt{apply} command does not return a matrix.
+\end{enumerate}
+\newpage
+
+
+\section{Reading and writing text files}
+
+Download the files \texttt{bsp1.txt}, \texttt{bsp2.txt} and \texttt{bsp3.txt}
+from the internet site of the course and save them to your working
+directory. The three files contain computer generated random numbers.
+
+\begin{enumerate}
+\item Read the file \texttt{bsp1.txt} into a dataframe \texttt{x1}. Have a
+look at the file and the data format \emph{before} you decide which reading
+command you use (\texttt{read.csv}, \texttt{read.csv2} or \texttt{read.table}%
+). Print the dataframe. If the dataframe is too large for your screen, you
+can use the commands \texttt{head} and \texttt{tail} to print just parts of
+it.
+
+\item Read the files \texttt{bsp2.txt} and \texttt{bsp3.txt} into dataframes 
+\texttt{x2} and \texttt{x3}. Note that \texttt{bsp2.txt} contains both
+numeric and character entries. It is usually advisable to set the option 
+\texttt{as.is=TRUE} when reading characters (strings).
+
+\item Print the class of \texttt{x2}, its dimension, and its variable names
+(use \texttt{names}).
+
+\item Print a summary of \texttt{x3.}
+
+\item Use the \texttt{apply} command to compute the mean and the standard
+deviation of each column of \texttt{x3}.
+
+\item Create a small dataframe \texttt{a} with two variables
+
+%TCIMACRO{\TeXButton{BC}{\begin{center}}}%
+%BeginExpansion
+\begin{center}%
+%EndExpansion
+\begin{tabular}{cc}
+x & y \\ \hline
+1 & 4 \\ 
+2 & 5 \\ 
+3 & 6%
+\end{tabular}%
+%TCIMACRO{\TeXButton{EC}{\end{center}}}%
+%BeginExpansion
+\end{center}%
+%EndExpansion
+
+and write it to a file in your working directory.
+\end{enumerate}
+\newpage
+
+
+\section{Reading data online}
+
+Install and activate the packages \texttt{TTR} and \texttt{fImport}.
+
+\begin{enumerate}
+\item Read the (large) file \texttt{lest2001.csv} directly from the following internet
+site into a dataframe \texttt{x}. The complete URL is
+
+\texttt{http://www.wiwi.uni-muenster.de/05/download/}\newline
+\texttt{studium/R/ws1112/data/lest2001.csv}
+
+The file is the campus file of the German income tax records 2001 (the data
+are provided by the Research Data Centre of the Federal Statistical Office,
+they are described in \texttt{lest2001.pdf}). Take care to set the options
+of the \texttt{read.csv} or \texttt{read.table} command correctly. The data
+format is as follows:
+
+\begin{itemize}
+\item All data entries are separated by semi-colons.
+
+\item The first row contains the variables names.
+
+\item Missing values are denoted by a dot.
+
+\item Apart from the last column all data are integer values.
+
+\item The decimal sign in the last column is a dot.
+\end{itemize}
+
+Execute \texttt{y <- x\$zve}. The variable \texttt{y} now
+contains the taxable income (\textbf{z}u \textbf{v}ersteuerndes \textbf{E}%
+inkommen). Compute its range, its median, its mean, its variance, and the
+0.01- and 0.99-quantiles. Remember to include the option \texttt{na.rm=TRUE}
+in the functions.
+
+\item Read the help text of the \texttt{getYahooData} command of the \texttt{%
+TTR} package. Read the data about the Deutsche Bank (symbol \texttt{DB})
+from January 1st, 2000 to the most recent date into the object \texttt{x}.
+Plot the closing price by \texttt{plot(x\$Close)}.
+
+%\item The \texttt{fImport} package provides easy access to the OANDA
+%exchange rate internet site. Execute \texttt{x <-
+%oandaSeries("{}EUR/USD")} to retrieve the daily exchange rate of the last
+%366 days. Then plot \texttt{x}.
+\end{enumerate}
+\newpage
+
+
+\section{Indexing vectors}
+
+Define the following vectors%
+\begin{equation*}
+x=\left( 
+\begin{array}{c}
+1 \\ 
+1.1 \\ 
+9 \\ 
+8 \\ 
+1 \\ 
+4 \\ 
+4 \\ 
+1%
+\end{array}%
+\right) ,\quad y=\left( 
+\begin{array}{c}
+1 \\ 
+2 \\ 
+3 \\ 
+4 \\ 
+4 \\ 
+3 \\ 
+2 \\ 
+NA%
+\end{array}%
+\right) ,\quad z=\left( 
+\begin{array}{c}
+TRUE \\ 
+TRUE \\ 
+FALSE \\ 
+FALSE \\ 
+TRUE \\ 
+FALSE \\ 
+FALSE \\ 
+FALSE%
+\end{array}%
+\right)
+\end{equation*}
+
+\begin{enumerate}
+\item Predict what the following commands will return (and then check if you
+are right):
+
+\texttt{x[-2]}\newline
+\texttt{x[2:5]}\newline
+\texttt{x[c(1,5,8)]}\newline
+\texttt{x[-c(1,5,8)]}\newline
+\texttt{x[y]}\newline
+\texttt{x[seq(2,8,by=2)]}\newline
+\texttt{x[rep(1:3,4)]}
+
+\item Predict what the following commands will return (and then check if you
+are right):
+
+\texttt{y[z]}\newline
+\texttt{y[!z]}\newline
+\texttt{y[x>2]}\newline
+\texttt{y[x==1]}\newline
+\texttt{x[!is.na(y)]}\newline
+\texttt{y[!is.na(y)]}
+
+\item Indexing is not only used to read certain elements of a vector but
+also to change them. Execute \texttt{x2 <- x} to make a copy of 
+\texttt{x}. Change all elements of \texttt{x2} that have the value 4 to the
+value $-4$. Print \texttt{x2}.
+
+\item Change all elements of \texttt{x2} that have the value 1 to missing
+value (\texttt{NA}). Print \texttt{x2}.
+
+\item Execute \texttt{x2[z] <- 0}. Print \texttt{x2}.
+\end{enumerate}
+\newpage
+
+
+\section{Indexing matrices}
+
+Define the matrix \texttt{x <- matrix(c(1:12,12:1),4,6)}.
+
+\begin{enumerate}
+\item Predict what the following commands will return (and then check if you
+are right):
+
+\texttt{x[1,3]}\newline
+\texttt{x[,5]}\newline
+\texttt{x[2,]}\newline
+\texttt{x[,-3]}\newline
+\texttt{x[-4,]}\newline
+\texttt{x[2:3,3:4]}\newline
+\texttt{x[2:4,4]}
+
+\item Predict what the following commands will return (and then check if you
+are right):
+
+\texttt{x[x>5]}\newline
+\texttt{x[,x[1,]<=5]}\newline
+\texttt{x[x[,2]>6,]}\newline
+\texttt{x[x[,2]>6,4:6]}\newline
+\texttt{x[x[,1]<3 \& x[,2]<6,]}
+
+\item Print all rows where column 5 is at least three times larger than
+column 6.
+
+\item Count the number of elements of \texttt{x} that are larger than 7.
+
+\item Count the number of elements in row 2 that are smaller than their
+neighbours in row 1.
+
+\item Count the number of elements of \texttt{x} that are larger than their
+left neighbour.
+\end{enumerate}
+\newpage
+
+
+\section{Indexing dataframes}
+
+Load the dataset \texttt{bsp2.txt} as dataframe \texttt{y} and print it.
+
+\begin{enumerate}
+\item Use different ways to print the second column of the dataframe \texttt{%
+y} (as a vector or a data\-frame).
+
+\item Use different ways to print columns $U$ and $V$.
+
+\item Use the \texttt{attach} command to make the variables directly
+accessible. Print \texttt{X}. Now \texttt{detach} the dataframe again.
+
+\item Print all rows of \texttt{y} where the variable $U$ has value A or B.
+
+\item Print all rows of \texttt{y} where the variable $X$ is smaller than
+its median and the variable $Y$ is larger than its median.
+
+\item One can add row names to a dataframe. Execute the following command:
+
+\texttt{row.names(y) <-
+paste(rep(LETTERS[1:20],each=2),rep(1:2,20),sep={}"}{}\texttt{")}
+
+and print the dataframe to have a look at the new row names.
+
+\item Use the row name and the variable name to print the value of variable 
+\texttt{Z} at observation \texttt{T1}.
+
+\item Print the rows for observations \texttt{G1} and \texttt{G2}.
+\end{enumerate}
+
+\newpage
+
+
+\section{User-defined functions}
+
+\begin{enumerate}
+\item Define a Cobb-Douglas production function with two inputs vectors,%
+\begin{eqnarray*}
+x &=&\left( 
+\begin{array}{c}
+L \\ 
+K%
+\end{array}%
+\right) \\
+\theta &=&\left( 
+\begin{array}{c}
+A \\ 
+\alpha \\ 
+\beta%
+\end{array}%
+\right)
+\end{eqnarray*}%
+and scalar output%
+\begin{equation*}
+y=AL^{\alpha }K^{\beta }.
+\end{equation*}%
+Evaluate the function at%
+\begin{eqnarray*}
+x &=&\left( 
+\begin{array}{c}
+2 \\ 
+3%
+\end{array}%
+\right) \\
+\theta &=&\left( 
+\begin{array}{c}
+1 \\ 
+0.3 \\ 
+0.8%
+\end{array}%
+\right) .
+\end{eqnarray*}
+
+\item Define a function \texttt{lowdecile} with one input vector $\left(
+x_{1},\ldots ,x_{n}\right) $ of arbitrary length. The function should
+compute and return the mean of all observations in the lowest decile. Define
+the vector%
+\begin{equation*}
+x=\left( 0,0,0,0,1,1,1,1,2,2,2,2,\ldots ,9,9,9,9\right)
+\end{equation*}%
+and apply \texttt{lowdecile} to $x$.
+\end{enumerate}
+
+
+\newpage
+
+
+
+\section{Sorting and merging}
+
+\begin{enumerate}
+\item Define $x=\left( -1,0,1,4,9,2,1,4.5,1.1,-0.9\right) $ and sort the
+vector ascendingly. Print the second smallest element of $x$.
+
+\item Sort $x$ descendingly and print the third largest element of $x.$
+
+\item Execute \texttt{x <- matrix(c(1:12,12:1),6,4,byrow=T)} to
+define the matrix $x.$ Calculate the order vector $p$ of the last column of $%
+x.$ Sort the matrix $x$ by the last column and print the sorted matrix.
+
+\item Load the file \texttt{bsp2.txt} into the dataframe \texttt{x}. Sort 
+\texttt{x} by the variable \texttt{U} and on the next level by the variable 
+\texttt{X}.
+
+\item Activate the package \texttt{foreign} and load the Stata files \texttt{%
+wave2000.dta} and \texttt{wave2009.dta} into two dataframes. Print the
+variable names of both dataframes. Merge the dataframes by the variable 
+\texttt{pid}. Keep only persons who are present in both years (by setting
+the option \texttt{all=FALSE}). Print the variables names of the merged
+dataframe.
+
+\item Calculate the mean life satisfaction in 2000 and 2009.
+
+\item Calculate the mean change in life satisfaction for persons who were
+single in 2000 and married in 2009.
+\end{enumerate}
+\newpage
+
+
+\section{Frequency tables}
+
+\begin{enumerate}
+\item Read the Stata file \texttt{wave2009.dta} into a dataframe. Tabulate
+the variables \texttt{gender}, \texttt{marital} and \texttt{children}.
+
+\item Read the file \texttt{bsp2.txt} into a dataframe. Compute and plot the
+frequency tables of the variables $U$ and $V.$
+
+\item Define the vector $x=(1,1,1,1,1,2,2,2,2,3,3,3,4,4,5,9)$. Compute the
+absolute and relative frequency tables and determine the number of different
+values of $x.$
+
+\item Read the file \texttt{lest2001.csv} (wage and income tax data) into a
+dataframe using the option \texttt{as.is=TRUE}. The variable \texttt{ef8}
+gives the gender (male=0, female=1). Tabulate \texttt{ef8}.
+
+\item The \texttt{lest2001.csv} dataset contains a weighting variable (\texttt{%
+samplingweight}). Each row counts as \texttt{samplingweight} observations.
+Re-compute the absolute frequencies of \texttt{ef8} taking into account the
+weights.
+
+\item Load the Stata file \texttt{mikrozensus2002cf.dta} into a dataframe
+(the data are described in the file \texttt{mikrozensus2002cf.pdf}).
+Consider the variable \texttt{ef455} (age of flat or house) which is coded
+into nine classes. Tabulate the age structure.
+\end{enumerate}
+\newpage
+
+
+\section{Cumulative distribution function and quantile function}
+
+\begin{enumerate}
+\item Load the dataset \texttt{bsp1.txt} and calculate the value of the
+empirical distribution function of \texttt{Variable1} at the point $x=10.$
+
+\item Plot the empirical distribution function of \texttt{Variable2}.
+Improve the readability of the plot by adding an appropriate heading and
+axes labels (use the options \texttt{main} and \texttt{xlab,ylab}).
+
+\item Compute the $p$-quantiles of \texttt{Variable1} for $%
+p=0.01,0.05,0.1,0.5,0.9,0.95,0.99$.
+
+\item Load the dataset \texttt{lest2001.csv} and compute the value of the
+empirical distribution function of \texttt{zve} (taxable income) at the
+points 0, 12000, and 60000.
+
+\item Use the \texttt{quantile} command to compute the 0.99-quantile, the
+0.999-quantile, and the 0.9999-quantile of \texttt{zve}.
+
+%\item Redo the last two exercises taking into account the different sampling
+%weights (given in the variable \texttt{samplingweight}).
+
+%\item Define the vector $x=(1,1,1,1,1,2,2,2,2,3,3,3,4,4,5)^{\prime }$ and
+%plot its quantile function at all percentiles (i.e. at 0.01, 0.02, \ldots ,
+%0.99). Change the \texttt{type} option of the quantile command to see its
+%impact.
+\end{enumerate}
+\newpage
+
+
+\section{Mean, variance and standard deviation}
+
+\begin{enumerate}
+\item Read the file \texttt{lest2001.csv} (wage and income tax data) into a
+dataframe. The variable \texttt{zve} reports taxable income. Compute the
+mean taxable income without weighting the observations. Then re-compute the
+mean using the weights given in the \texttt{samplingweight}. Hint: Use 
+\texttt{weighted.mean}.
+
+\item Compute the unweighted and weighted variance of \texttt{zve}.
+
+\item Load the Stata file \texttt{mikrozensus2002cf.dta} into a dataframe
+and consider the variables \texttt{ef455} (age of flat or house) and \texttt{%
+ef466} (cost of heating and warm water in April 2002). Compute the mean cost
+of heating and warm water for each age class. Hint: You may consider using
+the command \texttt{by}.
+\end{enumerate}
+\newpage
+
+
+\section{Histograms}
+
+In this section, please always use the command \texttt{truehist} (which is
+included in the \texttt{MASS} package) to generate histograms.
+
+\begin{enumerate}
+\item Load the file \texttt{gemeinden2006.csv} into a dataframe. Delete all
+observations where the number of inhabitants (\texttt{Einwohner}) is smaller
+than 5. Plot the histogram of the logarithm of the variable \texttt{Einwohner%
+}.
+
+\item Add the density function of a fitted normal distribution to the
+%histogram.
+
+\item Load the Stata file \texttt{mikrozensus2002cf.dta} into a dataframe.
+Consider the variable \texttt{ef462} (rent in April 2002). Drop all
+observations where the rent exceeds 2000 Euro. Plot the histogram
+
+\item Load the Stata file \texttt{mikrozensus2002cf.dta} into a dataframe.
+
+\begin{enumerate}
+\item Plot the histogram of the variable \texttt{ef453} (size of flat in
+square meters).
+
+\item Drop all observations with more than $300$ $m^{2}$ and plot the
+histogram again.
+
+\item Set the number of bins in the histogram to 15.
+\end{enumerate}
+\end{enumerate}
+\newpage
+
+
+\section{Contingency tables, correlation and covariance}
+
+\begin{enumerate}
+\item Execute \texttt{data(Titanic)} to load the object \texttt{Titanic} of
+class \texttt{table}. Print it as an ordinary table and as a flat table.
+Plot it as well. Compute the univariate marginal distributions using the 
+\texttt{apply} command. Compute the bivariate marginal distribution of
+survival and social class (again using \texttt{apply}).
+
+\item Load the file \texttt{covmat.csv} into a dataframe.
+
+\begin{enumerate}
+\item Compute the covariance matrix using the option \texttt{use="{}complete"%
+}. Check if the covariance matrix is positive definite.
+
+\item Now compute the covariance using the option \texttt{"{}pairwise"} and
+check again, if the covariance matrix is positive definite.
+\end{enumerate}
+
+\item Load the Stata file \texttt{mikrozensus2002cf.dta} into a dataframe.
+Consider the two variables \texttt{ef141} (normal hours worked) and \texttt{%
+ef372} (net income per capita in April 2002). The variable \texttt{ef372} is
+coded into 24 income brackets (see data description \texttt{%
+mikrozensus2002cf.pdf}). Drop all observations where \texttt{ef372} is
+larger than 24 (i.e. missing values etc.) and recode the remaining
+observations to the midpoints of the income brackets. Compute the
+correlation coefficient of hours worked and net income.
+\end{enumerate}
+
+\newpage
+
+
+\section{Programming}
+
+\begin{enumerate}
+\item This exercise illustrates that loops are often not very efficient.
+
+\begin{itemize}
+\item Create the vector $x=(1,2,\ldots ,1\,000\,000)$ and convert it from 
+\texttt{integer} to \texttt{numeric} using the conversion command \texttt{%
+as.numeric}.
+
+\item Set $S=0$.
+
+\item Write a \texttt{for}-loop to compute the sum of all vector elements
+without using the \texttt{sum} command.
+
+\item Put the command \texttt{p0 <- proc.time()[3]} in front of
+the loop and the command \texttt{print(proc.time()[3]-p0)} at the end. These
+commands allow to measure the execution time of the loop.
+
+\item Compare your result with the execution time of the \texttt{sum}
+command.
+\end{itemize}
+
+\item Create a grid vector $x$ of 60 equidistant points $x_{1},\ldots
+,x_{60} $ on the interval $[-10,10]$, and another grid vector $y$ of 70
+points $y_{1},\ldots ,y_{70}$ on $[-10,10]$. Create an empty matrix $Z$ of
+dimension $60\times 70$.
+
+Write a double loop to compute the matrix elements%
+\begin{equation*}
+Z_{ij}=\frac{10}{r_{ij}}\cdot \sin (r_{ij})
+\end{equation*}%
+where $r_{ij}=\sqrt{x_{i}^{2}+y_{j}^{2}}$. Execute \texttt{persp(x,y,Z)}.
+
+\item Load the dataset \texttt{fussballdaten.csv}. It contains all
+\textquotedblleft 1. Bundesliga\textquotedblright\ results between the
+saisons 1996/1997 and 2008/2009.
+
+\begin{itemize}
+\item Create an alphabetically ordered vector of all clubs in the dataset.
+
+\item Write a loop over all clubs. For each club compute the proportion of
+games won.
+
+\item Order the clubs descendingly according to the proportion of games won
+and plot a \texttt{barplot} of the proportion.
+\end{itemize}
+
+\item Load the dataset \texttt{bsp1.txt}. Use the command \texttt{ifelse} to
+change all zero entries of the first variable to ones (and leave all other
+entries unchanged).
+\end{enumerate}
+\newpage
+
+
+\section{Random numbers}
+
+This section is not only about random number generation but also includes
+exercises about the R-functions for standard distributions in statistics.
+
+\begin{enumerate}
+\item Let $X\sim N\left( 0,1\right) $. Compute the probability $P(|X|>3.5)$.
+Generate $n=10000$ random draws $X_{1},\ldots ,X_{n}$ from $X$ and count the
+number of observations $|X_{i}|>3.5$. Repeat drawing random samples $R=5000$
+times and write the counts into a vector $Z_{1},\ldots ,Z_{5000}$ of length
+5000. Tabulate $Z$ and compare the frequencies with the probability function
+of a suitably fitted Poisson distribution.
+
+\item Generate $n=10000$ draws from a lognormal distribution $X\sim e^{Y}$
+where $Y\sim N(1,0.5^{2})$ (the parameters in the R function are \texttt{%
+meanlog=1} and \texttt{sdlog=0.5}). Split the screen into two plotting areas
+using the commnd \texttt{par(mfrow=c(2,1))}. Plot the histograms of $X$ and $%
+\ln X$.
+
+\item Generate $n=10000$ draws from $X\sim N(0,1)$. Compute the cumulated
+means, i.e.%
+\begin{equation*}
+\bar{X}_{j}=\frac{1}{j}\sum_{i=1}^{j}X_{i}
+\end{equation*}%
+for $j=1,\ldots ,n$ and plot them. Hint: Use the command \texttt{cumsum}.
+
+%\item Generate a sample $X_{1},\ldots ,X_{n}$ of size $n=10000$ from the
+%Cauchy distribution (that is a $t$-distribution with one degree of freedom).
+%Compute the cumulated means, i.e.%
+%\begin{equation*}
+%\bar{X}_{j}=\frac{1}{j}\sum_{i=1}^{j}X_{i}
+%\end{equation*}%
+%for $j=1,\ldots ,n$ and plot them. Use the option \texttt{ylim} to restrict
+%the y-axis to the range $[-5,5]$. Repeat the sampling several times.
+%
+%\item To generate random numbers with distributions not implented in R, one
+%can use the inversion method. Let $X$ be a continuous random variable with
+%cdf $F_{X}$ and quantile function $F_{X}^{-1}$. If $U$ is uniformly
+%distributed on $[0,1]$, then $F_{X}^{-1}(U)$ has cdf $F_{X}$. The cdf of the
+%Pareto distribution with parameters $K$ and $\alpha $ is 
+%\begin{equation*}
+%F_{X}(x)=1-Kx^{-\alpha }.
+%\end{equation*}
+%
+%\begin{enumerate}
+%\item Let $K=1$. Derive the quantile function and generate $n=10000$ draws $%
+%X_{1},\ldots ,X_{n}$ from the Pareto distribution with parameter $\alpha
+%=1.3 $.
+%
+%\item Plot the histogram of $X_{1},\ldots ,X_{n}$.
+%
+%\item Plot the histogram of $\ln X_{1},\ldots ,\ln X_{n}$.
+%
+%\item Add the density function of a fitted exponential distribution to the
+%histogram of $\ln X_{1},\ldots ,\ln X_{n}$. Hint: Set the parameter \texttt{%
+%rate} of the fitted exponential distribution to the inverse of the mean of $%
+%\ln X_{1},\ldots ,\ln X_{n}$.
+%\end{enumerate}
+\end{enumerate}
+\newpage
+
+
+\section{Simulations}
+
+\begin{enumerate}
+\item This exercise illustrates the one-sample $t$-test.
+
+\begin{enumerate}
+\item Generate $n=10$ obserations from $X\sim N(10,3^{2})$. Compute the mean
+and the standard deviation of $X_{1},\ldots ,X_{10}$.
+
+\item The $t$-statistics of the hypothesis test $H_{0}:\mu =10$ against $%
+H_{1}:\mu \neq 10$ is%
+\begin{equation*}
+t=\sqrt{10}\frac{\bar{X}-10}{sd}
+\end{equation*}%
+where $sd$ is the standard deviation (as computed by \texttt{sd}). Compute
+the $t$-statistic.
+
+\item Create an empty vector $Z$ of length $R=5000$. Write a loop over $%
+r=1,\ldots ,R$ and repeat steps (a) and (b) for each $r$. Save the $t$%
+-statistic at $Z_{r}$.
+
+\item Plot the histogram of $Z_{1},\ldots ,Z_{R}$ and add the density
+function of the $t_{9}$-distribution.
+\end{enumerate}
+
+\item The classical central limit theorem states that the standardized sum
+of i.i.d. random variables with finite variance converges in distribution to
+the standard normal distribution $N(0,1)$. This exercise illustrates the
+central limit theorem.
+
+\begin{enumerate}
+\item Write a simulation that performs the following steps:
+
+\begin{itemize}
+\item Generate a random sample $X_{1},\ldots ,X_{5}$ of size $n=5$ from the
+standard exponential distribution $Exp(1)$.
+
+\item Compute the sample sum.
+
+\item Repeat the steps $R=10\,000$ times. For each replication, store the
+sum, e.g. into a vector $Z$.
+
+\item Plot the histogram of the sum and add the density function of $%
+N(m,s^{2})$ where $m$ is the mean of $Z$ and $s$ is the standard deviation
+of $Z$.
+\end{itemize}
+
+\item Increase the sample size $n$ in (a) to $n=50,500,5000$.
+
+\item Redo (a) and (b) with other distributions than the exponential. Use
+the uniform distribution, the $t$-distribution with 3 degrees of freedom,
+the Bernoulli distribution (i.e. binomial with parameter \texttt{size=1}),
+the Poisson distribution.
+
+\item The central limit theorem breaks down if the variance of the summands
+is infinite. Redo (a) and (b) using a $t$-distribution with only 1.5 degrees
+of freedom.
+\end{enumerate}
+
+%\item This exercise illustrates convergence of random sums to the Laplace
+%distribution.
+%
+%\begin{enumerate}
+%\item Write a simulation that performs the following steps:
+%
+%\begin{itemize}
+%\item Generate a random number $\nu $ from the geometric distribution with
+%support $\{1,2,\ldots \}$ and parameter $p=0.02$. Use the command \texttt{%
+%rgeom(n=1,prob=0.02)+1}. (If you do not add one the sample size could be
+%zero.)
+%
+%\item Generate a random sample $X_{1},\ldots ,X_{\nu }$ of random size $\nu $
+%from the centralized standard exponential distribution $Exp(1)-1$, i.e.
+%substract 1 from the exponentially distributed random numbers.
+%
+%\item Compute the sample sum and standardize it by multiplying it with $%
+%\sqrt{2p}$.
+%
+%\item Repeat the steps $R=10000$ times. For each replication, store the
+%standardized sum, e.g. into a vector $Z$.
+%
+%\item Plot the histogram of the standardized sum and add the density
+%function of the standard Laplace distribution,%
+%\begin{equation*}
+%f(x)=\frac{1}{2}e^{-|x|}.
+%\end{equation*}
+%\end{itemize}
+%
+%\item Increase the expected sample size $1/p$ in (a) with $p=0.002,0.0002.$
+%
+%\item Redo (a) and (b) replacing the shifted exponential distribution by the
+%uniform distribution on $[-\sqrt{3},\sqrt{3}]$, and by the standard normal
+%distribution $N(0,1)$.
+%\end{enumerate}
+\end{enumerate}
+\newpage
+
+
+\section{Linear regressions}
+
+\begin{enumerate}
+\item Load the Stata dataset \texttt{wages.dta}. The variables are \texttt{%
+earnings} (in Euro, 2009), \texttt{age}, \texttt{gender} (male=1, female=2), 
+\texttt{education} (year of education), \texttt{hours} (hours worked during
+2009), and \texttt{weight}.
+
+\begin{enumerate}
+\item Compute the (unweighted) wage equation%
+\begin{equation*}
+\ln \text{earnings}_{i}=\alpha +\beta _{1}\text{age}_{i}+\beta _{2}\text{age}%
+_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}\text{gender}_{i}+u_{i},
+\end{equation*}%
+print the summary of the \texttt{lm}-object, and interpret the output.
+
+\item Add an interaction term for \texttt{education} and \texttt{gender} to
+the regression.
+
+\item Compute the weighted hourly wage equation%
+\begin{equation*}
+\ln \frac{\text{earnings}_{i}}{\text{hours}_{i}}=\alpha +\beta _{1}\text{age}%
+_{i}+\beta _{2}\text{age}_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}%
+\text{gender}_{i}+u_{i},
+\end{equation*}%
+print the summary of the \texttt{lm}-object, and interpret the output.
+
+\item Activate the package \texttt{sandwich} (or the package \texttt{AER}).
+Use the function \texttt{coeftest} to compute the heteroskedasticity robust
+standard errors for the estimated coefficients.
+
+\item Predict the hourly wage of a male person aged 60 years as a function
+of education (vary the years of education between 9 and 18). Set the option 
+\texttt{se.fit=TRUE}. Inspect the object returned by the \texttt{predict}
+command. Plot the predicted values and add the $\pm 2$ standard deviations
+confidence intervals.
+\end{enumerate}
+
+\item Load the dataset \texttt{bsp4.txt}.
+
+\begin{enumerate}
+\item Plot the scatterplot of $y$ against $x$.
+
+\item Perform a simple linear regression of $y$ on $x$ and save the results
+as an \texttt{lm}-object \texttt{obj}. Add the regression line of $y$ on $x$
+to the plot.
+
+\item Extract the fitted values from \texttt{obj} and add them as red points
+to the plot (use the command \texttt{points}).
+
+\item Extract the residuals of the regression and calculate the sum of the
+squared residuals,%
+\begin{equation*}
+SSR=\sum_{i=1}^{100}\hat{u}_{i}^{2}
+\end{equation*}
+
+\item Compute the total sum of squares and the explained sum of squares,%
+\begin{eqnarray*}
+TSS &=&\sum_{i=1}^{100}\left( y_{i}-\bar{y}\right) ^{2} \\
+ESS &=&\sum_{i=1}^{100}\left( \hat{y}_{i}-\bar{y}\right) ^{2}
+\end{eqnarray*}%
+and show that $ESS+SSR=TSS.$
+\end{enumerate}
+
+%\item Regression results can be severely misleading if a relevant exogenous
+%variable is missing in the regression model (omitted variable bias).
+%Consider the true regression relation%
+%\begin{equation*}
+%y_{i}=\alpha +\beta _{1}x_{1i}+\beta _{2}x_{2i}+u_{i}
+%\end{equation*}%
+%with $\alpha =3$, $\beta _{1}=1$, $\beta _{2}=2$, and $u_{i}\sim N(0,\sigma
+%^{2})$ where $\sigma ^{2}=4$. We will investigate what happens if the
+%variable $x_{2}$ is omitted. Write a simulation that performs the following
+%steps:
+%
+%\begin{itemize}
+%\item Create an empty matrix $Z$ of dimensions $R\times 2$ with $R=10\,000$.
+%
+%\item Generate a bivariate random sample 
+%\begin{equation*}
+%\left( 
+%\begin{array}{c}
+%x_{11} \\ 
+%x_{12}%
+%\end{array}%
+%\right) ,\ldots ,\left( 
+%\begin{array}{c}
+%x_{n1} \\ 
+%x_{n2}%
+%\end{array}%
+%\right)
+%\end{equation*}%
+%of size $n=100$ from the multivariate normal distribution with parameters%
+%\begin{equation*}
+%\mu =\left( 
+%\begin{array}{c}
+%1 \\ 
+%1%
+%\end{array}%
+%\right) ,\quad \Sigma =\left( 
+%\begin{array}{ll}
+%1 & 0.7 \\ 
+%0.7 & 1%
+%\end{array}%
+%\right) .
+%\end{equation*}%
+%The easiest way to do so is to use the command \texttt{mvrnorm} supplied by
+%the \texttt{MASS} package, e.g. \texttt{x <-
+%mvrnorm(n=100,mu=c(1,1),Sigma=matrix(c(1,0.7,0.7,1),2,2))}. The return
+%matrix \texttt{x} has two columns, the first column is variable $%
+%x_{1}=(x_{11},\ldots ,x_{n1})$, the second column is $x_{2}=(x_{12},\ldots
+%,x_{n2})$.
+%
+%\item Generate a random sample $u_{1},\ldots ,u_{n}$ of size $n=100$ from $%
+%N(0,\sigma ^{2})$ with $\sigma ^{2}=4$.
+%
+%\item Compute the endogenous variables $y_{i}=\alpha +\beta _{1}x_{1i}+\beta
+%_{2}x_{2i}+u_{i}$.
+%
+%\item Perform a simple linear regression of $y$ on $x_{1}$, omitting the
+%relevant variable $x_{2}$.
+%
+%\item Write a loop over $r=1,\ldots ,R$. For each replication, store the
+%estimated coefficients $\hat{\alpha}$ and $\hat{\beta}_{1}$ is row $%
+%r=1,\ldots ,R$ of $Z$.
+%
+%\item Split the screen using \texttt{par(mfrow=c(2,1))}. Plot the histograms
+%of the distribution of $\hat{\alpha}$ (the first column of $Z$) and of the
+%distribution of $\hat{\beta}_{1}$ (second column of $Z$). Add the true
+%values $\alpha =3$ and $\beta _{1}=1$ as vertical red lines to the plot
+%(using \texttt{abline(v=...)}).
+%\end{itemize}
+\end{enumerate}
+\newpage
+
+
+\section{Numerical optimization}
+
+\begin{enumerate}
+\item Define the polynomial \texttt{function}%
+\begin{equation*}
+f(x)=x\left( x-2\right) \left( x-4\right) \left( x-5\right) -10
+\end{equation*}%
+and plot it over the interval $[0,5]$.
+
+\begin{enumerate}
+\item Use \texttt{optimize} to find the minimum of the function. Set the
+interval to $[0,5]$ and then to $[0,6].$
+
+\item Even though one-dimensional optimization problems should be solved by 
+\texttt{optimize}, use the \texttt{optim}-command with option \texttt{%
+method="BFGS"} to find the minimum of the function $f$. Set the starting
+values to $0,1,2,3,-1$ and check if the algorithm finds the global minimum.
+\end{enumerate}
+
+\item Consider the Cobb-Douglas production function with two inputs $x_{1}$
+and $x_{2}$,%
+\begin{equation*}
+y=f(x_{1},x_{2})=x_{1}^{0.3}x_{2}^{0.6}.
+\end{equation*}%
+Suppose the output price is $p_{y}=1$ and the input prices are $p_{1}=2$ and 
+$p_{2}=0.5$. Define the profit function as a \texttt{function} and
+numerically maximize it.
+
+\item Consider the nonlinear regression model%
+\begin{equation*}
+y_{i}=\exp \left( \alpha +\beta x_{i}\right) +u_{i}
+\end{equation*}%
+where $u_{i}\sim N(0,\sigma ^{2})$. Since the error term is additive one
+cannot simply take logarithms to make the model linear. Load the dataset 
+\texttt{expgrowth.csv} and estimate the parameters $\alpha $ and $\beta $ by
+minimizing%
+\begin{equation*}
+\sum_{i=1}^{n}\left( y_{i}-\exp \left( a+bx_{i}\right) \right) ^{2}
+\end{equation*}%
+numerically with respect to $a$ and $b$.
+\end{enumerate}
+\newpage
+
+
+\section{Maximum likelihood}
+
+\begin{enumerate}
+\item Load the dataset \texttt{round86.csv} into a dataframe. The first
+column is the actual earnings in 1986 of $n=443$ persons as derived from the
+employers files, the second column is the earnings reported by the persons.
+
+\begin{enumerate}
+\item Compute the reporting errors and plot their histogram.
+
+\item Assume that the reporting error $x$ follows a Laplace distribution
+with density%
+\begin{equation*}
+f\left( x\right) =\frac{1}{2b}\exp \left( -\frac{|x-\mu |}{b}\right) .
+\end{equation*}%
+Write a function of $\theta =(\mu ,b)$ and $x=(x_{1},\ldots ,x_{n})$ to
+compute the log-likelihood function%
+\begin{equation*}
+\ln L\left( \theta ,x\right) =\sum_{i=1}^{n}\ln f\left( x\right) .
+\end{equation*}%
+Hint: The absolut value function $|\cdot |$ is \texttt{abs(}$\cdot $\texttt{)%
+}.
+
+\item Numerically maximize the log-likelihood function with respect to $\mu $
+and $b$. Set the starting values to $\mu _{0}=0$ and $b_{0}=3000$.
+\end{enumerate}
+
+\item Load the dataset \texttt{fussballdaten.csv} into a dataframe.
+
+\begin{enumerate}
+\item Use indexing to obtain the vector of goals scored in home matches by
+the team \texttt{dortmund}. Tabulate and plot the vector.
+
+\item Fit a Poisson distribution to the number of goals. The maximum
+likelihood estimator of the parameter $\lambda $ of the Poisson distribution
+is $\hat{\lambda}=\bar{X}$ where $\bar{X}$ is the mean number of goals. Add
+the probabilities of the fitted Poisson distribution to the plot (as red
+points).
+
+%\item Re-do the exercise for other teams.
+\end{enumerate}
+
+%\item Income distributions are sometimes approximated by a log-normal
+%distribution with density function%
+%\begin{equation*}
+%f\left( x\right) =\frac{1}{\sqrt{2\pi }\sigma x}\exp \left( -\frac{1}{2}%
+%\left( \frac{\ln x-\mu }{\sigma }\right) ^{2}\right)
+%\end{equation*}%
+%where $\mu \in \mathbb{R}$ and $\sigma >0$ are parameters. Load the Stata
+%dataset \texttt{incomes.dta}. The variable $x$ reports the annual household
+%income after taxes and benefits of $n=27204$ German households in 2009.
+%
+%\begin{enumerate}
+%\item Write an R function with arguments $\theta =(\mu ,\sigma )$ and $%
+%x=(x_{1},\ldots ,x_{n})$ to compute the log-likelihood of the log-normal
+%distribution. The log-normal density can be calculated in R by the command 
+%\texttt{dlnorm} (this is the density of a log-normal distribution, not the
+%log-density of a normal distribution).
+%
+%\item Fit the log-normal distribution to the data. Use the start values $\mu
+%_{0}=10$ and $\sigma _{0}=0.5$. Restrict the parameter space to $\sigma >0$
+%by using the method \texttt{L-BFGS-B} and set the lower limit of $\sigma $
+%to 0 (the lower limit of $\mu $ is irrelevant and can be set to $-\infty $).
+%Note that the data argument must not be of class \texttt{dataframe}, but of
+%class \texttt{numeric}.
+%
+%\item Plot the histogram of income and add the fitted density to the plot.
+%\end{enumerate}
+
+
+\item Let $X\sim LN(\mu ,\sigma ^{2})$ and let $X_{1},\ldots ,X_{n}$ be a sample
+drawn from $X$. The $X_{i}$ are not observable. Instead one can only observe%
+\begin{equation*}
+Y_{i}=\left\{
+\begin{array}{ll}
+X_{i} & \quad \text{if }X_{i}<c \\
+c & \quad \text{if }X_{i}\geq c%
+\end{array}%
+\right.
+\end{equation*}%
+where $c$ is a known constant. The likelihood of $Y_{1},\ldots ,Y_{n}$ is
+the product of all densities $f_{X}(y_{i}),$ for observations with $Y_{i}<c$%
+, times the product of all probabilities that $Y_{i}=c$ for observations
+with $Y_{i}=c$.
+
+Let's consider the probability of $Y_i=c$:
+\begin{equation*}
+Pr(Y_i = c) = Pr(X_i \geq c) = 1 - Pr(X_i \leq c) = 1- F_X(c)
+\end{equation*}
+The likelihood function is now a mixture between the product of all densities $f_{X}(y_{i}),$ for observations with $Y_{i}<c$%
+, times the product of all probabilities that $Y_{i}=c$ for observations with
+$Y_{i}=c$:
+\begin{equation*}
+L(\mu,\sigma; y) = \prod_{i=1}^n\{ f_X(y_i;\mu,\sigma)\}^{\delta_i}\{1-F_X(c;\mu,\sigma)\}^{1-\delta_i}
+\end{equation*}
+with $\delta_i=1$ for exact observations and $\delta_i=0$ for a censored
+observation. The loglikelihood is thus the sum of those two components (let
+$n_1$ be the number of non-censored observations and $n_2$ the number of
+censored observations, $n_1+n_2=n$):
+\begin{equation*}
+\log L(\mu,\sigma; y) = \sum_{i=1}^{n_1} \log f_X(y_i;\mu,\sigma) +
+\sum_{i=1}^{n_2} \log(1-F_X(c;\mu,\sigma))
+\end{equation*}
+
+
+\begin{enumerate}
+	\item Write an R function that computes the likelihood of $\mu $ and $\sigma
+	^{2}$ given the observations $Y_{1},\ldots ,Y_{n}$ (and given $c$).
+	
+	\item Load the dataset \texttt{censoredln.csv}.
+	
+	\item Numerically maximize the likelihood function. The censoring value is $%
+	c=12.$
+	
+	\item Compute the asymptotic covariance matrix of $\hat{\mu}$ and $\hat{%
+		\sigma}^{2}$.
+\end{enumerate}
+\end{enumerate}
+\newpage
+
+\section{Dates and times}
+
+\begin{enumerate}
+\item Use the command \texttt{as.Date} to generate the following dates or
+vectors of dates:
+
+\begin{enumerate}
+\item January 1st, 2012
+
+\item November 9th, 1989
+
+\item All Wednesdays in 2012
+
+\item The first days of all months from January 2005 to December 2011.
+
+\item The first days of all quarters from April 2000 to January 2012.
+
+\item Use \texttt{difftime} to compute the number of days between your date of
+birth and today.
+\end{enumerate}
+
+\item Use the command \texttt{strptime} to generate the following dates and
+times or vectors of dates and times of class \texttt{POSIXlt}:
+
+\begin{enumerate}
+\item January 19th, 2012, 08:45:00
+
+\item January 19th, 2012, 12:00:00
+
+\item All minutes between the times in (a) and (b)
+
+\item What happens if you add 1 to a \texttt{POSIXlt} object?
+\end{enumerate}
+
+\item Load the dataset \texttt{indices.csv} into a dataframe.
+
+\begin{enumerate}
+\item Use the command \texttt{strptime} to convert the first column of the
+dataframe into a vector of class \texttt{POSIXlt}.
+
+\item Plot the DAX index as a black line against the date vector.
+
+\item Compute the daily returns of the DAX index,%
+\begin{equation*}
+r_{t}=\ln \frac{DAX_{t}}{DAX_{t-1}}
+\end{equation*}%
+and calculate the mean return for each weekday. Plot the mean
+returns for each weekday as a bar chart.
+
+\item Use the function \texttt{holiday} of the \texttt{timeDate} package to
+identify the holidays at Deutsche B\"{o}rse. Remove the holiday returns and
+redo the computations for the weekday returns.
+\end{enumerate}
+\end{enumerate}
+\newpage
+
+
+\section{Time series: Basics\label{tsbasics}}
+
+Activate the \texttt{zoo} package.
+
+\begin{enumerate}
+\item Load the dataset \texttt{BIP.csv} into a dataframe. The first column
+is the GDP in current prices, the second column is the price deflated
+(chain) index of GDP with 2005=100.
+
+\begin{enumerate}
+\item The first observation is the first quarter of 2000, the last
+observation is the third quarter of 2011. Create a \texttt{ts} time series
+object of the GDP in current prices.
+
+\item Print the time series.
+
+\item Plot the time series.
+
+\item Use the command \texttt{rollmean} to add a moving average of length $%
+k=4$ to the plot.
+
+\item Plot the time series of the differences between GDP and the rolling
+mean.
+
+\item Use the function \texttt{aggregate} with option \texttt{nfrequency=1}
+to compute the time series of the annual GDP values.
+
+\item Plot the differences of the logarithm of the annual GDP values (i.e.
+the annual growth rates).
+\end{enumerate}
+
+\item Load the dataset \texttt{m3.csv} into a dataframe. It contains the
+money aggregate M3 for the Euro area.\footnote{\texttt{%
+https://stats.ecb.europa.eu/stats/download/bsi\_ma\_historical\_nsa\_dp/}%
+\newline
+\texttt{bsi\_ma\_historical\_nsa\_dp/bsi\_hist\_nsa\_u2\_2.pdf}} Remember to
+set the option \texttt{as.is=TRUE} in the \texttt{read.csv} command.
+
+\begin{enumerate}
+\item Create a \texttt{zoo} object of the M3 time series.
+
+\item Print the time series, setting the option \texttt{style} to each of
+its three possible values, i.e. \texttt{horizontal}, \texttt{vertical}, and 
+\texttt{plain}.
+
+\item Plot the time series and add the rolling mean (with window width 12
+months) in red.
+
+\item Plot the deviation of the time series from its rolling mean.
+
+\item Use the command \texttt{lag} to define the time series $M3_{t-12}$
+(i.e. M3 in the same month of the previous year).
+
+\item Plot $M3_{t}-M3_{t-12}$ and $\ln M3_{t}-\ln M3_{t-12}$.
+\end{enumerate}
+
+\item Convert the M3 time series to class \texttt{ts}.
+
+\begin{enumerate}
+\item Read \texttt{?decompose}. Decompose the time series into a trend, a
+seasonal component, and a remainder term using the function \texttt{decompose%
+}. Assign the function value to an object (which will be of class \texttt{%
+decomposed.ts}), and plot this object.
+
+\item Try both \texttt{type} options (i.e. \texttt{additive} and \texttt{%
+multiplicative}). Which one would you prefer?
+\end{enumerate}
+
+\item Continue to use the M3 time series.
+
+\begin{enumerate}
+\item Execute \texttt{acf(diff(M3))} and interpret the plot.
+
+\item Returns from the \texttt{acf} command are of class \texttt{acf}, see 
+\texttt{?acf}. Extract the autocorrelations of \texttt{diff(M3)} as a vector.
+\end{enumerate}
+
+\item Consider the dataset \texttt{electricity.csv}. It contains hourly
+electricity prices (in EUR/MWh) at the EEX.
+
+\begin{enumerate}
+\item The time format is YYYY-MM-DD, HH:00. Read the dataset into a
+dataframe (using the option \texttt{as.is=TRUE}) and create a vector for the
+date-time information.
+
+\item Plot the time series of the electricity prices.
+
+\item Use the \texttt{acf} command to compute and display the
+autocorrelation function up to lag order 750.
+
+\item Convert the price time series into an \texttt{ts} object with start
+date 1 and end date 365 (and, of course, frequency 24). Use the command 
+\texttt{aggregate} to calculate the average daily prices.
+\end{enumerate}
+\end{enumerate}
+\newpage
+
+
+\section{Time series: model estimation and unit roots}
+
+Activate the packages \texttt{tseries}, \texttt{fGarch}, and \texttt{vars}.
+
+\begin{enumerate}
+\item Load the artificial dataset \texttt{ar1.csv}. It contains two
+variables, the endogenous variable $Y$ and the exogenous variable $X$. The
+linear relationship $Y_{t}=\alpha +\beta X_{t}$ is disturbed by a first
+order autoregressive error term $u_{t}$ with%
+\begin{equation*}
+u_{t}=\rho u_{t-1}+\varepsilon _{t}
+\end{equation*}%
+where $\varepsilon _{t}\sim N(0,\sigma ^{2})$ and $|\rho |<1$.
+
+\begin{enumerate}
+\item Run an OLS regression of $Y$ on $X$ and put the residuals into a
+vector \texttt{uhat}.
+
+\item Use the command \texttt{ar} to estimate the autoregression coeffcient $%
+\rho $ and the variance $\sigma ^{2}$.
+
+\item Extract the standard error of $\hat{\rho}$. Is $\hat{\rho}$
+significantly positive?
+\end{enumerate}
+
+\item Load the dataset \texttt{BIP.csv} and convert the first column (i.e.
+GDP in current prices) to class \texttt{ts}.\footnote{%
+See exercise \ref{tsbasics}.1.}
+
+\begin{enumerate}
+\item Use the command \texttt{decompose} to calculate the trend, the
+saisonal pattern and the remainder term of the time series.
+
+\item Fit an $AR(1)$ process to the remainder term (\texttt{\$random}). In
+order to remove the missing values set the option \texttt{na.action=na.omit}.
+
+\item Test if the first order autocorrelation coefficient is significantly
+different from zero.
+
+\item Now use the command \texttt{arima} to fit an $AR(1)$ model to the
+remainder term.
+
+\item Fit an $MA(1)$ model to the remainder term.
+\end{enumerate}
+
+\item Load the dataset \texttt{investment.csv}. It contains the gross
+machinery investment (Bruttoausr\"{u}stungsinvestitionen) in current prices
+(in billion Euros).
+
+\begin{enumerate}
+\item Convert the investment time series to class \texttt{ts} and plot it in
+levels and percentage changes (differences of the logs). Ignore the
+structural break in 1990 due to Germany's unification.
+
+\item Fit $ARIMA(p,1,q)$ models to the time series with $p,q\in \{0,1,2\}$.
+Find the lowest $AIC$ value of the 9 models.
+
+\item Perform an $ADF$ test. Does investment exhibit a unit root?
+
+\item Perform an $ADF$ test for the differenced time series of investment.
+Do the differences have a unit root?
+\end{enumerate}
+
+\item Load the dataset \texttt{indices.csv} and compute the returns of the
+DAX index as%
+\begin{equation*}
+r_{t}^{DAX}=\ln \frac{DAX_{t}}{DAX_{t-1}}.
+\end{equation*}
+
+\begin{enumerate}
+\item Fit a $GARCH(1,1)$ model to the returns by \texttt{garch}.
+
+\item Fit a $GARCH(1,1)$ model by \texttt{garchFit} and compare your results
+with (a).
+
+\item Add an $AR(2)$ mean equation.
+\end{enumerate}
+
+\item Consider the bivariate $VAR(1)$ process%
+\begin{equation*}
+y_{t}=\left[ 
+\begin{array}{cc}
+0.9 & 0 \\ 
+0.5 & 0.5%
+\end{array}%
+\right] y_{t-1}+\varepsilon _{t},\qquad \varepsilon _{t}\sim N\left( \left[ 
+\begin{array}{c}
+0 \\ 
+0%
+\end{array}%
+\right] ,\left[ 
+\begin{array}{cc}
+1 & 0.3 \\ 
+0.3 & 1%
+\end{array}%
+\right] \right)
+\end{equation*}%
+where $y_{t}=(y_{1t},y_{2t})^{\prime }$, see A. Staszewska-Bystrova (2011),
+Bootstrap Prediction Bands for Forecast Paths from Vector Autoregressive
+Models, \emph{Journal of Forecasting}, 30: 721-735.
+
+\begin{enumerate}
+\item Write an R program that performs the following steps.
+
+\begin{itemize}
+\item Set $R=1000.$
+
+\item Initiate an empty matrix $Z$ of dimension $R\times 4$.
+
+\item For $r=1,\ldots ,R$: Set $y_{1}=(0,0)$; simulate $y_{t}$ for $%
+t=2,\ldots ,200$; drop the first 100 observations; use the \texttt{VAR}
+command of the \texttt{vars} package to estimate the four coefficients of
+the autoregression matrix; save the coefficients in row $r$ of matrix $Z$.
+\end{itemize}
+
+\item Use the \texttt{apply} command to compute the mean estimates of the
+four coefficients. Are the VAR estimators biased?
+
+\item Plot the histograms of the four coefficients in a $2\times 2$ plot.
+\end{enumerate}
+
+
+\end{enumerate}
+\newpage
+
+
+\section{Graphics}
+The following exercises rely on a Harvard University tutorial called "Introduction to R Graphics with ggplot2". The exercises show you how to investigate a dataset about housing prices visually using \texttt{ggplot2}. 
+\begin{enumerate}
+\item Load the dataset \texttt{landdata-states.csv} and create a histogramm of Home.Value using \texttt{aes} and \texttt{geom\_histogram}.
+\item Redo the first exercise using an appropriate binwidth using \texttt{binwidth}.
+\item Plot two countries of your choice over time  with two different colours using \texttt{geom\_point}, \texttt{subset} and \texttt{color}.
+\item Load the package ggThemeAssist and 
+polish your last graphic \\ using \texttt{ggThemeAssistGadget(ggplot2-object)}.
+\item Make a scatterplot of Land.Value in logs on the x-axis and Strcuture.Cost on the y-axis for the first quarter of 2001 using \texttt{geom\_point} and \texttt{subset}. (We refer to this as the basis plot in the following.)
+\item Add a fitted linear regression line to the basis plot and color the points with respect to Home.Value using \texttt{geom\_smooth} and \texttt{color}.
+\item Use a fitted polynomial instead of the regression line in the last plot.
+\item Use the unique variable names in State as y-values in the basis plot using \texttt{geom\_text}
+\item Use different shapes due to the variable region with \texttt{shape} and different colours due to the variable Home.Value with \texttt{color} for the last plot.
+\item Calculate the mean of Home.Value for every state using \texttt{aggregate} and plot your new data.frame using \texttt{geom\_bar} and \texttt{stat = "identity"}.
+\item Plot State on the x-axis and Home.Price.Index on the y-axis using \texttt{geom\_point}. Use Date as color to distinguish the plot with respect to the time.
+\item Use \texttt{alpha} and \texttt{size} to make the last plot clearer.
+\item Use \texttt{scale\_color\_gradient} to change the color of the last plot.
+\item Plot the Home.Value over time for every state in a different colour.
+\item Divide the last plot in multiple plots each for every state using \texttt{facet\_wrap}.
+\end{enumerate}
+
+\end{document}

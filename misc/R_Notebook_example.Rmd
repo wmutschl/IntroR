@@ -1,0 +1,253 @@
+---
+title: "R Notebook Example"
+output:
+  html_notebook:
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '2'
+    toc_float: yes
+---
+
+# Introduction
+
+The beginning of this `.Rmd` file has the following code:
+
+```{r, eval = FALSE}
+---
+title: "R Notebook Example"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+```
+
+This means that we want to generatean `.html` document with a table of contents which floats when we scoll down or up.
+
+If we want to generate a `.pdf` output we can use:
+<!--by using "eval = FALSE" we tell R to NOT estimate this r code chunk sicne we wanted to present some Latex code in a similar format-->
+```{r, eval = FALSE}
+---
+title: "Task X"
+author: "Student Name, student.name@mif.stud.vu.lt"
+fontsize: 10pt
+output: pdf_document
+---
+```
+
+This  markdown file shows the basic functionality of how the code is estimated and how to write formulas and is ment as a proof of concept rather than a full fledged tutorial.
+
+[A more complete introduction to RMarkdown can be found here](http://rmarkdown.rstudio.com/lesson-1.html).
+
+# Some code examples
+
+## Basics
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing `Ctrl+Shift+Enter`. 
+
+```{r, fig.height = 4, fig.width = 6}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing `Ctrl+Alt+I`.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press `Ctrl+Shift+K` to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+Note the difference between:
+
+```{r}
+x1 <- rnorm(100)
+print(mean(x1))
+```
+
+and
+
+```{r, eval = FALSE}
+x2 <- rnorm(100)
+print(mean(x2))
+```
+
+By specifying `eval = FALSE` we are telling R to not evaluate this code. We can check this by looking at the list of variables in our environment:
+
+```{r}
+print(ls())
+```
+
+We can see that only `x1` variables was created.
+
+## Code generation example
+
+Open this notebook in RStudio and try executing the following code. If you click the green arrow a couple of times, the resulting output will be the same.
+
+```{r}
+set.seed(1233)
+mean(rnorm(100))
+```
+
+Now, try executing the above code and then execute the below code immediately:
+
+```{r}
+mean(rnorm(100))
+```
+
+Now, only execute the above code block - you will notice that the output is **different** each time! In order to avoid this - use the `set.seed` function in those code chunks, where you are generating data. (Note: if you use the 'Run All' command, then both of the above chunks will produce the same results).
+
+To evaluate **all** of the chunks in an `*.Rmd` file, press `Ctrl+Alt+Enter` ('Run All' command).
+
+## Printing output
+
+We can print a model output:
+
+```{r}
+my.ols <- lm(mpg ~ disp + cyl, data = mtcars)
+summary(my.ols)
+```
+
+We can also print the data output:
+
+```{r}
+print(head(mtcars))
+```
+
+**However** if we have a large data frame, the nall of the data will be printed. If we want to format it differently, we can use a number of libraries:
+
+```{r, results = "asis"}
+DT::datatable(mtcars, width = 400)
+```
+
+Note that this interactivity will **not work** in a `.pdf` file.
+
+In most cases regarding the output, using the standard `print()` function will be enough. For model where there is a large amount of output, please `print()` only the required results. Example:
+
+The coefficients:
+```{r}
+print(summary(my.ols)$coefficients)
+```
+
+We can also use inline code with `$R^2=$` \``r ` `round(summary(my.ols)$r.squared, 4)`\`:
+
+Our $R^2=$ `r round(summary(my.ols)$r.squared, 4)`.
+
+
+# Formula examples
+
+More info on [Latex formulas, matrices, etc.](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
+
+## General formulas
+Formulas in Markdown are written between the `$` symbols for inline formulas, and between `$$` symbols for centered formulas. 
+
+For example, writing `$X_t = \sum_{j = 1}^t \epsilon_j$` produces the following output: $X_t = \sum_{j = 1}^t \epsilon_j$. 
+
+Writing `$$X_t = \sum_{j = 1}^t \epsilon_j$$` produces: $$X_t = \sum_{j = 1}^t \epsilon_j$$
+
+## Matrices
+
+If we want to write a matrix, we use (either with `$` or `$$`, and using `\quad` to separate the different matrices)::
+
+```{r, eval = FALSE}
+$$
+\begin{bmatrix}
+\alpha& \beta^{*}\\
+\gamma^{*}& \delta
+\end{bmatrix} \quad 
+\begin{pmatrix}
+\alpha& \beta^{*}\\
+\gamma^{*}& \delta
+\end{pmatrix}
+$$
+```
+
+which produces the following output:
+$$
+\begin{bmatrix}
+\alpha& \beta^{*}\\
+\gamma^{*}& \delta
+\end{bmatrix}, \quad 
+\begin{pmatrix}
+\alpha& \beta^{*}\\
+\gamma^{*}& \delta
+\end{pmatrix}
+$$
+
+## Equation aligning
+
+Using the `align` environment and writing `&` next to the symbols we want to align in each row lets us specify multiple equations aligned by the same symbol, for example:
+```{r, eval = FALSE}
+$$
+\begin{align}
+Y_{1,t} &= \alpha_1 + \beta_1 X_{1,t} + \epsilon_{1,t} \\
+Y_{2,t} &= \alpha_1 + \beta_1 X_{1,t} + \epsilon_{1,t}
+\end{align}
+$$
+```
+
+Produces:
+
+$$
+\begin{align}
+Y_{1,t} &= \alpha_1 + \beta_1 X_{1,t} + \epsilon_{1,t} \\
+Y_{2,t} &= \alpha_1 + \beta_1 X_{1,t} + \epsilon_{1,t}
+\end{align}
+$$
+
+Or if we need to write our equation in a different form:
+```{r, eval = FALSE}
+$$
+\begin{align}
+f(x) & = (a+b)^2 \\
+& = a^2+2ab+b^2
+\end{align}
+$$
+```
+
+$$
+\begin{align}
+f(x) &= (a+b)^2 \\
+&= a^2+2ab+b^2
+\end{align}
+$$
+
+Or if we simply have longer names for our variables:
+
+```{r, eval = FALSE}
+\begin{align}
+Population_t &= \alpha_1 + \gamma_1 X_{1,t} + \gamma_2 X_{1,t-1} \\
+Price_t &= \alpha_2 + \beta_1 Z_{1,t}
+\end{align}
+```
+
+$$
+\begin{align}
+Population_t &= \alpha_1 + \gamma_1 X_{1,t} + \gamma_2 X_{1,t-1} \\
+Price_t &= \alpha_2 + \beta_1 Z_{1,t}
+\end{align}
+$$
+
+## Writing equation systems
+
+We can write the equation systems using the `cases` environment (note - we are also using the `&` symbol to align our equations):
+
+```{r, eval = FALSE}
+$$
+f(n) = \begin{cases} 
+n/2 &\mbox{if } n \equiv 0 \\
+(3n +1)/2 & \mbox{if } n \equiv 1. 
+\end{cases} \pmod{2} 
+$$
+```
+
+$$
+f(n) = \begin{cases} 
+n/2 &\mbox{if } n \equiv 0 \\
+(3n +1)/2 & \mbox{if } n \equiv 1. 
+\end{cases} \pmod{2} 
+$$
