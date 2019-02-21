@@ -1,0 +1,17 @@
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{What is R?}{6}{0}{2}
+\beamer@sectionintoc {3}{Managing workspace}{21}{0}{3}
+\beamer@sectionintoc {4}{Packages}{27}{0}{4}
+\beamer@sectionintoc {5}{Help and documentation}{33}{0}{5}
+\beamer@sectionintoc {6}{Programming Language Basics}{36}{0}{6}
+\beamer@sectionintoc {7}{Controlling Functions}{56}{0}{7}
+\beamer@sectionintoc {8}{Data Structures}{60}{0}{8}
+\beamer@sectionintoc {9}{Data import and export}{75}{0}{9}
+\beamer@sectionintoc {10}{Selection and Transformations of Variables}{86}{0}{10}
+\beamer@sectionintoc {11}{Graphics}{108}{0}{11}
+\beamer@sectionintoc {12}{Data description}{123}{0}{12}
+\beamer@sectionintoc {13}{Cleaning Data}{138}{0}{13}
+\beamer@sectionintoc {14}{User-defined functions}{145}{0}{14}
+\beamer@sectionintoc {15}{Programming}{151}{0}{15}
+\beamer@sectionintoc {16}{Linear regressions}{162}{0}{16}
+\beamer@sectionintoc {17}{High Quality Output}{174}{0}{17}
