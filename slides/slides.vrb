@@ -1,16 +1,15 @@
-\frametitle{Programming}
-\framesubtitle{Conditions}
-Syntax of the \texttt{if}-command
-\begin{verbatim}
-    if([condition]) {
-       [commands]
-    }
-\end{verbatim}
-\begin{itemize}
-\item The condition must not be a vector
-(else only its first element is used)
-\item If there is just a single command, the brackets can be omitted
-\item The opening curly bracket must appear in the same line as the \texttt{%
-if}-command
-\item It is possible to add \texttt{else \{[commands]\}}
-\end{itemize}
+\frametitle{High Quality Output}
+Example
+\begin{lstlisting}
+myM1 <- lm(q4 ~ q1 + q2 + q3, data=mydata100)
+myM2 <- lm(q4 ~ q1, data=mydata100)
+
+library("xtable")
+print(xtable(myM1),type="html",file="myM1-xtable.doc")
+
+library("texreg")
+htmlreg(myM1, single.row=TRUE,file="myM1-htmlreg.doc")
+htmlreg(list(myM1,myM2), file="myM1-myM2-htmlreg.doc")
+
+texreg(list(myM1, myM2))
+\end{lstlisting}

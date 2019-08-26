@@ -1,0 +1,9 @@
+<!-- html table generated in R 3.5.2 by xtable 1.8-2 package -->
+<!-- Fri Feb 22 11:58:52 2019 -->
+<table border=1>
+<tr> <th>  </th> <th> Estimate </th> <th> Std. Error </th> <th> t value </th> <th> Pr(&gt;|t|) </th>  </tr>
+  <tr> <td align="right"> (Intercept) </td> <td align="right"> 1.2094 </td> <td align="right"> 0.3179 </td> <td align="right"> 3.80 </td> <td align="right"> 0.0003 </td> </tr>
+  <tr> <td align="right"> q1 </td> <td align="right"> 0.4113 </td> <td align="right"> 0.1317 </td> <td align="right"> 3.12 </td> <td align="right"> 0.0024 </td> </tr>
+  <tr> <td align="right"> q2 </td> <td align="right"> 0.1579 </td> <td align="right"> 0.1069 </td> <td align="right"> 1.48 </td> <td align="right"> 0.1429 </td> </tr>
+  <tr> <td align="right"> q3 </td> <td align="right"> 0.0937 </td> <td align="right"> 0.1162 </td> <td align="right"> 0.81 </td> <td align="right"> 0.4218 </td> </tr>
+   </table>

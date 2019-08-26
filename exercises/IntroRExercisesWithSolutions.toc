@@ -1,0 +1,24 @@
+\contentsline {section}{Introduction}{1}{section*.2}
+\contentsline {section}{Logical Operators}{2}{section*.3}
+\contentsline {section}{Arithmetic operators and mathematical functions}{3}{section*.4}
+\contentsline {section}{Matrix functions}{5}{section*.5}
+\contentsline {section}{Set operations and special functions}{8}{section*.6}
+\contentsline {section}{Sequences and replications}{9}{section*.7}
+\contentsline {section}{Reading and writing text files}{10}{section*.8}
+\contentsline {section}{Import data using readr}{16}{section*.9}
+\contentsline {section}{Import Excel data}{16}{section*.10}
+\contentsline {section}{Import data using \texttt {haven}}{17}{section*.11}
+\contentsline {section}{Import data using \texttt {foreign}}{19}{section*.12}
+\contentsline {section}{Indexing vectors}{23}{section*.13}
+\contentsline {section}{Indexing matrices}{25}{section*.14}
+\contentsline {section}{Indexing dataframes}{27}{section*.15}
+\contentsline {section}{Selection and transformation with \texttt {dplyr}}{30}{section*.16}
+\contentsline {section}{Graphics with \texttt {ggplot}}{34}{section*.17}
+\contentsline {section}{Histograms}{38}{section*.18}
+\contentsline {section}{Correlation and covariance}{39}{section*.19}
+\contentsline {section}{Cleaning data}{42}{section*.20}
+\contentsline {section}{User-defined functions}{64}{section*.21}
+\contentsline {section}{Programming}{64}{section*.22}
+\contentsline {section}{Random numbers}{67}{section*.23}
+\contentsline {section}{Simulations}{69}{section*.24}
+\contentsline {section}{Linear regression}{73}{section*.25}

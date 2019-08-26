@@ -1,14 +1,17 @@
-\BOOKMARK [2][]{Outline0.1}{General information}{}% 1
-\BOOKMARK [2][]{Outline0.2}{Introduction}{}% 2
-\BOOKMARK [2][]{Outline0.3}{Operators and functions}{}% 3
-\BOOKMARK [2][]{Outline0.4}{Data import and export}{}% 4
-\BOOKMARK [2][]{Outline0.5}{Indexing}{}% 5
-\BOOKMARK [2][]{Outline0.6}{User-defined functions}{}% 6
-\BOOKMARK [2][]{Outline0.7}{Sorting and merging}{}% 7
-\BOOKMARK [2][]{Outline0.8}{Data description}{}% 8
-\BOOKMARK [2][]{Outline0.9}{Programming}{}% 9
-\BOOKMARK [2][]{Outline0.10}{Random numbers}{}% 10
-\BOOKMARK [2][]{Outline0.11}{Linear regressions}{}% 11
-\BOOKMARK [2][]{Outline0.12}{Numerical optimisation}{}% 12
-\BOOKMARK [2][]{Outline0.13}{Maximum likelihood}{}% 13
-\BOOKMARK [2][]{Outline0.14}{Time Series}{}% 14
+\BOOKMARK [2][]{Outline0.1}{Introduction}{}% 1
+\BOOKMARK [2][]{Outline0.2}{What is R?}{}% 2
+\BOOKMARK [2][]{Outline0.3}{Managing workspace}{}% 3
+\BOOKMARK [2][]{Outline0.4}{Packages}{}% 4
+\BOOKMARK [2][]{Outline0.5}{Help and documentation}{}% 5
+\BOOKMARK [2][]{Outline0.6}{Programming Language Basics}{}% 6
+\BOOKMARK [2][]{Outline0.7}{Controlling Functions}{}% 7
+\BOOKMARK [2][]{Outline0.8}{Data Structures}{}% 8
+\BOOKMARK [2][]{Outline0.9}{Data import and export}{}% 9
+\BOOKMARK [2][]{Outline0.10}{Selection and Transformations of Variables}{}% 10
+\BOOKMARK [2][]{Outline0.11}{Graphics}{}% 11
+\BOOKMARK [2][]{Outline0.12}{Data description}{}% 12
+\BOOKMARK [2][]{Outline0.13}{Cleaning Data}{}% 13
+\BOOKMARK [2][]{Outline0.14}{User-defined functions}{}% 14
+\BOOKMARK [2][]{Outline0.15}{Programming}{}% 15
+\BOOKMARK [2][]{Outline0.16}{Linear regressions}{}% 16
+\BOOKMARK [2][]{Outline0.17}{High Quality Output}{}% 17
