@@ -1,5 +1,6 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
+% !TeX program = lualatex
 \documentclass[xcolor={svgnames},10pt,
 %notes,
 handout
@@ -7,20 +8,22 @@ handout
 \useoutertheme{metropolis}
 \useinnertheme[sectionpage=progressbar,subsectionpage=progressbar]{metropolis}
 \usefonttheme{metropolis}
-\usecolortheme{seahorse} 
+%\usecolortheme{seahorse} 
 %\usecolortheme{dolphin} 
-%\usecolortheme{metropolis}
+\usecolortheme{metropolis}
 \setbeamertemplate{note page}[plain]
-\usepackage{lmodern}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{fontspec}
 \graphicspath{{graphics/}}
 \usepackage{csquotes}
+\usepackage{textcomp}
 \usepackage{listings}
 
 \lstset{%
 	language=R,                     % the language of the code
-	basicstyle=\small\ttfamily, % the size of the fonts that are used for the code
+	basicstyle=\small, % the size of the fonts that are used for the code
 %	numbers=left,                   % where to put the line-numbers
 %	numberstyle=\tiny\color{DarkBlue},  % the style that is used for the line-numbers
 	stepnumber=1,                   % the step between two line-numbers. If it is 1, each line	% will be numbered
@@ -35,9 +38,14 @@ handout
 	captionpos=b,                   % sets the caption-position to bottom
 	breaklines=true,                % sets automatic line breaking
 	breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-%	keywordstyle=\color{DarkGreen},      % keyword style
-	commentstyle=\color{DarkRed},   % comment style
-%	stringstyle=\color{DarkGreen}      % string literal style
+	upquote=true,
+	keywordstyle=\ttfamily,      % keyword style
+	commentstyle=\color{DarkGreen},   % comment style
+%	identifierstyle=\ttfamily,
+%	stringstyle=\color{DarkGreen},      % string literal style
+	keywords={},
+	columns=fullflexible,
+	literate=*{-}{-}1
 } 
 
 
@@ -65,13 +73,20 @@ handout
 
 
 \begin{frame}
-\frametitle{Literature}
+\frametitle{References}
+All materials and their source-codes are freely available online:
+\begin{footnotesize}
 \begin{description}
-\item[Essential:] Andreas Behr and Ulrich P\"{o}tter (2011): \emph{Einf\"{u}hrung in die Statistik mit R}
-\item[Additional:] Muenchen, Hilbe (2012): \emph{R for Stata Users}
-\item Introductory courses on datacamp.com
-\item Introductory tutorials on r-bloggers.com
+\item \url{https://github.com/wmutschl/IntroR/tree/IW}
 \end{description}
+\end{footnotesize}
+Course is based on
+\begin{itemize}
+\item Introductory courses held at the Econ Department at University of Münster
+\item Introductory courses on datacamp.com
+\item Andreas Behr and Ulrich P\"{o}tter (2011): \emph{Einf\"{u}hrung in die Statistik mit R}
+\item Muenchen, Hilbe (2012): \emph{R for Stata Users}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -87,8 +102,8 @@ handout
 \item Selection and transformations of variables and observations
 \item Treatment of missing values
 \item Data visualization (basic and using gramar)
-\item Basic statistics
-\item Linear modeling: regression analysis
+\item Regression analysis
+\item Programming
 \end{enumerate}
 \end{frame}
 
@@ -98,9 +113,22 @@ handout
 \begin{frame}[standout]
 \frametitle{What is R?}
 \begin{itemize}
-	\item[] \enquote{The most powerful statistical computing language on the planet...}\pause
-	\item[] ...It all depends on the use and user
+	\item[] \enquote{The most powerful statistical computing language on the planet...}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{What is R?}
+It all depends on the use and user, BUT: R is
+\begin{itemize}
+\item an intuitive interface to the most advanced statistical methods available today
+\item built specifically for data analysis and visualization
+\item one of the most popular languages for data science
+\item preferred by statisticians and academic researchers
+\item language of choice for cutting edge statistics
+\item a vast collection of community-contributed packages
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
@@ -123,10 +151,10 @@ The differences between S-Plus and R are minimal\\
 }
 
 \begin{frame}\frametitle{Comparison to STATA}
-Basically five independent parts of a software
+In general, five independent parts of a software
 \begin{itemize}
 \item Data input and management (language)
-\item Statistics and graphics procedures / commands
+\item Statistics and graphics procedures (commands)
 \item Output management systems
 \item Macro language
 \item Matrix language
@@ -139,7 +167,7 @@ $\hookrightarrow$In R all five were planed to be unified from the beginning
 
 \begin{frame}\frametitle{Comparison to STATA}
 \begin{itemize}
-\item Base R plus recommended packages contains over 1600 functions similar to e.g. STATA
+\item \texttt{Base R} plus recommended packages contains over 1600 functions similar to e.g. STATA
 \item Tested via extensive validation programs
 \begin{itemize}
 \item[$\hookrightarrow$] R is accurate even though no company behind it, R responds very quickly to bugs etc.
@@ -156,15 +184,15 @@ The basic command window is called the \texttt{R Console}\\
 Prompt: \texttt{>}\\
 You can input commands and execute them (by pressing the \textsc{Return} key)
 \begin{lstlisting}
-> 1+1
-> 1+1 # This is a comment: 1+1
-> (1+2)*3
-> (5/3)^4.5
-> 5+2; 7+3; 2*5
-> pi
-> Pi
-> PI
-> 2*((1+2)*(1-2)
+1+1
+1+1 # This is a comment: 1+1
+(1+2)*3
+(5/3)^4.5
+5+2; 7+3; 2*5
+pi
+Pi
+PI
+2*((1+2)*(1-2)
 \end{lstlisting}
 This will: (1) evaluate it, (2) print the result, (3) count the lines with [n] and (4) delete the result
 \end{frame}
@@ -218,7 +246,7 @@ Actually R-Studio can also be run on a server easily such that one could call rs
 
 
 \begin{frame}[fragile]
-\frametitle{Concatenation and Assignments}
+\frametitle{Concatenation, Assignments, Strings}\footnotesize
 Open a new Script in R-Studio and try out the following:
 \begin{lstlisting}
 c(1,4,7)
@@ -229,9 +257,15 @@ A
 b <- c(1,a,3)
 (b <- c(1,a,3))
 mean(b)
-demo("graphics")
+simpsons_kids <- c( #family name
+"Bart",           #boy name
+'Lisa',           #girl name
+"Maggie"          #baby name
+)
+print(simpsons_kids)
+c(2,"3") -> y
 \end{lstlisting}
-Execute a single line (or multiple lines by marking them) by pressing \textsc{CTRL-ENTER}
+Execute a single line (or multiple lines by marking them) by pressing \textsc{CTRL-ENTER}\\
 \end{frame}
 \note{
 Variables are case-sensitive, e.g. pi, Pi, PI
@@ -243,22 +277,76 @@ a + at the command line indicates that a command is not complete, either complet
 
 }
 
+\begin{frame}[fragile]
+\frametitle{Concatenation, Assignments, Strings}
 
+\begin{itemize}
+	\item \lstinline|c()| is the concatenation operator and probably the most used command in R
+	\item \lstinline|<-| and \lstinline|->| assign values to variables, you could also use \lstinline|=| but it is not recommended
+	\item if you did not complete commands, you get a \lstinline|+|. Most of the times close a \lstinline|)|, or hit ESC key or CTRL+C
+	\item comments go from \lstinline|#| to the end of line, can be between functions or in the middle with line breaks
+	\item there is no block comment features, simply use [CTRL-SHIFT-C] in R-Studio to (un)comment sections
+	\item Use either double quotation marks (\lstinline|"some string"|) or single ones (\lstinline|'some other strings'|). Note that double quotes are preferred (and output is printed using double quotes)
+\end{itemize}
+\end{frame}
+\note{Copy and pasting of R commands from these slides often does not work (especially quotation marks and minus signs), depends on pdf reader, better type commands on your own!
+}
+
+\begin{frame}[fragile]\frametitle{Parenthesis}
+(Parenthesis)
+\begin{itemize}
+	\item control math order as usual in algebra, e.g.
+	\begin{lstlisting}
+	1+1*10
+	(1+1)*10
+	\end{lstlisting}
+	\item print assignment values: 
+	\begin{lstlisting}
+	(x<-c(1,2,3,4,NA))
+	\end{lstlisting}
+	\item provide options to functions, e.g.
+	\begin{lstlisting}
+	mean(x, na.rm=FALSE)
+	mean(x, na.rm=TRUE)
+	\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Parenthesis}
+\{Curly Braces\}
+\begin{itemize}
+\item Can combine many commands into one
+\item Executes all assignments but returns only value of last expression
+\item Useful for writing own functions
+\begin{lstlisting}
+{x<-2; y<-1
+z<-x+y; z2<- z^2
+z
+z2}
+\end{lstlisting}
+\end{itemize}
+[Square Braces] and [[Double Square Braces]]
+\begin{itemize}
+\item Used for selecting/indexing elements within objects (we will get to that later)
+\item Double squares are used in lists (one of the most general data structure)
+\end{itemize}
+\end{frame}
 \section{Managing workspace}
+
+
 
 \begin{frame}[fragile]
 \frametitle{Managing workspace}
 Listing Objects
 \begin{itemize}
 \item \lstinline|ls()| or \lstinline|objects()| lists the objects in your workspace
-\item \lstinline|list=ls())| clears workspace
+\item \lstinline|rm(list=ls())| clears workspace
 \end{itemize}
 Working Directory
 \begin{itemize}
 	\item Easiest: Use GUI, i.e. Session - Set Working Directory
-	\item alternatively: \lstinline|getwd()| and \lstinline|setwd("c:/temp")|
+	\item alternatively: \lstinline|getwd()| and \\\lstinline|setwd("c:/Users/wmutschl/Documents/RKurs")| (PC)\\ \lstinline|setwd("/Users/wmutschl/Documents/RKurs")| (Mac)\\ \lstinline|setwd("/home/wmutschl/Documents/RKurs")| (Linux)
 	\item Note that the path name is structured by slashes (\lstinline|/|), not backslashes (\lstinline|\|)
-	\item some special hidden files are in your working directory
 \end{itemize}
 \end{frame}
 \note{Special R Files: Rproj that remebmers the open files an working directory, stores settings in a folder named .Rproj.user
@@ -280,32 +368,18 @@ Quitting
 \begin{itemize}
 	\item Quit R by the command \lstinline|q()|
 	\item Quit RStudio by using the GUI or [CTRL+Q]
-	\item In general, do \emph{not} save your workspace
+	\item In general, save your script files, but do \emph{not} save your workspace
+	\item Note that in RStudio even unsaved script files are kept
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Managing workspace}
-Misc
-\begin{itemize}
-\item if you did not complete commands, you get a \lstinline|+|. Most of the times close a \lstinline|)|, or hit ESC key or CTRL+C
-\item comments go from \lstinline|#| to the end of line, can be between functions or in the middle with line breaks
-\item there is no block comment features, simply use [CTRL-SHIFT-C] in R-Studio to (un)comment sections
-\end{itemize}
-\end{frame}
-\note{
-d <-   \#output name\\
-2 *  \#first param\\
-3    \#second param\\
-print(d)
-}
 
 \section{Packages}
 
 \begin{frame}
 \frametitle{Packages}
 \begin{itemize}
-	\item One of the strengths of R is the large and growing collection of packages that can be downloaded from CRAN (or Github, etc)
+	\item One of the strengths of R is the large and growing collection of packages that can be downloaded from CRAN (or e.g. Github)
 	\item Installation (only once!)
 	\begin{itemize}
 	\item Use R-Studio interface for Packages
@@ -391,44 +465,7 @@ help.start()
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Parenthesis}
-(Parenthesis)
-\begin{itemize}
-\item control math order as usual in algebra, e.g.
-\begin{lstlisting}
-1+1*10
-(1+1)*10
-\end{lstlisting}
-\item print assignment values: 
-\begin{lstlisting}
-(x<-12)
-\end{lstlisting}
-\item provide options to functions, e.g.
-\begin{lstlisting}
-mean(x, na.rm=FALSE)
-\end{lstlisting}
-\end{itemize}
-\end{frame}
 
-\begin{frame}[fragile]\frametitle{Parenthesis}
-\{Curly Braces\}
-\begin{itemize}
-\item Can combine many commands into one
-\item Executes all assignments but returns only value of last expression
-\item Useful for writing own functions
-\begin{lstlisting}
-{x<-2; y<-1
-z<-x+y; z2<- z^2
-z
-z2}
-\end{lstlisting}
-\end{itemize}
-[Square Braces] and [[Double Square Braces]]
-\begin{itemize}
-\item Used for selecting/indexing elements within objects
-\item Double squares are used in lists (one of the most general data structure)
-\end{itemize}
-\end{frame}
 
 
 \begin{frame}\frametitle{Variables}
@@ -440,6 +477,8 @@ All kinds of values can be stored in a variable (as we are object-oriented):
 \item dates
 \item logical TRUE/FALSE values
 \item data structures
+\item plots
+\item other objects
 \item ....
 \end{itemize}
 \end{frame}
@@ -448,16 +487,15 @@ All kinds of values can be stored in a variable (as we are object-oriented):
 \begin{frame}[fragile]\frametitle{Mode, Class, Dimension and Length of Vectors}
 \begin{lstlisting}
 x <- c(1, 2, 1, 2, 1, 2, 1, 2)
-print(x)
-mode(x)
-class(x)
-length(x)
-dim(x)
-x + x
+print(x); mode(x); class(x); length(x); dim(x)
+x+x
 2*x
 x + 10
 x + c(10, 100)
+x <- as.matrix(x)
+print(x); mode(x); class(x); length(x); dim(x)
 \end{lstlisting}\pause
+\footnotesize
 \begin{itemize}
 	\item \lstinline|mode|: a variable's type
 	\item \lstinline|class|: vectors have a class of character or numeric (or many other things), dimension (\lstinline|dim|) of a vector is NULL
@@ -465,9 +503,7 @@ x + c(10, 100)
 	\item Note: If one vector is shorter, its values are \textbf{recycled} until the lengths match
 \end{itemize}
 \end{frame}
-\note{Advantage: saves you typing,
-
-Attention: a vector is NOT a 1D-vector!
+\note{Advantage of recycling: saves you typing, Disadvantage: might lead to errors. Attention: a vector is NOT a 1D-vector! Use \lstinline|as.matrix| instead!
 }
 
 \begin{frame}\frametitle{Operators and functions}
@@ -494,7 +530,7 @@ Examples logical operators
 5 < 7
 1+1 == 3
 a <- c(-1,4,9)
-a >= 2 \& a < 8
+a >= 2 & a < 8
 b <- c(NA,1,2,3)
 b > 0
 is.na(b)
@@ -638,6 +674,143 @@ or each element $n$ times,\newline
 Exercise 6
 \end{frame}
 
+\begin{frame}
+\frametitle{Indexing}
+Indexing vectors
+\begin{itemize}
+	\item R has a rich indexing syntax
+	\item The basic ideas are the same for vectors, matrices and other objects
+	\item Indexing is used to read or manipulate specified elements of the
+	objects
+	\item Indexes are always given in square brackets: \texttt{[]} \newline
+	(or sometimes \texttt{[[]]} for lists)
+	\item Indexes can be either numerical or logical
+	\item We will start with vectors and then look at matrices and dataframes
+	\item The symbols \texttt{i} and \texttt{j} denote integer variables (not
+	vectors)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Indexing Vectors}
+Numerical indexing
+\begin{description}
+\item[{\texttt{x[1]}}] first element
+\item[{\texttt{x[2]}}] second element
+\item[{\texttt{x[i]}}] $i$-th element
+\item[{\texttt{x[-i]}}] all elements, without position $i$
+\item[{\texttt{x[a:b]}}] all elements from position $a$ to position $b$
+\item[{\texttt{x[k]}}] \texttt{k} numerical vector: all elements at positions
+given in $k$
+\end{description}
+
+Logical indexing
+\begin{description}
+\item[{\texttt{x[a]}}] \texttt{a} logical vector: all elements where $a$ is
+true \newline
+(\texttt{a} must have the same length as \texttt{x})
+\end{description}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Indexing Vectors}
+Indexing vectors
+\begin{lstlisting}
+x <- c(2,3,4,5,1,1,9,3,2)
+x[2]
+x[4:7]
+x[20]
+x[-9]
+x[-3]
+x[c(1,5,1,9,9)]
+a <- (x<4)
+x[a]
+x[x<4]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[standout]
+Exercise 7
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Indexing Matrices}
+Numerical indexing
+\begin{description}
+\item[{\texttt{x[i,j]}}] element in row $i$, column $j$
+\item[{\texttt{x[,j]}}] column $j$ (as a vector)
+\item[{\texttt{x[i,]}}] row $i$ (as a vector)
+\item[{\texttt{x[,-j]}}] without column $j$
+\item[{\texttt{x[-i,]}}] without row $i$
+\item[{\texttt{x[a:b,j]}}] elements $a$ to $b$ in column $j$
+\item[{\texttt{x[k,m]}}] \texttt{k},\texttt{m} numerical vectors: all
+elements at positions \newline
+given in $k$ and $m$
+\end{description}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Indexing Matrices}
+Logical indexing
+Let \texttt{a} denote a logical matrix of the same dimension as \texttt{x}; 
+\newline
+let \texttt{k} and \texttt{m} denote logical vectors of suitable length
+\begin{description}
+\item[{\texttt{x[a]}}] All elements of \texttt{x} at positions where \texttt{a%
+} is true, \newline
+as a \emph{vector!}
+\item[{\texttt{x[,m]}}] All columns of \texttt{x} where \texttt{m} is true
+\item[{\texttt{x[k,]}}] All rows of \texttt{x} where \texttt{k} is true
+\end{description}
+Of course, one may use numerical indexing for one dimension \newline
+and logical indexing for the other dimension
+\begin{description}
+\item[{\texttt{x[k,1:2]}}] All elements of columns 1 and 2 where \texttt{k}
+is true
+\item[{\texttt{x[3,m]}}] All elements of row 3 where \texttt{m} is true
+\end{description}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Indexing Matrices}
+Examples
+\begin{lstlisting}
+x <- matrix(1:16,4,4)
+x[3,3]
+x[,4]
+x[2,]
+x[,-1]
+x[-3,]
+x[2:4,4]
+x[c(1,4,2,2,2),1:2]
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Indexing Matrices}
+Examples
+\begin{lstlisting}
+x <- matrix((-7:8)^2,4,4)
+a <- (x<10)
+x[a]
+x[,c(TRUE,FALSE,TRUE,FALSE)]
+x[x[,1]<30,3:4]
+x[x[,2]==1 | x[,3]==1,]
+x[2:4,4]
+x[c(1,4,2,2,2),1:2]
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[standout]
+Exercise 8
+\end{frame}
+
 
 \section{Controlling Functions}
 
@@ -650,8 +823,6 @@ Exercise 6
 	\item value is a single object, may contain much information, optimized for further analysis not (necessarily) for displaying
 \end{itemize}
 \end{frame}
-\note{Hint: dont abreviate TRUE AND FALSE by T and F. So be careful\\
-note that we may use nested functions}
 
 \begin{frame}[fragile]
 \frametitle{More on function arguments}
@@ -663,14 +834,17 @@ summary(data.frame(x1,x2,x3)) #better!
 \end{lstlisting}
 \begin{itemize}
 	\item When calling a function, the order of the arguments is arbitrary, if the argument names are explicitly used:\\
-	\lstinline|mean(na.rm=FALSE,trim=.1,x=mydata)|
+	\begin{center} \lstinline|mean(na.rm=FALSE,trim=.1,x=x1)| \end{center}
 	\item Without argument names, R assigns the values in the order of the function definition:\\
-	\lstinline|mean(mydata,.1,FALSE)|
-	\item A function definition may include default values for arguments, e.g.\\
-	\lstinline|mean(x, trim = 0, na.rm = FALSE)|
+	\begin{center} \lstinline|mean(x1,.1,FALSE)| \end{center}
+	\item A function definition may include default values for arguments:\\
+	\begin{center}\lstinline|mean(x, trim = 0, na.rm = FALSE)|\end{center}
 	\item If an argument with a default value is missing in a function call, R uses the default value
 \end{itemize}
 \end{frame}
+\note{Hint: dont abreviate TRUE AND FALSE by T and F. So be careful\\
+	note that we may use nested functions}
+
 
 \section{Data Structures}
 \begin{frame}\frametitle{Data Structures}
@@ -790,12 +964,12 @@ as.vector, as.character, as.numeric, as.factor, as.data.frame, as.matrix, as.lis
 \frametitle{Large Data Frames}
 For large data frames use \texttt{tbl\_df} from \texttt{dplyr} package
 \begin{itemize}
-	\item offers better printing of large data frames
+	\item offers better printing of and defaults for (large) data frames
 	\item reports number of [rows by columns]
 	\item prints only 10 observations (option can be changed)
 	\item prints only enough variables to fill your screen
 	\item class becomes tbl\_df, tbl, data.frame
-	\item affects \lstinline|print()|
+	\item affects other functions like \lstinline|print()|
 \end{itemize}
 \begin{lstlisting}
 data(Titanic)
@@ -825,7 +999,7 @@ Array
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Data Structures Overview}
+\begin{frame}[fragile]\frametitle{Data Structures Overview}\footnotesize
 Lists
 \begin{itemize}
 \item object that can store any other type of objects, called components
@@ -909,7 +1083,7 @@ formats
 \frametitle{Data import and export - Manual data input}
 \begin{itemize}
 \item Very small datasets can be typed in directly, e.g.\newline
-\lstinline|x <- data.frame(v1=c(2,6,1,1),v2=c(9,9,8,8))|
+\texttt{x <- data.frame(v1=c(2,6,1,1),v2=c(9,9,8,8))}
 \item To edit existing objects, use \texttt{data.entry}, e.g.\newline
 \texttt{y <- data.entry(x)}
 \item However, editing data within R is \emph{not} recommended
@@ -953,7 +1127,7 @@ and the decimal sign is a comma (i.e. German style)
 \end{frame}
 
 \begin{frame}[standout]
-Exercise 7
+Exercise 9
 \end{frame}
 
 \begin{frame}[fragile]
@@ -970,7 +1144,7 @@ Exercise 7
 \end{itemize} 
 \item \lstinline|data.table| for huge data sets
 \begin{itemize}
-	\item \lstinline|fread| just works and ridiculously fast (infers column types and separators)
+	\item \lstinline|fread| just works and is ridiculously fast (infers column types and separators)
 \end{itemize}
 \end{itemize}
 \item Excel
@@ -999,7 +1173,7 @@ Exercise 7
 \end{itemize}
 \lstinline|foreign|
 \begin{itemize}
-	\item less consistent, very comprehensive (saves everything into attributes),
+	\item less consistent, very comprehensive (saves everything into attributes)
 	\item for formats \texttt{dbf}, \texttt{Stata}, \texttt{SPSS}, \texttt{SAS}, and a few more (but not Excel)
 	\item \lstinline|read.dta| takes also care of STATAs different missing values
 \end{itemize}
@@ -1013,7 +1187,7 @@ foreign: STATA 5 to 12, , might have to use saveold
 \lstinline|Hmisc|: \lstinline|stata.get| for STATA with saveold}
 
 \begin{frame}[standout]
-Exercises 8, 9, 10 and 11
+Exercises 10, 11, 12 and 13
 \end{frame}
 
 
@@ -1026,144 +1200,6 @@ Most programming packages:
 	\item Select observations by logical condition
 \end{itemize}
 R can do that as well, but has many more ways to select and transform variables (we can even reverse this order)
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Indexing}
-Indexing vectors
-\begin{itemize}
-	\item R has a rich indexing syntax
-	\item The basic ideas are the same for vectors, matrices and other objects
-	\item Indexing is used to read or manipulate specified elements of the
-	objects
-	\item Indexes are always given in square brackets: \texttt{[]} \newline
-	(or sometimes \texttt{[[]]})
-	\item Indexes can be either numerical or logical
-	\item We will start with vectors and then look at matrices and dataframes
-	\item The symbols \texttt{i} and \texttt{j} denote integer variables (not
-	vectors)
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Indexing Vectors}
-Numerical indexing
-\begin{description}
-\item[{\texttt{x[1]}}] first element
-\item[{\texttt{x[2]}}] second element
-\item[{\texttt{x[i]}}] $i$-th element
-\item[{\texttt{x[-i]}}] all elements, without position $i$
-\item[{\texttt{x[a:b]}}] all elements from position $a$ to position $b$
-\item[{\texttt{x[k]}}] \texttt{k} numerical vector: all elements at positions
-given in $k$
-\end{description}
-
-Logical indexing
-\begin{description}
-\item[{\texttt{x[a]}}] \texttt{a} logical vector: all elements where $a$ is
-true \newline
-(\texttt{a} must have the same length as \texttt{x})
-\end{description}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Indexing Vectors}
-Indexing vectors
-\begin{lstlisting}
-x <- c(2,3,4,5,1,1,9,3,2)
-x[2]
-x[4:7]
-x[20]
-x[-9]
-x[-3]
-x[c(1,5,1,9,9)]
-a <- (x<4)
-x[a]
-x[x<4]
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[standout]
-Exercise 12
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Indexing Matrices}
-Numerical indexing
-\begin{description}
-\item[{\texttt{x[i,j]}}] element in row $i$, column $j$
-\item[{\texttt{x[,j]}}] column $j$ (as a vector)
-\item[{\texttt{x[i,]}}] row $i$ (as a vector)
-\item[{\texttt{x[,-j]}}] without column $j$
-\item[{\texttt{x[-i,]}}] without row $i$
-\item[{\texttt{x[a:b,j]}}] elements $a$ to $b$ in column $j$
-\item[{\texttt{x[k,m]}}] \texttt{k},\texttt{m} numerical vectors: all
-elements at positions \newline
-given in $k$ and $m$
-\end{description}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Indexing Matrices}
-Logical indexing
-Let \texttt{a} denote a logical matrix of the same dimension as \texttt{x}; 
-\newline
-let \texttt{k} and \texttt{m} denote logical vectors of suitable length
-\begin{description}
-\item[{\texttt{x[a]}}] All elements of \texttt{x} at positions where \texttt{a%
-} is true, \newline
-as a \emph{vector!}
-\item[{\texttt{x[,m]}}] All columns of \texttt{x} where \texttt{m} is true
-\item[{\texttt{x[k,]}}] All rows of \texttt{x} where \texttt{k} is true
-\end{description}
-Of course, one may use numerical indexing for one dimension \newline
-and logical indexing for the other dimension
-\begin{description}
-\item[{\texttt{x[k,1:2]}}] All elements of columns 1 and 2 where \texttt{k}
-is true
-\item[{\texttt{x[3,m]}}] All elements of row 3 where \texttt{m} is true
-\end{description}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Indexing Matrices}
-Examples
-\begin{lstlisting}
-x <- matrix(1:16,4,4)
-x[3,3]
-x[,4]
-x[2,]
-x[,-1]
-x[-3,]
-x[2:4,4]
-x[c(1,4,2,2,2),1:2]
-\end{lstlisting}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Indexing Matrices}
-Examples
-\begin{lstlisting}
-x <- matrix((-7:8)^2,4,4)
-a <- (x<10)
-x[a]
-x[,c(TRUE,FALSE,TRUE,FALSE)]
-x[x[,1]<30,3:4]
-x[x[,2]==1 | x[,3]==1,]
-x[2:4,4]
-x[c(1,4,2,2,2),1:2]
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[standout]
-Exercise 13
 \end{frame}
 
 
@@ -1193,11 +1229,11 @@ or \texttt{x[c("varname1","varname2",...)]}
 
 \begin{frame}[fragile]
 \frametitle{Indexing Data Frames}
-Common Error
+Common Error: Forgetting the comma!
 
 \begin{lstlisting}
-mean(mydata["testscore"])  #will give you NA
-mean(mydata[,"testscore"]) #Don't forget the comma!
+mean(mydata["testscores"],na.rm = T)  #this will give you NA
+mean(mydata[,"testscores"],na.rm = T) #Don't forget the comma!
 \end{lstlisting}
 \end{frame}
 
@@ -1212,7 +1248,8 @@ Exercise 14
 \item the \lstinline|select| function makes life much easier as it selects all kinds of variables and always returns a data frame
 \begin{lstlisting}
 library(dplyr)
-select(mydata100, degree, gender) # for as many as I like
+load("mydata100.RData")
+select(mydata100, workshop, gender) # for as many as I like
 select(mydata100, gender:q4) # take all variables that are in between and itselft too
 select(mydata100, contains("q"))
 select(mydata100, starts_with("q"))
@@ -1229,7 +1266,8 @@ select(mydata100, num_range("q", 1:4))
 \frametitle{Selecting observations}
 Put logic in the row position (before the comma)
 \begin{lstlisting}
-summary(mydata100[mydata100$gender == "f", ]) #don't forget the comma!
+str(mydata100)
+summary(mydata100[mydata100$gender == "Female", ]) #don't forget the comma!
 \end{lstlisting}
 you could actually index on different objects
 \end{frame}
@@ -1239,7 +1277,7 @@ you could actually index on different objects
 Use the filter() function
 \begin{lstlisting}
 library("dplyr")
-summary(filter(mydata100, gender == "f"))
+summary(filter(mydata100, gender == "Female"))
 \end{lstlisting}
 \end{frame}
 
@@ -1248,7 +1286,7 @@ summary(filter(mydata100, gender == "f"))
 Traditional way:
 \begin{lstlisting}
 myVars <- c("gender", "q1", "q2", "q3", "q4")
-myObs <- which(mydata100$gender == "f")
+myObs <- which(mydata100$gender == "Female")
 mysubset <- mydata100[myObs, myVars]
 summary(mysubset)
 \end{lstlisting}
@@ -1256,13 +1294,12 @@ Modern way:
 \begin{lstlisting}
 library("dplyr")
 mysubset <- select(mydata100, gender, q1:q4)
-mysubset <- filter(mysubset, gender == "f")
+mysubset <- filter(mysubset, gender == "Female")
 summary(mysubset)
 \end{lstlisting}
 \begin{itemize}
 \item 
 first call select or filter, whichever gives you the smallest subset
-\item advanced feature "pipes" \%>\%: feeds results from one to another
 \end{itemize}
 \end{frame}
 
@@ -1270,30 +1307,49 @@ first call select or filter, whichever gives you the smallest subset
 \begin{frame}[fragile]\frametitle{Transformations}
 Very tedious:
 \begin{lstlisting}
-mydata2[, "diff"]  <- mydata[, "q4"] - mydata[, "q1"]
-mydata2[, "ratio"] <- mydata[, "q4"] / mydata[, "q1"]
-mydata2[, "q4log"] <- log(mydata[, "q4"])
-mydata2[, "z4"] <- as.numeric(scale(mydata[, "q4"]))
-mydata2[, "meanQ"] <- (mydata[, "q1"] + mydata[, "q2"] + mydata[, "q3"] + mydata[, "q4"])/4
+mydata2 <- mydata100
+mydata2[, "diff"]  <- mydata100[, "q4"] - mydata100[, "q1"]
+mydata2[, "ratio"] <- mydata100[, "q4"] / mydata100[, "q1"]
+mydata2[, "q4log"] <- log(mydata100[, "q4"])
+mydata2[, "meanQ"] <- (mydata100[, "q1"] + mydata100[, "q2"] + mydata100[, "q3"] + mydata100[, "q4"])/4
+mydata2
 \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Transformations}
 Much cooler: \lstinline|mutate| function from \lstinline|dplyr|
 \begin{lstlisting}
-mydata2 <- mutate(mydata,
+mydata3 <- mutate(mydata100,
 	diff = q4 - q1,
 	ratio = q4 / q1,
 	q4log = log(q4),
-	z4 = scale(q4),
 	meanQ = (q1+q2+q3+q4)/4
 )
-mydata2
+mydata3
 \end{lstlisting}
 \begin{itemize}
-\item lets you use short names
+\item lets you use short names without attaching dataframes
 \item returns original data frame plus the new variables for every row
 \item works only on columns or variables
+\item Important: don't forget commas!
 \end{itemize}
 \end{frame}
-\note{Making a copy to not overwrite dataset, don't forget commas!}
+\note{Making a copy to not overwrite original dataset. }
+
+\begin{frame}[fragile]\frametitle{Pipes}
+Advanced feature "pipes" \%>\%: feeds results from one to another
+\begin{lstlisting}
+load("mydata100.RData")
+mydata100 %>% 
+	filter(gender=="Female") %>%
+	select(q1:q4) %>%
+	mutate(diff = q4 - q1, 
+					ratio = q4 / q1,
+					q4log = log(q4),
+					meanQ = (q1+q2+q3+q4)/4
+					)
+\end{lstlisting}
+\end{frame}
 
 \begin{frame}[standout]
 Exercise 15
@@ -1303,12 +1359,15 @@ Exercise 15
 \section{Graphics}
 
 \begin{frame}[fragile]\frametitle{Some Remarks on Graphics}
-Traditional or Base Graphics
+Base Graphics (Traditional Way)
 \begin{itemize}
 \item \lstinline|plot()| offers many methods
 \item extremely flexible and extensible, but not easy to use with groups
 \item Uses \enquote{traditional graphics system}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Some Remarks on Graphics}
 \begin{lstlisting}
 load("mydata100.RData")
 mydata100 <- na.omit(mydata100)
@@ -1333,18 +1392,19 @@ plot(posttest,workshop) is a strip plot
 \begin{frame}[fragile]\frametitle{Many options}
 Nicer plots
 \begin{lstlisting}
-plot(pretest, posttest
-	pch = 19, # plot character
-	cex = 2,  # character expansion
-	main = "My Main Title",
-	xlab = "My X Axis Label",
-	ylab = "My Y Axis Label")
+plot(pretest, posttest,
+		pch = 19, # plot character
+		cex = 2,  # character expansion
+		main = "My Main Title",
+		xlab = "My X Axis Label",
+		ylab = "My Y Axis Label"
+)
 grid() #add grid to plot
-par() #graphics parameters
+par()  #overview of graphics parameters
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Subplots}
+\begin{frame}[fragile]\frametitle{Subplots}\footnotesize
 \begin{lstlisting}
 par(mfrow = c(2, 1))  # 2 rows, 1 column
 plot(workshop[gender == "Female"], main = "The Females")
@@ -1352,7 +1412,7 @@ plot(workshop[gender == "Male"], main = "The Males")
 #scatter plot with regression line
 par(mfrow = c(1, 1))
 plot(pretest,posttest)
-abline(c(18.78,0.845))
+abline(c(18,0.8))
 myModel <- lm(posttest ~ pretest, data=mydata100)
 abline(coefficients(myModel))
 \end{lstlisting}
@@ -1365,286 +1425,243 @@ Problems
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{ggplot - Basic idea}
-\lstinline|ggplot|
+\begin{frame}[fragile]\frametitle{ggplot2 - Basic idea}
+\lstinline|ggplot| from \texttt{ggplot2} package
 \begin{itemize}
 	\item follows Wilkinson's Grammar of Graphics
 	\item works with underlying graphics concepts, not pre-defined graph types
 	\item enables to create any data graphic that you can think of
 	\item uses Grid Graphics System instead of traditional system
 \end{itemize}
-Grammar of Graphics
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}
+\includegraphics[width=\textwidth]{ggplot-layers.png}
+Data, Aesthetics and Geometries are essential.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}
+Data
 \begin{itemize}
-\item Asthetics: how will variables appear? On axis? Shape, color, size...
-\item Geoms: set geometric objects, e.g. points, bars, lines, boxes
-\item Statistics: bins, smoother, fits,...
-\item Scales: axes (regular, log), legends
-\item Coordinate system: cartesian or polar
-\item Facets: plot by group(s)
+\item The dataset being plotted
+\begin{lstlisting}
+ggplot(data=mydata100)
+\end{lstlisting}
+\item This does not show anything
 \end{itemize}
 \end{frame}
-\note{how to create any kind of graphs}
 
-
-\begin{frame}[fragile]\frametitle{ggplot - examples}
-\begin{lstlisting}
-library("ggplot2")
-ggplot(mydata100, aes(workshop)) +
-	geom_bar()
-	
-ggplot(mydata100, aes(workshop), fill = gender) +
-	geom_bar(position="stack")
-	
-ggplot(mydata100, aes(workshop), fill = gender) +
-	geom_bar(position="stack") +
-	scale_fill_grey()
-	
-ggplot(mydata100, aes(workshop), fill = gender) +
-	geom_bar(position="dodge")
-	
-ggplot(mydata100, aes(workshop), fill = gender) +
-	geom_bar() +
-	facet_grid(gender ~ .)
-\end{lstlisting}
-\end{frame}
-\note{aes: asthetic, with very nice defaults
-
-As an argument to this function, you specify a formula, where the factor before the \~ specifies the number of rows, while the factor after the \~ specifies the number of columns.
-}
-
-\begin{frame}[fragile]\frametitle{ggplot - examples}
-
-\begin{lstlisting}[basicstyle=\footnotesize]
-ggplot(mydata100, aes(workshop, posttest)) +
-	geom_boxplot() +
-	geom_point()
-ggplot(mydata100, aes(workshop, posttest)) +
-	geom_boxplot() +
-	geom_point() + 
-	facet_grid(. ~ gender)	
-ggplot(mydata100, aes(pretest,posttest)) + 
-	geom_points()	
-ggplot(mydata100, aes(pretest,posttest, shape = gender)) + 
-	geom_points(size = 5)	
-ggplot(mydata100, aes(pretest,posttest, shape = gender, linetype = gender)) + 
-	geom_points(size = 5) +
-	geom_smooth(method = "lm")	
-ggplot(mydata100, aes(pretest,posttest, shape = gender, linetype = gender)) + 
-	geom_point() +
-	geom_smooth(method = "lm") + 
-	facet_grid(workshop ~ gender)
-\end{lstlisting}
-
-\end{frame}
-\note{do analysis how equal are slopes, you get a graphic on how unequal the slopes are, you can check whether the ranges are similar
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}
+Aesthetics
 \begin{itemize}
-	\item layer will compe on top
-	\item there are no rows but gender in the columns
+	\item How are variables \textbf{mapped} to visual properties of geometric objects?
+	\item For example: x-axis, y-axis, color, fill, size, labels, alpha, shape, line width, line type
+	\begin{lstlisting}
+	ggplot(data=mydata100, aes(x=workshop))
+	\end{lstlisting}
+	\item This still does not show anything as it doesn’t know what geometry to apply
 \end{itemize}
-}
+\end{frame}
 
-\begin{frame}[fragile]\frametitle{ggplot - examples}
-Same, more fully specified
-\begin{lstlisting}
-ggplot() + 
-	geom_point(data=mydata100, aes(pretest, posttest, shape = gender)) +
-	geom_smooth(data=mydata100, aes(pretest, posttest), method = "lm") +
-	facet_grid(workshop~gender)
-\end{lstlisting}
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}\footnotesize
+Geoms: Geometric objects
+\begin{itemize}
+	\item The visual elements used for data, e.g. point, line, histogram, bar, boxplot	
+	\begin{lstlisting}[basicstyle=\scriptsize]
+	ggplot(data=mydata100, aes(x=workshop, fill=gender)) +
+		geom_bar()
+	ggplot(mydata100, aes(x=pretest, y=posttest)) +
+ 		geom_point()
+ 	ggplot(mydata3, aes(x=pretest, y=posttest,col=meanQ)) + 
+ 		geom_point()
+	ggplot(mydata100, aes(x=pretest, y=posttest, col=workshop, size=q4)) + 
+		geom_point()		
+	ggplot(mydata3, aes(x=pretest, y=posttest, shape=workshop, col=meanQ, size=q4)) + 
+		geom_point()		
+	myboxplot <- ggplot(mydata100, aes(x=workshop, y=posttest)) +
+		geom_boxplot()
+	print(myboxplot)
+	myboxplot +
+		geom_point()
+	ggplot(mydata100, aes(pretest,posttest, label = workshop)) + 
+		geom_text()
+	\end{lstlisting}
+\item One great advantage of ggplot2: the plot is an object which can be manipulated!
+\item Type \lstinline|geom_| and hit tab to see all possible values of OBJECT (which can be extended by other packages)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}
+Facets
+\begin{itemize}
+	\item Facets allow to put multiple charts / plots on one canvas by dividing into columns and rows
+	\item Think of facets in terms of grouping your data
+	\begin{lstlisting}
+	p <- ggplot(mydata100, aes(x=posttest,fill=gender)) + 
+		geom_histogram()
+	p
+	p +	facet_grid(. ~ gender)
+	p +	facet_grid(gender ~ .)
+	p + facet_grid(workshop ~ gender)
+	\end{lstlisting}	
+\end{itemize}
+\end{frame}
+\note{
 \begin{itemize}
 	\item different layers can even point to different data sets!
+	\item so one data set could be raw data, another data set could be summary or confidence interval data
+\end{itemize}
+}
+
+
+
+
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}
+Statistics
+\begin{itemize}
+	\item Transformation or summary of your data before mapping to an aesthetic, e.g. binning, smoothing, descriptive, inferential
+	\item Often the geom has default stats, which may work alright
+	\item Sometimes providing a different stats does improve the clarity, e.g. calling
+	\begin{itemize}
+		\item \lstinline|stat_bin| instead of \lstinline|geom_bar| or \lstinline|geom_histogram|
+		\item \lstinline|stat_smooth| instead of \lstinline|geom_smooth|
+		\item \lstinline|stat_boxplot| instead of \lstinline|geom_boxplot|
+	\end{itemize}  
+	\item help of stat functions is often more informative
+\end{itemize}
+\begin{lstlisting}
+p <- ggplot(mydata100, aes(x = pretest, y = posttest, col = gender)) + 
+geom_point(alpha=0.4)
+p +	geom_smooth()
+p + geom_smooth(method="lm")
+p + geom_smooth(method="lm",se=FALSE)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}
+Coordinates
+\begin{itemize}
+	\item Coordinate system controls how positions are mapped to the plot
+	\begin{itemize}
+		\item Cartesian coordinates
+		\item Polar coordinates
+		\item Spherical projection
+	\end{itemize}
+	\item Customization (and deception), e.g.:
+	\begin{itemize}
+		\item apply limits to x-axis or y-axis
+		\item tune aspect-ratio
+		\item zoom in
+	\end{itemize}
+\begin{lstlisting}
+p <- ggplot(mydata100, aes(x = pretest, y = posttest, col = gender)) +
+geom_point(alpha=0.4) +
+geom_smooth()
+p
+p + scale_x_continuous(limits = c(65, 75)) #note the error message
+p + coord_cartesian(xlim = c(65, 75)) # coord_cartesian(): the proper way to zoom in
+\end{lstlisting}
 \end{itemize}
 \end{frame}
-\note{so one data set could be raw data, another data set could be summary or confidence interval data}
 
-\begin{frame}[fragile]\frametitle{ggplot - options}
-Nicer ggplots
-\begin{lstlisting}
-ggplot(mydata100, aes(pretest,posttest)) + 
-	geom_point() + 
-	labs(title = "Plot of Test Scores",
-		x = "Before Workshop",
-		y = "After Workshop") +
-	theme(plot.title = element_text(size=rel(2.5)))
-#Colors
+\begin{frame}[fragile]\frametitle{ggplot2 - Grammar of Graphics}
+Theme
+\begin{itemize}
+	\item ggplot2 provides themes like \lstinline|theme_bw()|, \lstinline|theme_classic|, \lstinline|theme_dark|, \lstinline|theme_light|
+	\begin{lstlisting}
+p
+p + theme_classic()
+p + theme_dark()
+p + theme_light()
+p + theme_minimal()
+p + theme_bw()
+p + theme_grey()
+p + theme_gray()
+	\end{lstlisting}
+	\item useful for corporate design, publication standards, personal choice
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]\frametitle{ggplot2 - more examples}
+More examples
+\begin{lstlisting}[basicstyle=\footnotesize]
 library(RColorBrewer)
-display.brewer.all(n=4) # how many column patterns
-ggplot(mydata100, aes(workshop, fill=gender)) +
-	geom_bar(position = "stack") + 
-	scale_fill_brewer(palette = "Set1")
+myColors <- c("black", brewer.pal(4, "Dark2"))
+ggplot(mydata100, aes(x = pretest, y = posttest, col = workshop)) +
+	geom_point(alpha=0.8,shape="#") +
+	geom_smooth(method = "lm", se = FALSE, fullrange=T) +
+	geom_smooth(method = "lm",
+					aes(group = 1, col = "All"), # Add col inside aes()
+					se = FALSE, fullrange=T) +
+	scale_color_manual("Participants", values = myColors)
+
+load("recess.Rdata")
+data("economics")
+ggplot(economics, aes(x = date, y = unemploy/pop)) +
+	geom_rect(data = recess,
+				aes(xmin = begin, xmax = end, ymin = -Inf, ymax = +Inf),
+				inherit.aes = FALSE, fill = "red", alpha = 0.2) +
+	geom_line()
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{ggplot2 - attributes}
+More examples
+\begin{lstlisting}
+p <- ggplot(mydata100, aes(x=workshop, fill = gender))
+p + geom_bar(position="fill")
+p + geom_bar(position="stack")
+p + geom_bar(position="dodge")
+p +  geom_bar(position = position_dodge(0.2), alpha = 0.6)
+p + geom_bar(position="fill") +
+scale_fill_grey()
+
+library(RColorBrewer)
+display.brewer.all(n=5) # how many column patterns
+p + geom_bar(position = "stack") + 
+	scale_fill_brewer(palette = "Set2")
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[standout]
-Exercise 16
-\end{frame}
-
-\section{Data description}
-
-
-\begin{frame}
-\frametitle{Frequency tables}
-\begin{itemize}
-	\item Let $x=\left( x_{1},\ldots ,x_{n}\right) ^{\prime }$ be a vector of
-	(numerical or character) observations
-	\item The command \texttt{table(x)} returns an object of the class
-	\textquotedblleft table\textquotedblright , representing the frequency
-	distribution of $x$
-	\item The top row shows the values that occur (as a character vector)
-	\item The bottom row shows the absolute frequencies
-	\item The distribution can be plotted by \texttt{plot(table(x))} or \texttt{%
-		barplot(table(x))}
-	\item try also \texttt{prop.table(table(x))} for relative frequencies or \texttt{cumsum()prop.table(table(x)))}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile] \frametitle{Frequency tables}
-Examples
-\begin{lstlisting}
-myWG <- table(workshop,gender)
-myWG
-summary(myWG)
-chisq.test(myWG)
-\end{lstlisting}
-
-\end{frame}
-\note{we can not reject the null that workshop and gender are independent}
-
-
-\begin{frame}
-\frametitle{Quantiles}
-\begin{itemize}
-\item Quantiles can be computed by \texttt{quantile(x,prob=...)}
-\item The argument \texttt{prob} can be a scalar or a vector of probabilities
-\item If \texttt{prob} is a vector the \texttt{quantile} function returns a
-vector
-\item Note that there are many definitions of quantiles \newline
-(see the option \texttt{type} of \texttt{quantile})
-\item For large datasets, the differences are negligible
-\end{itemize}
+Exercise 16 and 17
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Boxplots}
-\begin{itemize}
-\item If the argument of \texttt{boxplot} is a vector, one boxplot is generated
-\item If the argument is a matrix (or data frame), one boxplot for each
-column is generated
-\end{itemize}
-\begin{center}
-\includegraphics[width=8cm]{boxplot.jpeg}
-\end{center}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Mean, variance, standard deviation}
-\begin{description}
-\item[\texttt{mean}] Calculates the mean of a vector, the mean of all
-elements of a matrix, each column mean of a dataframe
-\item[\texttt{sd}] Calculates the standard deviation of a mean, or the
-standard deviation of each column of a matrix or dataframe
-\item[\texttt{var}] Calculates the variance of a vector, or the covariance
-matrix of a matrix or dataframe
-\item[\texttt{na.rm}] All three functions have the option \texttt{na.rm}
-(remove missings) which can be \texttt{TRUE} or \texttt{FALSE} (default)
-\end{description}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Histograms}
-\begin{itemize}
-\item The built-in command \texttt{hist} generates a plot of the histogram
-\item An improved command in the \texttt{library(MASS)} is \texttt{truehist}
-\item See the help file of \texttt{truehist} for the options
-\item Important options are: \texttt{xlab,ylab,xlim,ylim,main}
-\item One can easily add lines and curves to the plot\newline
-(with \texttt{abline} or \texttt{lines})
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Histograms}
-Examples
-\begin{lstlisting}
-library(MASS)
-x <- rnorm(2000) # random data
-truehist(x)
-abline(v=0)
-g <- seq(-3,3,length=500)
-lines(g,dnorm(g))
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[standout]
-Exercise 17
-\end{frame}
-
-\begin{frame}
-\frametitle{Covariance}
-\begin{itemize}
-\item If there are two vectors $x$ and $y$ of the same length $n$, then 
-\texttt{cov(x,y)} or \texttt{var(x,y)} compute the covariance
-\item If $x$ is a $\left( n,m\right) $-matrix or dataframe, then \texttt{cov(x)} or \texttt{var(x)} compute the covariance matrix of its columns
-\item If missing values exist, one can specify which observations should be included (option \texttt{use})
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Correlation}
-\begin{itemize}
-\item If there are two vectors $x$ and $y$ of the same length $n$, then 
-\texttt{cor(x,y)} computes the correlation coefficient (Bravais-Pearson)
-\item If $x$ is a $\left( n,m\right) $-matrix or dataframe, then \texttt{cor(x)} computes the correlation matrix of its columns
-\item If missing values exist, one can specify which observations should be included (option \texttt{use})
-\item Use the option \texttt{method} to compute Spearman's or Kendall's correlation coefficients
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{Correlation}
-Testing significance
-\begin{lstlisting}
-cor(select(mydata100,q1:q4),
-method="pearson",
-use   ="pairwise")
-
-cor.test(mydata$q1,mydata$q4,use="pairwise")
-\end{lstlisting}
-\end{frame}
-\note{first p-values, second p-values are adjusted corrected for the number of tests done.}
-
-\begin{frame}[standout]
-Exercise 18
-\end{frame}
 \section{Cleaning Data}
-\begin{frame}[fragile]\frametitle{Missing Values}
+\begin{frame}[fragile]\frametitle{Missing Values}\footnotesize
 \begin{itemize}
 	\item Missing values are neither negative nor positive infinity like in STATA
 	\item \lstinline|Inf| is infinity, also a kind of missing value, and you CAN do size comparison to it
 	\item Finding missing values:
-	\begin{itemize}
+	\begin{itemize}\footnotesize
 		\item Not \lstinline|x == NA| but \lstinline|is.na(x)|
 		\item Counting missing values:
-		\begin{lstlisting}
+		\begin{lstlisting}[basicstyle=\footnotesize]
 		x <- c(NA,2,NA,2,1)
 		length(x)      #number of all variables
 		sum(is.na(x))  #number of missing values
 		sum(!is.na(x)) #number of valid values
 		\end{lstlisting}
-		\item Hint: have a look at \lstinline|n.valid()| from the \lstinline|prettyR| package or write your own function:
-		\begin{lstlisting}
-		n.missing <- function(x){
-		sum(is.na(x))
-		}
+	\end{itemize}
+	\item Hint: have a look at \lstinline|valid.n()| from the \lstinline|prettyR| package
+		\begin{lstlisting}[basicstyle=\footnotesize]
+		library(prettyR)
+		valid.n(x)
 		\end{lstlisting}
-	\end{itemize}	
+		 or write your own function:
+		\begin{lstlisting}[basicstyle=\footnotesize]
+		n.missing <- function(x){
+			sum(is.na(x))
+		}
+		n.missing(x)		
+		\end{lstlisting}
+	
 \end{itemize}
 \end{frame}
-\note{R's logic is to have many tiny pieces, }
 
 
 \begin{frame}[fragile]\frametitle{Missing Values}
@@ -1672,10 +1689,172 @@ Setting values to missing
 \end{frame}
 
 \begin{frame}[standout]
-Exercise 19
+Exercise 18
 \end{frame}
 
-\section{User-defined functions} 
+\section{Linear regressions}
+
+
+\begin{frame}
+\frametitle{Multiple linear regression}
+\begin{itemize}
+	\item The general syntax of regression models is rather idiosyncratic:
+\end{itemize}
+\begin{center}
+	\texttt{a <- lm(formula)}
+\end{center}
+\begin{itemize}
+	\item Basic \textquotedblleft formula\textquotedblright\ syntax
+\end{itemize}
+\begin{center}
+	\texttt{y \symbol{126} x1 + x2 + \ldots\ + xK}
+\end{center}
+\begin{itemize}
+	\item Endogenous variable is on the left of \texttt{\symbol{126}}; exogenous
+	variables are on the right of \texttt{\symbol{126}}, separated by \texttt{+}
+	\item In R modeling functions: accept formulas, create model objects, generic functions show more, extractor functions show more
+	
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Multiple linear regression}
+Example
+\begin{lstlisting}
+library(foreign)
+x <- read.dta("wave2009.dta")
+attach(x)
+regr1 <- lm(satisfaction ~ age + netincome + children)
+regr1
+plot(regr1)
+summary(regr1)
+names(regr1)
+print(unclass(regr1))
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multiple linear regression}
+\begin{itemize}
+\item The \texttt{lm}-object is a list containing:
+\begin{enumerate}
+\item The estimated coefficients $\hat{\beta}$
+\item The residuals $\hat{u}_{t}$
+\item The fitted values $\hat{y}_{t}$
+\item Some other things
+\end{enumerate}
+\item If \texttt{a} is an \texttt{lm}-object one can access its elements
+using\newline
+\texttt{coefficients(a)}, \texttt{residuals(a)}, \texttt{fitted.values(a)}
+\item Alternatively, one can use the \texttt{\$}-operator: \texttt{%
+a\$coefficients}, \texttt{a\$residuals}, \texttt{a\$fitted.values}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multiple linear regression}
+Extensions (I):
+\begin{itemize}
+\item An intercept is added automatically but can be removed: \texttt{lm(y\symbol{126}x1+x2-1)}
+\item If the variables are organized in an unattached dataframe \texttt{x}, 
+\newline
+one can use the syntax: \texttt{lm(formula,data=x)}
+\item The formula may contain mathematical functions, e.g. \texttt{lm(log(y)%
+\symbol{126}log(x1))}
+\item \textbf{Attention}: Squares, sums and differences are not allowed!
+\item Use the function \texttt{I()} for squares, sums and differences
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Multiple linear regression}
+Extensions (II):
+\begin{itemize}
+\item Syntax for interaction terms
+\end{itemize}
+\begin{center}
+\texttt{a <- lm(y \symbol{126} x1 + x2 + x1:x2)}
+\end{center}
+\begin{itemize}
+\item Abbreviations:
+\begin{itemize}
+\item \lstinline|a <- lm(y ~ x1*x2)|
+\item \lstinline|a <- lm(y ~ (x1+x2)^2)| for all interactions up to 2
+\end{itemize}
+\item Weights can be added using the option \texttt{weights}
+\item One can select a subset of observations using the option \texttt{subset}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Multiple linear regression}
+Extensions (III):
+\begin{itemize}
+\item The \texttt{lm}-object can be used to add a regression line to a plot:
+\begin{lstlisting}
+regr <- lm(y~x)
+plot(x,y)
+abline(regr)
+\end{lstlisting}
+\item The \texttt{lm}-object can be used for forecasting:
+\begin{lstlisting}
+regr <- lm(y~x1+x2)
+xn <- data.frame(x1=c(...),x2=c(...))
+predict(regr,newdata=xn,se.fit=TRUE)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Multiple linear regression}
+Extensions (IV):
+\begin{itemize}
+\item Heteroskedasticity consistent standard errors are not reported by default
+\item The package \texttt{lmtest} supplies functions for robust standard errors
+\item The syntax for robust standard errors is
+\end{itemize}
+\begin{lstlisting}
+coeftest(regr,vcov=vcovHC)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Polynomial regression}
+Polynomial regression
+\begin{lstlisting}
+y ~ x + I(x^2) + I(x^3)
+y ~ poly(x,3)
+\end{lstlisting}
+\end{frame}
+\note{I means isolates this call}
+
+\begin{frame}[fragile]
+\frametitle{Multiple linear regression}
+Putting it all together:
+\begin{lstlisting}
+regr2 <- lm(satisfaction~age+netincome,data=x)
+regr3 <- lm(satisfaction~age+I(age^2))
+regr4 <- lm(satisfaction~log(netincome))
+regr5 <- lm(satisfaction~gender*marital)
+z <- gender=="Female"
+regr6 <- lm(satisfaction~log(netincome),subset=z)
+library("lmtest")
+coeftest(regr6,vcovHC)
+\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[standout]
+Exercise 19 and 20
+\end{frame}
+
+\section{Programming} 
 \begin{frame}
 \frametitle{User-defined functions}
 \begin{itemize}
@@ -1737,16 +1916,10 @@ by(posttest, workshop, mystats)
 
 
 \begin{frame}[standout]
-Exercise 20
+Exercise 21
 \end{frame}
 
 
-
-
-
-
-
-\section{Programming}
 
 
 \begin{frame}[fragile]
@@ -1908,176 +2081,13 @@ abline(v=2,col="red")
 \end{frame}
 
 \begin{frame}[standout]
-Exercises 21, 22, 23
+Exercises 22, 23, and 24
 \end{frame}
 
 
-\section{Linear regressions}
 
 
-\begin{frame}
-\frametitle{Multiple linear regression}
-\begin{itemize}
-\item The general syntax of regression models is rather idiosyncratic:
-\end{itemize}
-\begin{center}
-\texttt{a <- lm(formula)}
-\end{center}
-\begin{itemize}
-\item Basic \textquotedblleft formula\textquotedblright\ syntax
-\end{itemize}
-\begin{center}
-\texttt{y \symbol{126} x1 + x2 + \ldots\ + xK}
-\end{center}
-\begin{itemize}
-\item Endogenous variable is on the left of \texttt{\symbol{126}}; exogenous
-variables are on the right of \texttt{\symbol{126}}, separated by \texttt{+}
-\item In R modeling functions: accept formulas, create model objects, generic functions show more, extractor functions show more
 
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Multiple linear regression}
-Example
-\begin{lstlisting}
-library(foreign)
-x <- read.dta("wave2009.dta")
-attach(x)
-regr1 <- lm(satisfaction ~ age + netincome + children)
-regr1
-plot(regr1)
-summary(regr1)
-names(regr1)
-print(unclass(regr1))
-\end{lstlisting}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Multiple linear regression}
-\begin{itemize}
-\item The \texttt{lm}-object is a list containing:
-\begin{enumerate}
-\item The estimated coefficients $\hat{\beta}$
-\item The residuals $\hat{u}_{t}$
-\item The fitted values $\hat{y}_{t}$
-\item Some other things
-\end{enumerate}
-\item If \texttt{a} is an \texttt{lm}-object one can access its elements
-using\newline
-\texttt{coefficients(a)}, \texttt{residuals(a)}, \texttt{fitted.values(a)}
-\item Alternatively, one can use the \texttt{\$}-operator: \texttt{%
-a\$coefficients}, \texttt{a\$residuals}, \texttt{a\$fitted.values}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Multiple linear regression}
-Extensions (I):
-\begin{itemize}
-\item An intercept is added automatically but can be removed: \texttt{lm(y\symbol{126}x1+x2-1)}
-\item If the variables are organized in an unattached dataframe \texttt{x}, 
-\newline
-one can use the syntax: \texttt{lm(formula,data=x)}
-\item The formula may contain mathematical functions, e.g. \texttt{lm(log(y)%
-\symbol{126}log(x1))}
-\item \textbf{Attention}: Squares, sums and differences are not allowed!
-\item Use the function \texttt{I()} for squares, sums and differences
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Multiple linear regression}
-Extensions (II):
-\begin{itemize}
-\item Syntax for interaction terms
-\end{itemize}
-\begin{center}
-\texttt{a <- lm(y \symbol{126} x1 + x2 + x1:x2)}
-\end{center}
-\begin{itemize}
-\item Abbreviations:
-\begin{itemize}
-	\item \lstinline|a <- lm(y ~ x1*x2)|
-	\item \lstinline|a <- lm(y ~ (x1+x2)^2)| for all interactions up to 2
-\end{itemize}
-\item Weights can be added using the option \texttt{weights}
-\item One can select a subset of observations using the option \texttt{subset}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Multiple linear regression}
-Extensions (III):
-\begin{itemize}
-\item The \texttt{lm}-object can be used to add a regression line to a plot:
-\begin{lstlisting}
-regr <- lm(y~x)
-plot(x,y)
-abline(regr)
-\end{lstlisting}
-\item The \texttt{lm}-object can be used for forecasting:
-\begin{lstlisting}
-regr <- lm(y~x1+x2)
-xn <- data.frame(x1=c(...),x2=c(...))
-predict(regr,newdata=xn,se.fit=TRUE)
-\end{lstlisting}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Multiple linear regression}
-Extensions (IV):
-\begin{itemize}
-\item Heteroskedasticity consistent standard errors are not reported by default
-\item The package \texttt{sandwich} supplies functions for robust standard errors
-\item The syntax for robust standard errors is
-\end{itemize}
-\begin{lstlisting}
-coeftest(regr,vcov=vcovHC)
-\end{lstlisting}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Multiple linear regression}
-Putting it all together:
-\begin{lstlisting}
-regr2 <- lm(satisfaction~age+netincome,data=x)
-
-regr3 <- lm(satisfaction~age+I(age^2))
-
-regr4 <- lm(satisfaction~log(netincome))
-
-regr5 <- lm(satisfaction~gender*marital)
-
-z <- gender=="Female"
-
-regr6 <- lm(satisfaction~log(netincome),subset=z)
-
-coeftest(regr6,vcovHC)
-
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{Polynomial regression}
-Polynomial regression
-\begin{lstlisting}
-y ~ x + I(x^2) + I(x^3)
-y ~ poly(x,3)
-\end{lstlisting}
-\end{frame}
-\note{I means isolates this call}
-
-\begin{frame}[standout]
-Exercise 24
-\end{frame}
 \section{High Quality Output}
 
 \begin{frame}[fragile]

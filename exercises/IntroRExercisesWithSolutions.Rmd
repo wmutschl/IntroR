@@ -21,7 +21,7 @@ rm(list = ls())
 
 2. Under `Tools - Options` choose your preferred setting.
 
-3. Install the packages `dplyr`, `ggplot2`, `tidyr`, `stringr`, `readr`, `foreign`, `readxl`, `haven`, `sandwich`, `prettyR`, `Rcmdr`, `xtable`, `texreg`, and `lmtest`
+3. Install the packages `dplyr`, `ggplot2`, `tidyr`, `stringr`, `readr`, `foreign`, `readxl`, `haven`, `sandwich`, `prettyR`, and `lmtest`. Hint: You can also use the `Packages` Tab of RStudio to install and activate the libraries.
 ```{r,eval=FALSE}
 #you will need to install packages only once
 install.packages("dplyr")
@@ -34,14 +34,10 @@ install.packages("readxl")
 install.packages("haven")
 install.packages("sandwich")
 install.packages("prettyR")
-install.packages("Rcmdr")
-install.packages("xtable")
-install.packages("texreg")
 install.packages("lmtest")
 ```
-More simply: Use the `Packages` Tab of RStudio to install and activate the libraries.
 
-4. Load the ggplot2 package, list the packages in your memory and detach the ggplot2 package from the memory
+4. Load the `ggplot2` package, list the packages in your memory and detach the `ggplot2` package from the memory.
 ```{r}
 library("ggplot2")
 search()
@@ -55,13 +51,12 @@ search()
 getwd()
 ```
 
-6. Use the  command _setwd("c:/path")_ or _setwd(choose.dir())_ (only available on windows) to change the working directory to drive *c:* and path */path*. Note that the path name is structured by slashes (*/*), **not** backslashes (*\\*). Change the working directory to _c:/temp_ and check if the change has been successful. 
+6. Use the  command _setwd("c:/path")_ or _setwd(choose.dir())_ (only available on windows) to change the working directory to drive *c:* and path */path*. Note that the path name is structured by slashes (*/*), **not** backslashes (*\\*). Change the working directory and check if the change has been successful. Hint: The working directory can also be changed via the menu: _Session -- Set Working Directory_ or in the `Files` tab under `More`.
 ```{r,eval=FALSE}
-setwd("C:/temp")
+setwd("/home/wmutschl/Documents/RKurs")
 #setwd(choose.dir()) # on windows
 getwd()
 ```
-Hint: The working directory can also be changed via the menu: _Session -- Set Working Directory_.
 
 7. Open a new script file. Type the commands to perform the following assignments:
 \begin{align*}
@@ -79,13 +74,13 @@ e <- a + d
 ```
 
 8. Start R and re-open the script. Mark all lines (*Ctrl-A*) and execute them. Print $a,b,d,e.$ 
-```{r echo=FALSE}
+```{r}
 print(a); print(b); print(d); print(e)
 ```
 
-9. Why is $c$ not used as a variable?
+9. Why should you NOT use $c$ as a variable?
 ```{r}
-# Because c() is the built-in concatenation command! Do not use c for variable or function declaration. This could mess up your code.
+print("Because c() is the built-in concatenation command! Do not use c for variable or function declaration. This could mess up your code.")
 ```
 
 ***
@@ -153,9 +148,6 @@ and compute $x+y$ and $xy$ and $y/x$.
 ```{r}
 x <- c(-1, 0, 1, 4, 9, 2, 1, 4.5, 1.1, -0.9)
 y <- c(1, 1, 2, 2, 3, 3, 4, 4, 5, NA)
-```
-
-```{r}
 x + y
 x * y
 y / x
@@ -196,11 +188,12 @@ sum(x * (y^2), na.rm = TRUE)
 ```
 
 6. The `sum` command is a convenient way to count the number of elements satisfying a certain condition. Count the number of elements of $x>0$.
-```{r,collape=TRUE}
+```{r}
 sum(x > 0)
 ```
 
 7. Predict what the following commands will return:
+`x^y`, `x^(1/y)`, `log(exp(y))`, `y*c(-1,1)`, `x+c(-1,0,1)`, and `sum(y*c(-1,1),na.rm=TRUE)`.
 ```{r}
 x^y
 x^(1/y)
@@ -248,7 +241,7 @@ eigen(X)
 ```
 Is $X$ positive definite?
 ```{r}
-# Yes, since all eigenvalues are positive.
+print("Yes, since all eigenvalues are positive.")
 ```
 
 4. Invert $X$ and compute the eigenvalues of $X^{-1}$.
@@ -257,7 +250,7 @@ solve(X)  # inverts X
 eigen(solve(X))
 ```
 
-5. Define the vector $a=(1,3,2)$ and compute `a*X`, ``a%*%X`, and `X%*%a`.
+5. Define the vector $a=(1,3,2)$ and compute `a*X`, `a%*%X`, and `X%*%a`.
 ```{r}
 a <- c(1, 3, 2)
 a * X
@@ -300,12 +293,12 @@ $Y=\left[
 \end{array}
 \right]$.
 ```{r}
-I <- diag(3)
+I <- diag(3) #not good practice to use I
 Y <- cbind(matrix(1:9,3,3),I)
 Z <- rbind(matrix(1:9,3,3),I)
 ```
 
-8. Predict what the following commands will return:
+8. Predict what the following commands will return: `cbind(1,X)`, `rbind(Y,c(1,2,3))`, `X%*%I`, `dim(X%*%Y)`, `t(Y)+Z`, `solve(t(Z)%*%Z)%*%(t(Z)%*%Z)`.
 ```{r}
 cbind(1,X)
 rbind(Y,c(1,2,3))
@@ -389,6 +382,12 @@ x6 <- seq(0, 1, by = 0.01)
 
 2. Replications can also be generated for vectors of strings
 (characters). Type
+
+- `a <- c("a", "b", "c")`
+- `rep(a, 3)`
+- `rep(a, times = 3)`
+- `rep(a, each = 3)`
+
 ```{r}
 a <- c("a", "b", "c")
 rep(a, 3)
@@ -397,21 +396,202 @@ rep(a, each = 3)
 ```
 
 3. Generate a grid of $n=500$ equidistant points on the interval $[-\pi,\pi ]$.
-```{r,eval=FALSE}
+```{r}
 seq(-pi, pi, length = 500)
 ```
 
 4. Compare `1:10+1` and `1:(10+1)`.
 ```{r}
-1:10 + 1    # sequence from 2 to 11
-1:(10 + 1)  # sequence from 1 to 11
+1:10 + 1
+1:(10 + 1)
 ```
 
 5. Predict what the following commands will return:
+
+- `rep("bla",10)`
+- `rep(rep(1:3,2),each=4)`
+- `rep(c(1,6,NA,2),times=c(2,2,5,3))`
+
 ```{r}
 rep("bla",10)
 rep(rep(1:3,2),each=4)
 rep(c(1,6,NA,2),times=c(2,2,5,3))
+```
+
+
+***
+# Indexing vectors
+```{r include=FALSE}
+rm(list = ls())
+```
+
+Define the following vectors
+\begin{align*}
+x=\left( 
+\begin{array}{c}
+1 \\ 
+1.1 \\ 
+9 \\ 
+8 \\ 
+1 \\ 
+4 \\ 
+4 \\ 
+1
+\end{array}
+\right) ,\quad y=\left( 
+\begin{array}{c}
+1 \\ 
+2 \\ 
+3 \\ 
+4 \\ 
+4 \\ 
+3 \\ 
+2 \\ 
+NA
+\end{array}
+\right) ,\quad z=\left( 
+\begin{array}{c}
+TRUE \\ 
+TRUE \\ 
+FALSE \\ 
+FALSE \\ 
+TRUE \\ 
+FALSE \\ 
+FALSE \\ 
+FALSE
+\end{array}
+\right)
+\end{align*}
+```{r}
+x <- c(1, 1.1, 9, 8, 1, 4, 4, 1)
+y <- c(1, 2, 3, 4, 4, 3, 2, NA)
+z <- c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE)
+```
+
+1. Predict what the following commands will return (and then check if you are right):
+
+- `x[-2]`
+- `x[2:5]`
+- `x[c(1,5,8)]`
+- `x[-c(1,5,8)]`
+- `x[y]`
+- `x[seq(2,8,by=2)]`
+- `x[rep(1:3,4)]`
+
+```{r}
+x[-2]
+x[2:5]
+x[c(1,5,8)]
+x[-c(1,5,8)]
+x[y]
+x[seq(2,8,by=2)]
+x[rep(1:3,4)]
+```
+
+
+2. Predict what the following commands will return (and then check if you are right):
+
+- `y[z]`
+- `y[!z]`
+- `y[x>2]`
+- `y[x==1]`
+- `x[!is.na(y)]`
+- `y[!is.na(y)]`
+
+```{r}
+y[z]
+y[!z]
+y[x>2]
+y[x==1]
+x[!is.na(y)]
+y[!is.na(y)]
+```
+
+3. Indexing is not only used to read certain elements of a vector but also to change them. Execute `x2 <- x` to make a copy of `x`. Change all elements of `x2` that have the value 4 to the value $-4$. Print `x2`.
+```{r}
+x2 <- x  
+x2[x2 == 4] <- -4
+print(x2)
+```
+
+4. Change all elements of `x2` that have the value 1 to a missing value (`NA`). Print `x2`.
+```{r}
+x2[x2 == 1] <- NA
+print(x2)
+```
+
+5. Execute `x2[z] <- 0`. Print `x2`.
+```{r}
+x2[z] <- 0
+print(x2)
+```
+
+***
+# Indexing matrices
+```{r include=FALSE}
+rm(list = ls())
+```
+
+Define the matrix `x <- matrix(c(1:12,12:1),4,6)`.
+```{r}
+x <- matrix(c(1:12, 12:1), 4, 6)
+```
+
+1. Predict what the following commands will return (and then check if you are right):
+
+- `x[1,3]`
+- `x[,5]`
+- `x[2,]`
+- `x[,-3]`
+- `x[-4,]`
+- `x[2:3,3:4]`
+- `x[2:4,4]`
+
+```{r}
+x[1,3]
+x[,5]
+x[2,]
+x[,-3]
+x[-4,]
+x[2:3,3:4]
+x[2:4,4]
+```
+
+2. Predict what the following commands will return (and then check if you are right):
+
+- `x[x>5]`
+- `x[,x[1,]<=5]`
+- `x[x[,2]>6,]`
+- `x[x[,2]>6,4:6]`
+- `x[x[,1]<3 & x[,2]<6,]`
+
+```{r}
+x[x>5]
+x[,x[1,]<=5]
+x[x[,2]>6,]
+x[x[,2]>6,4:6]
+x[x[,1]<3 & x[,2]<6,]
+```
+
+3. Print all rows where column 5 is at least three times larger than column 6.
+```{r}
+x[x[, 5]>= (3 * x[, 6]) , ]  
+```
+
+4. Count the number of elements of `x` that are larger than 7.
+```{r}
+length(x[x > 7])  # or: sum(x>7)
+```
+
+5. Count the number of elements in row 2 that are smaller than their neighbors in row 1.
+```{r}
+sum(x[2, ] < x[1, ])
+```
+
+6. Count the number of elements of `x` that are larger than their left neighbor.
+```{r}
+sum(x[, 2:6] > x[, 1:5])  
+sum(x[,-1]>x[,-6])
 ```
 
 
@@ -481,7 +661,7 @@ write.csv2(smalldataframe, file = "data/smalldataframe.csv")  # write.csv2 for G
 * Apart from the last column all data are integer values.
 * The decimal sign in the last column is a dot.
 
-Execute `y <- x\$zve`. The variable `y` now contains the taxable income (**z**u **v**ersteuerndes **E**inkommen). Compute its range, its median, its mean, its variance, and the 0.01- and 0.99-quantiles. Remember to include the option `na.rm=TRUE` in the functions.
+Execute `y <- x$zve`. The variable `y` now contains the taxable income (**z**u **v**ersteuerndes **E**inkommen). Compute its range, its median, its mean, its variance, and the 0.01- and 0.99-quantiles. Remember to include the option `na.rm=TRUE` in the functions.
 ```{r}
 lest2001 <- read.table("data/lest2001.csv", header = TRUE, na.strings= ".", dec = ".", sep = ";")
 head(lest2001)
@@ -513,14 +693,14 @@ str(hotdogs2)
 ```
 
 ***
-# Import data using readr
+# Import data using `readr`
 ```{r include=FALSE}
 rm(list = ls())
 ```
 Use the package `readr` to import the datasets used in the previous exercise, i.e. **bsp1.txt**, **bsp2.txt**, **bsp3.txt**, **lest2001.csv**, **swimming_pools.csv** and **hotdogs.txt**.
 ```{r}
 library(readr)
-
+#You can simply use RStudio GUI for data import :-)
 ```
 
 
@@ -596,147 +776,6 @@ str(edu_equal_3)
 ```
 
 ***
-# Indexing vectors
-```{r include=FALSE}
-rm(list = ls())
-```
-
-Define the following vectors
-\begin{align*}
-x=\left( 
-\begin{array}{c}
-1 \\ 
-1.1 \\ 
-9 \\ 
-8 \\ 
-1 \\ 
-4 \\ 
-4 \\ 
-1
-\end{array}
-\right) ,\quad y=\left( 
-\begin{array}{c}
-1 \\ 
-2 \\ 
-3 \\ 
-4 \\ 
-4 \\ 
-3 \\ 
-2 \\ 
-NA
-\end{array}
-\right) ,\quad z=\left( 
-\begin{array}{c}
-TRUE \\ 
-TRUE \\ 
-FALSE \\ 
-FALSE \\ 
-TRUE \\ 
-FALSE \\ 
-FALSE \\ 
-FALSE
-\end{array}
-\right)
-\end{align*}
-```{r}
-x <- c(1, 1.1, 9, 8, 1, 4, 4, 1)
-y <- c(1, 2, 3, 4, 4, 3, 2, NA)
-z <- c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE)
-```
-
-1. Predict what the following commands will return (and then check if you are right):
-```{r}
-x[-2]
-x[2:5]
-x[c(1,5,8)]
-x[-c(1,5,8)]
-x[y]
-x[seq(2,8,by=2)]
-x[rep(1:3,4)]
-```
-
-
-2. Predict what the following commands will return (and then check if you are right):
-```{r}
-y[z]
-y[!z]
-y[x>2]
-y[x==1]
-x[!is.na(y)]
-y[!is.na(y)]
-```
-
-3. Indexing is not only used to read certain elements of a vector but also to change them. Execute `x2 <- x` to make a copy of `x`. Change all elements of `x2` that have the value 4 to the value $-4$. Print `x2`.
-```{r}
-x2 <- x  
-x2[x2 == 4] <- -4
-print(x2)
-```
-
-4. Change all elements of `x2` that have the value 1 to a missing value (`NA`). Print `x2`.
-```{r}
-x2[x2 == 1] <- NA
-print(x2)
-```
-
-5. Execute `x2[z] <- 0`. Print `x2`.
-```{r}
-x2[z] <- 0
-print(x2)
-```
-
-***
-# Indexing matrices
-```{r include=FALSE}
-rm(list = ls())
-```
-
-Define the matrix `x <- matrix(c(1:12,12:1),4,6)`.
-```{r}
-x <- matrix(c(1:12, 12:1), 4, 6)
-```
-
-1. Predict what the following commands will return (and then check if you are right):
-```{r}
-x[1,3]
-x[,5]
-x[2,]
-x[,-3]
-x[-4,]
-x[2:3,3:4]
-x[2:4,4]
-```
-
-2. Predict what the following commands will return (and then check if you are right):
-```{r}
-x[x>5]
-x[,x[1,]<=5]
-x[x[,2]>6,]
-x[x[,2]>6,4:6]
-x[x[,1]<3 & x[,2]<6,]
-```
-
-3. Print all rows where column 5 is at least three times larger than column 6.
-```{r}
-x[x[, 5]>= (3 * x[, 6]) , ]  
-```
-
-4. Count the number of elements of `x` that are larger than 7.
-```{r}
-length(x[x > 7])  # or: sum(x>7)
-```
-
-5. Count the number of elements in row 2 that are smaller than their neighbors in row 1.
-```{r}
-sum(x[2, ] < x[1, ])
-```
-
-6. Count the number of elements of `x` that are larger than their left neighbor.
-```{r}
-sum(x[, 2:6] > x[, 1:5])  # alternativ: sum(x[,-1]>x[,-6])
-```
-
-***
 # Indexing dataframes
 ```{r include=FALSE}
 rm(list = ls())
@@ -785,21 +824,6 @@ bsp2[bsp2$U == "A" | bsp2$U == "B", ]
 bsp2[bsp2$X < median(bsp2$X) & bsp2$Y > median(bsp2$Y), ]
 ```
 
-6. One can add row names to a data frame. Execute the following command and print the data frame to have a look at the new row names:
-```{r}
-row.names(bsp2) <- paste(rep(LETTERS[1:20], each = 2), rep(1:2, 20), sep = "")
-print(bsp2)
-```
-
-7. Use the row name and the variable name to print the value of variable `Z` at observation `T1`.
-```{r}
-bsp2["T1", "Z"]
-```
-
-8. Print the rows for observations `G1` and `G2`.
-```{r}
-bsp2[c("G1", "G2"), ]
-```
 
 
 ***
@@ -882,11 +906,11 @@ gapminder %>%
 
 
 ***
-# Graphics with `ggplot`
+# Graphics with `ggplot2`
 ```{r include=FALSE}
 rm(list = ls())
 ```
-1. Load `dplyr`, `ggplot2` and `gapminder` package which will provide you with the **gapminder** dataset. How many observations and variables are in the dataset?
+1. Load `dplyr`, `ggplot2` and `gapminder` package which will provide you with the **gapminder** dataset.
 ```{r}
 library("dplyr")
 library("ggplot2")
@@ -906,11 +930,11 @@ ggplot(gapminder_2007, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ```
 
-4. Now add a log scale `scale_x_log10` for gdpPercap to your ggplot scatterplot.
+4. Now add a log scale with `scale_x_log10` for gdpPercap to your ggplot scatterplot.
 ```{r}
 ggplot(gapminder_2007, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() +
-  scale_x_log10() # # each unit on the x-axis represents a change of 10 times the gdp
+  scale_x_log10() # each unit on the x-axis represents a change of 10 times the gdp
 ```
 
 5. Create a scatter plot comparing `pop` and `gdpPercap` for the year 2007, with both axes on a log scale.
@@ -995,102 +1019,71 @@ ggplot(gapminder_2007, aes(x = continent, y = gdpPercap)) +
 ```
 
 
-
-
 ***
-# Histograms
-```{r,include=FALSE}
+# Anscombe dataset
+```{r include=FALSE}
 rm(list = ls())
 ```
-In this section, please always use the command `truehist` (which is included in the `MASS` package) to generate histograms.
+In 1973, Francis Anscombe famously created four datasets with remarkably similar numerical properties, but obviously different graphic relationships. The `anscombe.csv` dataset contains the x and y coordinates for these four datasets, along with a grouping variable, `dataset`, that distinguishes the quartet.
+
+1. Load the dataset into the variable `anscombe`
 ```{r}
-library(MASS)
+library(readr)
+anscombe <- read_csv("data/anscombe.csv")
 ```
 
-1. Load the file **gemeinden2006.csv** into a data frame. Delete all observations where the number of inhabitants (`Einwohner`) is smaller than 5. Plot the histogram of the logarithm of the variable `Einwohner.
+2. For each of the four sets of data points, compute the mean, standard deviation and correlation of x and y.
+
 ```{r}
-gemeinden2006 <- read.csv2("data/gemeinden2006.csv")
-gemeinden2006new <- gemeinden2006[gemeinden2006$Einwohner >= 5, ] #or x[!x$Einwohner < 5, ]
-truehist(log(gemeinden2006new$Einwohner), col = "lightblue")
+anscombe %>%
+  group_by(dataset) %>%
+  summarize(
+    mean_of_x = mean(x), 
+    std_dev_of_x = sd(x), 
+    mean_of_y = mean(y), 
+    std_dev_of_y = sd(y), 
+    correlation_between_x_and_y = cor(x, y)
+  )
 ```
 
-2.Add the density function of a fitted normal distribution to the histogram.
+3. Create a scatterplot for each dataset into a single plot and add a regression line to it with `geom_smooth`. Color the points of the different datasets accordingly and use `scale_color_brewer(palette="Set1")` and `theme_light()`. Save the plot as `anscombe_scatter1` and print it.
 ```{r}
-truehist(log(gemeinden2006new$Einwohner), col = "lightblue")
-m <- mean(log(gemeinden2006new$Einwohner))
-s <- sd(log(gemeinden2006new$Einwohner))
-x <- seq(1, 15, length = 500)
-lines(x, dnorm(x, mean = m, sd = s), lwd = 2)
+library("ggplot2")
+my.formula <- y ~ x
+anscombe_scatter1 <- ggplot(data = anscombe, aes(x = x, y = y, col=dataset)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = my.formula, se=FALSE) +
+  scale_color_brewer(palette="Set1") +
+  theme_light()
+print(anscombe_scatter1)
 ```
 
-3. Load the Stata file **mikrozensus2002cf.dta** into a data frame. Consider the variable `ef462` (rent in April 2002). Drop all observations where the rent exceeds 2000 Euro. Plot the histogram.
+4. Note that this scatterplot is not a good visualization. Therefore, we use the concept of _Small Multiples_ and create a scatterplot for each dataset separetly. Save this plot as `anscombe_scatter2` and print it.
 ```{r}
-library(foreign)
-mikrozensus2002cf <- read.dta("data/mikrozensus2002cf.dta")
-y <- mikrozensus2002cf$ef462[!is.na(mikrozensus2002cf$ef462)]  
-yy <- y[y <= 2000]  
-truehist(yy, col = "pink", xlab = "rent", ylab = "density", main = "histogram of rents")
+library("ggplot2")
+my.formula <- y ~ x
+anscombe_scatter2 <- anscombe_scatter1 +
+  facet_wrap(~ dataset)
+print(anscombe_scatter2)
 ```
 
-4. Load the Stata file **mikrozensus2002cf.dta** into a data frame.
+4. Load the package `ggpmisc` and add the following code to your scatterplot:
+`stat_poly_eq(formula = my.formula, aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")),parse = TRUE)`
 
-+ Plot the histogram of the variable `ef453` (size of flat in square meters).
-
-+ Drop all observations with more than $300$ $m^{2}$ and plot the histogram again.
-
-+ Set the number of bins in the histogram to 15.
 ```{r}
-truehist(mikrozensus2002cf$ef453, col = "lightblue", xlab = "size of flat (in qm)", ylab = "density")
-truehist(mikrozensus2002cf$ef453[mikrozensus2002cf$ef453 <= 300], col = "lightgreen", xlab = "size of flat (in qm)", ylab = "density")
-truehist(mikrozensus2002cf$ef453[mikrozensus2002cf$ef453 <= 300], col = "steelblue", nbins = 15, xlab = "size of flat (in qm)", ylab = "density")  # only use 15 classes
-```
+library(ggpmisc)
+my.formula <- y ~ x
+anscombe_scatter1 +
+   stat_poly_eq(formula = my.formula,
+                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
+                parse = TRUE
+                )
+anscombe_scatter2 +
+   stat_poly_eq(formula = my.formula,
+                aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
+                parse = TRUE
+                )
 
-***
-# Correlation and covariance
-```{r,include=FALSE}
-rm(list = ls())
-```
-
-1. Execute `data(Titanic)` to load the object `Titanic` of class `table`. Print it as an ordinary table and as a flat table. Plot it as well. Compute the univariate marginal distributions using the `apply` command. Compute the bivariate marginal distribution of survival and social class (again using `apply`).
-```{r}
-data(Titanic)
-Titanic
-table(Titanic)
-ftable(Titanic)
-ftable(Titanic, row.vars = c("Survived", "Age"))  # Write 'Survived' and 'Age' into rows
-plot(Titanic)
-apply(Titanic, 1, sum)
-apply(Titanic, 2, sum)
-apply(Titanic, 3, sum)
-apply(Titanic, 4, sum)
-apply(Titanic, c(1, 4), sum)
-# or margin.table(Titanic,c(1,4))
-```
-
-2. Load the file **covmat.csv** into a data frame.
-```{r}
-covmat <- read.csv("data/covmat.csv")
-```
-
-+ Compute the covariance matrix using the option `use="complete"`. Check if the covariance matrix is positive definite.
-```{r}
-cov(covmat)
-cov(covmat,use="complete")
-if (sum(eigen(cov(covmat,use="complete"))$value>0) == dim(covmat)[2]){
-  print("Matrix is positive definite")
-} else {
-  print("Matrix is not positive definite")
-}
-```
-
-+ Now compute the covariance using the option `pairwise` and check again, if the covariance matrix is positive definite.
-```{r}
-cov(covmat,use="pairwise")
-if (sum(eigen(cov(covmat,use="pairwise"))$value>0) == dim(covmat)[2]){
-  print("Matrix is positive definite")
-} else {
-  print("Matrix is not positive definite")
-}
 ```
 
 
@@ -1135,7 +1128,6 @@ head(weather3)
 ```
 
 5. A good package and function to tidy up dates into the same format is `lubridate`, e.g. try out this code
-#Dates with lubridate for most common combinations
 ```{r}
 ymd("2015-08-25")
 ymd("2015 August 25")
@@ -1262,6 +1254,258 @@ weather6$Events[weather6$Events == ""] <- "None" # Replace empty cells in events
 head(weather6) # Print the first 6 rows of weather6
 ```
 
+
+
+***
+# Linear regression
+```{r,include=FALSE}
+rm(list = ls())
+```
+1. Load the Stata data set **wages.dta**. The variables are `earnings` (in Euro, 2009), `age`, `gender` (male=1, female=2), `education` (years of education), `hours` (hours worked during
+2009), and `weight`.
+```{r}
+library(foreign)
+wages <- read.dta("data/wages.dta")
+head(wages)
+earnings <- wages$earnings
+age <- wages$age
+gender <- wages$gender
+education <- wages$education
+hours <- wages$hours
+weight <- wages$weight
+```
+
++ Compute the (unweighted) wage equation
+\begin{align*}
+\ln \text{earnings}_{i}=\alpha +\beta _{1}\text{age}_{i}+\beta _{2}\text{age}_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}\text{gender}_{i}+u_{i},
+\end{align*}
+print the summary of the `lm`-object, and interpret the output.
+```{r}
+regr <- lm(log(earnings) ~ age + I(age^2) + education + gender)
+summary(regr)
+```
+
++ Add an interaction term for `education` and `gender` to the regression.
+```{r}
+regr2 <- lm(log(earnings) ~ age + I(age^2) + education + gender + education:gender) 
+summary(regr2)
+```
+
++ Compute the weighted hourly wage equation
+\begin{align*}
+\ln \frac{\text{earnings}_{i}}{\text{hours}_{i}}=\alpha +\beta _{1}\text{age}_{i}+\beta _{2}\text{age}_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}\text{gender}_{i}+u_{i},
+\end{align*}
+print the summary of the `lm`-object, and interpret the output.
+```{r}
+regr3 <- lm(log(earnings/hours) ~ age + I(age^2) + education + gender, weights = weight)
+summary(regr3)
+plot(regr3$residuals)
+```
+
++ Activate the packages `lmtest` and `sandwich`. Use the function `coeftest` to compute the heteroskedasticity robust standard errors (`vcov=vcovHC`) for the estimated coefficients.
+```{r}
+library(lmtest)
+library(sandwich)
+# Robust standard errors
+coeftest(regr, vcov = vcovHC)
+coeftest(regr2, vcov = vcovHC)
+coeftest(regr3, vcov = vcovHC)
+```
+
+
++ Predict the hourly wage of a male person aged 60 years as a function of education (vary the years of education between 9 and 18). Set the option `se.fit=TRUE`. Inspect the object returned by the `predict` command. Plot the predicted values and add the $\pm 2$ standard deviations confidence intervals.
+```{r}
+forecast <- predict(regr3, newdata = data.frame(education = seq(9, 18, by = 0.5), age = 60, gender = 1), se.fit = TRUE)
+names(forecast)
+plot(seq(9, 18, by = 0.5), forecast$fit, type = "l", lwd = 2)
+lines(seq(9, 18, by = 0.5), forecast$fit + 2 * forecast$se.fit, type = "l", col = "red", lwd = 1.5)
+lines(seq(9, 18, by = 0.5), forecast$fit - 2 * forecast$se.fit, type = "l", col = "red", lwd = 1.5)
+```
+
+2. Load the data set **bsp4.txt**.
+```{r}
+bsp4 <- read.csv("data/bsp4.txt")
+head(bsp4)
+```
+
++ Plot the scatter plot of $y$ against $x$.
+```{r}
+plot(bsp4$x, bsp4$y)
+```
+
++ Perform a simple linear regression of $y$ on $x$ and save the results as an `lm`-object `obj`. Add the regression line of $y$ on $x$ to the plot.
+```{r}
+plot(bsp4$x, bsp4$y)
+obj <- lm(bsp4$y ~ bsp4$x)
+abline(obj)
+```
+
++ Extract the fitted values from `obj` and add them as red points to the plot (use the command `points`).
+```{r}
+plot(bsp4$x, bsp4$y)
+abline(obj)
+points(bsp4$x, obj$fitted.values, col = "red")
+```
+
++ Extract the residuals of the regression and calculate the sum of the squared residuals,
+$SSR=\sum_{i=1}^{100}\hat{u}_{i}^{2}$
+```{r}
+ssr <- sum((obj$residuals)^2)
+print(ssr)
+```
+
++ Compute the total sum of squares and the explained sum of squares,
+\begin{align*}
+TSS &=\sum_{i=1}^{100}\left( y_{i}-\bar{y}\right) ^{2} \\
+ESS &=\sum_{i=1}^{100}\left( \hat{y}_{i}-\bar{y}\right) ^{2}
+\end{align*}
+and show that $ESS+SSR=TSS$.
+```{r}
+tss <- sum((bsp4$y - mean(bsp4$y))^2)
+ess <- sum((obj$fitted.values - mean(bsp4$y))^2)
+ess + ssr - tss # this is numerically zero
+round(ess + ssr) == round(tss)
+```
+
+
+
+***
+# Exploratory Data Analysis of UN Votes
+```{r include=FALSE}
+rm(list = ls())
+```
+
+We will consider the historical voting of the United Nations General Assembly, including analyzing differences in voting between countries, across time, and among international issues. Note that this exercise is based on the same course on datacamp.com.
+
+1. Load the packages `ggplot2`, `tidyr`, `dplyr`, and `countrycode`. Import the data using `load("un_votes.RData")` and have a look at `un_votes`:
+
+- each row is a country-vote pair
+- `rcid` is the roll call ID
+- `session` is the year; note that the UN started voting in 1946, and holds one session per year
+- `vote` is the vote, where 1=yes, 2=abstain, 3=no, 8=not present, 9=not a member 
+- `ccode` are encoded Correlates of War codes. 
+```{r}
+library("ggplot2");library("tidyr"); library("dplyr"); library("countrycode")
+load("data/un_votes.RData")
+```
+
+2. Now we will preprocess our dataset. Create a new dataset from `un_votes` that
+
+- focuses only on actual votes, i.e. get rid of observations where countries were not present or not a member.
+- adds a new variable called `year`
+- translates the country codes into human readable form
+
+Hint: You can use the `countrycode` package to translate them. That is, to convert `ccode=2` to a human readable form, use `countrycode(2, "cown", "country.name")` which gets you "United States".
+
+```{r}
+# Load the countrycode package
+library(countrycode)
+countrycode(2, "cown", "country.name")
+votes_processed <- un_votes %>%
+  filter(vote <= 3) %>%
+  mutate(year = session + 1945,
+         country = countrycode(ccode, "cown", "country.name")
+         )
+```
+
+2. Now we will focus on the percentage of Yes votes as a metric for the "agreeableness" of countries. Summarize your data by computing the
+
+- total number of votes (hint: use `n()`)
+- fraction of "yes" votes (hint: use `mean(vote == 1)`)
+
+```{r}
+votes_processed %>%
+  summarize(total = n(),
+            percent_yes = mean(vote == 1))
+```
+
+3. Now summarize voting patterns between countries and save this dataset as `by_country`. Which countries voted "yes" least often and which ones voted "yes" most often?
+```{r}
+# Summarize by country: by_country
+by_country <- votes_processed %>%
+  group_by(country) %>%
+  summarize(total = n(),
+            percent_yes = mean(vote == 1))
+by_country
+by_country %>%
+  arrange(percent_yes) #note that Zanzibar has only 2 votes! Always look at totals!
+by_country %>%
+  arrange(desc(percent_yes))
+```
+
+4. In the last exercise, you may have noticed that the country that voted least frequently, Zanzibar, had only 2 votes in the entire dataset. You certainly can't make any substantial conclusions based on that data! Therefore,  use filter() to remove countries that have fewer than 100 votes.
+```{r}
+by_country %>%
+  arrange(percent_yes) %>%
+  filter(total >= 100)
+```
+
+5. How much does the average "agreeableness" of countries change from year to year? To examine this, you can use `group_by()` to perform your summary not for the entire dataset, but within each year. Save this dataset as `by_year`. Plot the percentage of "yes" votes over time and try to visualize the trend.
+```{r}
+by_year <- votes_processed %>%
+  group_by(year) %>%
+  summarize(total = n(),
+            percent_yes = mean(vote == 1))
+by_year
+ggplot(by_year, aes(year, percent_yes)) +
+  geom_point() +
+  geom_smooth()
+```
+
+6. Now summarize by both year and country, constructing a dataset `by_year_country` that shows what fraction of the time each country votes "yes" in each year. Plot the trend for a particular country of your choice.
+```{r}
+# Start with by_year_country dataset
+by_year_country <- votes_processed %>%
+  group_by(year, country) %>%
+  summarize(total = n(),
+            percent_yes = mean(vote == 1))
+
+# Print by_year_country
+by_year_country
+
+# Create a filtered version: UK_by_year
+DE_by_year <- by_year_country %>%
+  filter(country == "Germany")
+
+# Line plot of percent_yes over time for Germany only
+ggplot(DE_by_year, aes(year, percent_yes)) +
+  geom_point() +
+  geom_smooth()
+```
+
+7. Now compare voting trends for the United States, the UK, France, Germany, Italy and India. Create a filtered version of `by_year_country` called `filtered_4_countries` with the four countries (you may find the `%in%` operator useful here). Show the trend for each of these countries on the same graph, using color to distinguish each country. Save this plot as `ggp_4_countries`.
+
+```{r}
+# Vector of four countries to examine
+countries <- c("United States", "United Kingdom", "France", "Germany", "Italy", "India")
+
+# Filter by_year_country: filtered_4_countries
+filtered_4_countries <- by_year_country %>%
+  filter(country %in% countries)
+
+# Line plot of % yes in four countries
+ggp_4_countries <- ggplot(filtered_4_countries, aes(year, percent_yes, color = country)) +
+  geom_point() + 
+  geom_smooth(se=FALSE)
+print(ggp_4_countries)
+```
+
+8. Note that this plot is too crowded, and it is advisable to facet, i.e. giving each country its own sub-plot. To do so, add a `facet_wrap()` to `ggp_4_countries`. Try if you liked `scales= "free_y"` as an option to `facet_wrap()`.
+
+```{r}
+ggp_4_countries +
+  facet_wrap( ~ country)
+
+ggp_4_countries +
+  facet_wrap( ~ country, scales= "free_y")
+```
+
+9. Let's quantify the trend from a linear regression, first for one country, e.g. use your dataset `DE_by_year`. Run a linear regression predicting `percent_yes` from `year` and store the model object into `DE_fit`. Call summary on this object. What's the estimated change each year of the probability of the US voting "yes"? What is the p-value of the relationship between year and percent_yes?
+
+```{r}
+DE_fit <- lm(percent_yes ~ year, data=DE_by_year)
+summary(DE_fit)
+```
 
 ***
 # User-defined functions
@@ -1438,8 +1682,9 @@ rm(list = ls())
 ```
 This section is not only about random number generation but also includes exercises about the R-functions for standard distributions in statistics.
 
-1. Let's consider a simple count data example.
-+ Let $X\sim N\left( 0,1\right) $. Compute the probability $P(|X|>3.5)$.
+1. Let's consider a simple count data example. Let
+$$ X \sim N (0,1) $$
++  Compute the probability $P(|X|>3.5)$.
 ```{r}
 2 * (1 - pnorm(3.5))
 ```
@@ -1634,120 +1879,5 @@ par(mfrow = c(1,1))
 clt(500, 2, df = 1.5)
 ```
 
-***
-# Linear regression
-```{r,include=FALSE}
-rm(list = ls())
-```
-1. Load the Stata data set **wages.dta**. The variables are `earnings` (in Euro, 2009), `age`, `gender` (male=1, female=2), `education` (years of education), `hours` (hours worked during
-2009), and `weight`.
-```{r}
-library(foreign)
-wages <- read.dta("data/wages.dta")
-```
 
-```{r}
-head(wages)
-earnings <- wages$earnings
-age <- wages$age
-gender <- wages$gender
-education <- wages$education
-hours <- wages$hours
-weight <- wages$weight
-```
-
-+ Compute the (unweighted) wage equation
-\begin{align*}
-\ln \text{earnings}_{i}=\alpha +\beta _{1}\text{age}_{i}+\beta _{2}\text{age}_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}\text{gender}_{i}+u_{i},
-\end{align*}
-print the summary of the `lm`-object, and interpret the output.
-```{r}
-regr <- lm(log(earnings) ~ age + I(age^2) + education + gender)
-summary(regr)
-```
-
-+ Add an interaction term for `education` and `gender` to the regression.
-```{r}
-regr2 <- lm(log(earnings) ~ age + I(age^2) + education + gender + education:gender) 
-summary(regr2)
-```
-
-+ Compute the weighted hourly wage equation
-\begin{align*}
-\ln \frac{\text{earnings}_{i}}{\text{hours}_{i}}=\alpha +\beta _{1}\text{age}_{i}+\beta _{2}\text{age}_{i}^{2}+\beta _{3}\text{education}_{i}+\beta _{4}\text{gender}_{i}+u_{i},
-\end{align*}
-print the summary of the `lm`-object, and interpret the output.
-```{r}
-regr3 <- lm(log(earnings/hours) ~ age + I(age^2) + education + gender, weights = weight)
-summary(regr3)
-plot(regr3$residuals)
-```
-
-+ Activate the packages `lmtest` and `sandwich`. Use the function `coeftest` to compute the heteroskedasticity robust standard errors (`vcov=vcovHC`) for the estimated coefficients.
-```{r}
-library(lmtest)
-library(sandwich)
-```
-
-```{r}
-# Robust standard errors
-coeftest(regr, vcov = vcovHC)
-coeftest(regr2, vcov = vcovHC)
-coeftest(regr3, vcov = vcovHC)
-```
-
-
-+ Predict the hourly wage of a male person aged 60 years as a function of education (vary the years of education between 9 and 18). Set the option `se.fit=TRUE`. Inspect the object returned by the `predict` command. Plot the predicted values and add the $\pm 2$ standard deviations confidence intervals.
-```{r}
-forecast <- predict(regr3, newdata = data.frame(education = seq(9, 18, by = 0.5), age = 60, gender = 1), se.fit = TRUE)
-names(forecast)
-plot(seq(9, 18, by = 0.5), forecast$fit, type = "l", lwd = 2)
-lines(seq(9, 18, by = 0.5), forecast$fit + 2 * forecast$se.fit, type = "l", col = "red", lwd = 1.5)
-lines(seq(9, 18, by = 0.5), forecast$fit - 2 * forecast$se.fit, type = "l", col = "red", lwd = 1.5)
-```
-
-2. Load the data set **bsp4.txt**.
-```{r}
-bsp4 <- read.csv("data/bsp4.txt")
-head(bsp4)
-```
-
-+ Plot the scatter plot of $y$ against $x$.
-```{r}
-plot(bsp4$x, bsp4$y)
-```
-
-+ Perform a simple linear regression of $y$ on $x$ and save the results as an `lm`-object `obj`. Add the regression line of $y$ on $x$ to the plot.
-```{r}
-plot(bsp4$x, bsp4$y)
-obj <- lm(bsp4$y ~ bsp4$x)
-abline(obj)
-```
-
-+ Extract the fitted values from `obj` and add them as red points to the plot (use the command `points`).
-```{r}
-plot(bsp4$x, bsp4$y)
-abline(obj)
-points(bsp4$x, obj$fitted.values, col = "red")
-```
-
-+ Extract the residuals of the regression and calculate the sum of the squared residuals,
-$SSR=\sum_{i=1}^{100}\hat{u}_{i}^{2}$
-```{r}
-ssr <- sum((obj$residuals)^2)
-print(ssr)
-```
-
-+ Compute the total sum of squares and the explained sum of squares,
-\begin{align*}
-TSS &=\sum_{i=1}^{100}\left( y_{i}-\bar{y}\right) ^{2} \\
-ESS &=\sum_{i=1}^{100}\left( \hat{y}_{i}-\bar{y}\right) ^{2}
-\end{align*}
-and show that $ESS+SSR=TSS$.
-```{r}
-tss <- sum((bsp4$y - mean(bsp4$y))^2)
-ess <- sum((obj$fitted.values - mean(bsp4$y))^2)
-ess + ssr - tss # this is numerically zero
-round(ess + ssr) == round(tss)
-```
 
