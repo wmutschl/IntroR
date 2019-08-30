@@ -131,6 +131,7 @@ to check if at least one element of $y>0.$
 all(y > 0)
 all(y > 0, na.rm = TRUE)
 any(y > 0)
+mean(y, na.rm=TRUE)
 ```
 
 ***
@@ -1018,6 +1019,22 @@ ggplot(gapminder_2007, aes(x = continent, y = gdpPercap)) +
   ggtitle("Comparing GDP per capita across continents (log-scale)")
 ```
 
+14. Now let's animate the plot using `gganimate`. Have a look at the following code:
+```{r}
+library(gganimate)
+p <- ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, size=pop, color=continent, frame=year)) +
+  geom_point() +
+  scale_x_log10()
+
+p +
+  ggtitle("Year: {frame_time}") +
+  transition_time(year) +
+  ease_aes("linear") +
+  enter_fade() +
+  exit_fade()
+animate(p)
+
+```
 
 ***
 # Anscombe dataset
@@ -1098,6 +1115,7 @@ We will consider historical weather data for Boston, USA for 12 months beginning
 ```{r}
 library("tidyr"); library("dplyr"); library("lubridate"); library("stringr")
 weather <- readRDS("data/weather.rds")
+print(weather)
 ```
 
 
@@ -1143,7 +1161,7 @@ We'll start by combining the year, month, and day columns and recoding the resul
 
 + Coerce the `date` column using the appropriate function from `lubridate`. 
 
-+ Use select() to reorder columns, saving the result to `weather5`. 
++ Use `select()` to reorder columns, saving the result to `weather5`. 
 
 + View the head of `weather5`.
 
@@ -1153,6 +1171,7 @@ weather4 <- unite(weather3, date, year, month, day, sep = "-") # Unite the year,
 weather4$date <- ymd(weather4$date) # Convert date column to proper date format using lubridates's ymd()
 weather5 <- select(weather4, date, Events, CloudCover:WindDirDegrees) # Rearrange columns using dplyr's select()
 head(weather5) # View the head of weather5
+
 ```
 
 6. Let's look closer at the column types as it is important that variables are coded appropriately for further statistical analysis. This is not yet the case with our weather data. Recall that functions such `as as.numeric()` and `as.character()` can be used to coerce variables into different types. 
@@ -1164,7 +1183,7 @@ head(weather5) # View the head of weather5
 + Try coercing the `PrecipitationIn` column of `weather5` to numeric without saving the result.
 
 ```{r}
-str(weather5) # View the structure of weather5
+glimpse(weather5) # View the structure of weather5
 head(weather5, 20) # Examine the first 20 rows of weather5. Are most of the characters numeric?
 as.numeric(weather5$PrecipitationIn) # See what happens if we try to convert PrecipitationIn to numeric
 ```
@@ -1181,7 +1200,7 @@ Scroll the output, notice the warning message. Go back to the results of the hea
 ```{r}
 weather5$PrecipitationIn <- str_replace(weather5$PrecipitationIn, "T", "0") # Replace "T" with "0" (T = trace)
 weather6 <- mutate_at(weather5, vars(CloudCover:WindDirDegrees), funs(as.numeric)) # Convert characters to numerics
-str(weather6) # Look at result
+glimpse(weather6) # Look at result
 ```
 
 8. Before dealing with missing values in the data, it's important to find them and figure out why they exist in the first place. If your dataset is too big to look at all at once, like it is here, remember you can use `sum()` and `is.na()` to quickly size up the situation by counting the number of NA values. The `summary()` function may also come in handy for identifying which variables contain the missing values. Finally, the `which()` function is useful for locating the missing values within a particular column.
@@ -1201,7 +1220,7 @@ ind <- which(is.na(weather6$Max.Gust.SpeedMPH)) # Find indices of NAs in Max.Gus
 weather6[ind, ] # Look at the full rows for records missing Max.Gust.SpeedMPH
 ```
 
-9. Besides missing values, we want to know if there are values in the data that are too extreme or bizarre to be plausible. A great way to start the search for these values is with `summary()`. Once implausible values are identified, they must be dealt with in an intelligent and informed way. Sometimes the best way forward is obvious and other times it may require some research and/or discussions with the original collectors of the data.
+9. Besidesmissing values, we want to know if there are values in the data that are too extreme or bizarre to be plausible. A great way to start the search for these values is with `summary()`. Once implausible values are identified, they must be dealt with in an intelligent and informed way. Sometimes the best way forward is obvious and other times it may require some research and/or discussions with the original collectors of the data.
 
 + View a `summary()` of `weather6`.
 
